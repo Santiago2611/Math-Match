@@ -13,6 +13,8 @@
                     <p>Plataforma lúdica para el aprendizaje matemático</p>
                     <a href="#about" class="main-button-slider">¿Qué es math match?</a>
                 </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" data-scroll-reveal="enter right move 30px over 0.6s after 0.4s rounded img-fluid d-block mx-auto" alt="First Vector Graphic">
+                </div>
                 </div>
             </div>
         </div>

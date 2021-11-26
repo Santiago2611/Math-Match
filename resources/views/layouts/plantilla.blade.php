@@ -22,7 +22,7 @@ https://templatemo.com/tm-537-art-factory
     <link rel="stylesheet" type="text/css" href="../resources/css/font-awesome.css">
     <link rel="stylesheet" type="text/css" href="../resources/css/templatemo-art-factory.css">
     <link rel="stylesheet" type="text/css" href="../resources/css/owl-carousel.css')}}">
-
+    <?php include "../resources/css/bootstrapCDN.php"; ?>
     </head>
 
     <body>

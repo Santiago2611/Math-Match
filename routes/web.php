@@ -19,3 +19,4 @@ Route::get('/', HomeController::class)->name('index');
 Route::get("/registro", [UsersController::class,'Registro'])->name('registro');
 Route::post("/validar",[UsersController::class, 'Datos'])->name('datos');
 Route::get("/login", [UsersController::class,'Login'])->name('login');
+Route::get("/{unknown}", [UsersController::class,'NotFound'])->name('pagina_no_encontrada');

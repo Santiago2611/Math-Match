@@ -1,5 +1,5 @@
 @extends('layouts.plantilla')
-@section('title','Registro')
+@section('title','registro')
 @section('contenido')
 <style>
     .formulario{
@@ -17,15 +17,17 @@
 nav i{
     font-size: 0.7em;
 }
+
+
     </style>
-<br>
-<br>
+
  <!-- formulario de ingreso -->
  <div class="d-flex justify-content-center text-center">
-    <form action="{{route('datos')}}" class="formulario bg-light" method="post">
+    <form action="{{route('datos')}}" class="formulario bg-light" method="POST">
         @csrf
-        <h1>Regístrate como estudiante</h1>
+        <h3 style="color: black;">Regístrate como estudiante</h3>
         <div class="form-group">
+            <br>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fas fa-user"></i></span>
@@ -109,4 +111,3 @@ var checkPasswordEquals = function(){
 }
 </script>
 @endsection
-
