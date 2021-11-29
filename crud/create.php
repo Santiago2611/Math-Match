@@ -29,7 +29,7 @@ if ($success){
     $crud->redirect("../views/login.php");
 } else {
     echo "<script> alert('Error al insertar los datos'); </script>";
-    $crud->redirect("../views/login.php");
+    $crud->redirect("../views/registro_estudiante.php");
 }
 
 ?>

@@ -1,18 +1,4 @@
 
-<?php 
-
-include "../bootstrapCDN.php"; //Librería bootstrap
-include "../crud/CRUD.php";
-$crud = new CRUD();
-
-session_start();
-if (empty($_SESSION['name'])) {
-  echo "<script> alert('No has iniciado sesión'); </script>";
-  $crud->redirect("login.php");
-}
-
- ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,28 +20,20 @@ if (empty($_SESSION['name'])) {
    <title></title>
    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap" rel="stylesheet"> 
    <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
-   <link rel="stylesheet" href="../css/estilos.css">
-   <link rel="stylesheet" href="../css/dark.css" class="theme">
-   <link rel="stylesheet" href="../css/styles.css">
-   <link rel="stylesheet" href="../css/light.css" class="theme">
-   <?php include "../bootstrapCDN.php"; ?>
+   <link rel="stylesheet" href="../../css/estilos.css">
+   <link rel="stylesheet" href="../../css/dark.css" class="theme">
+   <link rel="stylesheet" href="../../css/styles.css">
+   <link rel="stylesheet" href="../../css/light.css" class="theme">
 </head>
 <body>
    <div class="contenedor">
       <nav>
-         <a class="logotipo" id="logotipo">Bienvenido<?php echo $_SESSION['name']; ?> </a>
+         <a class="logotipo" id="logotipo">Bienvenido ?> </a>
          <div class="enlaces">
-           <a href="inicio_estudiante.php">Inicio</a>
-            <a href="buscar.php">Buscar clases</a>
-            <a href="clases.php">Tus clases</a>
-            <div class="btn-group">
-          <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-            <span>  <i class="fas fa-bars"></i></span>
-          </button>
-       <div class="dropdown-menu">
-          <a class="dropdown-item" href="configuracion.php">Configuración</a>
-          <a class="dropdown-item" href="#">Cerrar sesión</a>
-        </div>
+            <a href="index.php?pagina=octavo">Octavo</a>
+            <a href="index.php?pagina=noveno">Noveno</a>
+            <a href="index.php?pagina=decimo">Décimo</a>
+            <a href="index.php?pagina=once">Once</a>
             <label class="switch">
             <input type="checkbox" class="checkbox">
              <span class="slider round"></span>
@@ -107,7 +85,14 @@ if (empty($_SESSION['name'])) {
             </div>
          </div>
       </section>
-        </div>
+   </div>
+   <div class="btn-group">
+    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+       <span>  <i class="fas fa-bars"></i></span>
+    </button>
+     <div class="dropdown-menu">
+      <a class="dropdown-item" href="index.php?pagina=salir">Cerrar sesión</a>
+    </div>
 
    <script src="../../js/main.js"></script>
    

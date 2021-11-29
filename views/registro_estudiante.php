@@ -12,7 +12,7 @@
 </head>
 <body>
 
-    <!-- formulario de ingreso -->
+    <!-- formulario de registro -->
     <div class="d-flex justify-content-center text-center">
         <form action="../crud/create.php" class="formulario bg-light" method="post">
 	        <h1>Regístrate como estudiante</h1>
