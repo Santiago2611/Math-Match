@@ -8,7 +8,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/estilo_forms.css">
     <link rel="shortcut icon" href="../images/math.png">
-
+	<style>
+		body{
+			background-image: url("../images/fondo2.jpg");
+			background-size: cover;
+		}
+	</style>
 </head>
 <body>
 

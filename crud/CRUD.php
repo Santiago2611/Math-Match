@@ -18,9 +18,11 @@ class CRUD {
     }
 
     public function verifyEmail($email){
-        $verify = "SELECT email_estudiante FROM estudiantes WHERE email_estudiante = '$email'";
-        $query = mysqli_query($this->conn,$verify);
-        if (mysqli_num_rows($query) > 0){
+        $verify1 = "SELECT email_estudiante FROM estudiantes WHERE email_estudiante = '$email'";
+        $verify2 = "SELECT email_docente FROM docentes WHERE email_docente = '$email'";
+        $query1 = mysqli_query($this->conn,$verify1);
+        $query2 = mysqli_query($this->conn,$verify2);
+        if (mysqli_num_rows($query1) > 0 || mysqli_num_rows($query2) > 0){
             return false;
         } else {
             return true;
@@ -39,9 +41,9 @@ class CRUD {
         }
     }
 
-    public function insertTeacher($name,$lastName,$email,$password){
-        $insert = "INSERT INTO docentes(nombre_doocente,apellidos_docente,email_docente,clave_docente) VALUES 
-        ($name,$lastName,$email,$password)";
+    public function insertTeacher($name,$lastName,$email,$specialties,$gender,$tel,$password){
+        $insert = "INSERT INTO docentes(nombre_docente,apellidos_docente,email_docente,especialidades,sexo_docente,telefono_docente,clave_docente) 
+        VALUES ('$name','$lastName','$email','$specialties','$gender','$tel','$password')";
         $query = mysqli_query($this->conn,$insert);
         if ($query){
             return true;

@@ -19,7 +19,7 @@ if (isset($_POST["boton_registrar"])){
 $emailAvaiable = $crud->verifyEmail($email);
 if (!$emailAvaiable){
     echo "<script> alert('Ya hay un usuario con este email'); </script>";
-    $crud->redirect("../views/register.php");
+    $crud->redirect("../views/registro_estudiante.php");
     exit();
 }
 

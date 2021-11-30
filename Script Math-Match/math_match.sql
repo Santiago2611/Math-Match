@@ -14,6 +14,7 @@ CREATE TABLE docentes(
   doc_id_docente int PRIMARY KEY,
   nombre_docente varchar(30) NOT NULL,
   apellidos_docente varchar(30) NOT NULL,
+  email_docente varchar(80) NOT NULL,
   especialidades varchar(40) DEFAULT NULL,
   fecha_reg_docente timestamp,
   sexo_docente varchar(15),
