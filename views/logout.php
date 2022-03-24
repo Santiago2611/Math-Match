@@ -1,10 +1,10 @@
 <?php 
 
-include "../crud/CRUD.php";
+include "../models/Database.php";
 
 session_start();
 session_destroy();
 
-CRUD::redirect("index.php");
+Database::redirect("index.php");
 
  ?>

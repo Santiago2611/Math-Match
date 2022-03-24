@@ -1,45 +1,50 @@
+<?php include "../layouts/Layouts.php" ?>
 
-
-    <!-- formulario de registro -->
-    <div class="d-flex justify-content-center text-center">
-        <form action="../crud/create.php" class="formulario bg-light" method="post">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<?php Layouts::head("Regístrate como estudiante","../css/styles.css"); ?>
+	<style>
+		.position-relative {
+			top: 60px;
+		}
+	</style>
+</head>
+<body>
+	
+	<?php Layouts::header(); ?>
+	    <!-- formulario de registro -->
+    <div class="d-flex justify-content-center text-center position-relative">
+        <form action="../controllers/student_controller.php" class="formulario bg-light p-5" method="post">
 	        <h1>Regístrate como estudiante</h1>
 	    	<div class="form-group">
-	    		<div class="input-group">
-	    			<div class="input-group-prepend">
-	    				<span class="input-group-text"><i class="fas fa-user"></i></span>
-	    		 	</div>
+	    		<div class="input-group p-1">
+	    			<span class="input-group-text"><i class="fas fa-user"></i></span>
                     <input type="text" class="form-control" name="registroNombres" placeholder="Nombres" required="">
                     <input type="text" class="form-control" name="registroApellidos" placeholder="Apellidos" required="">
  	    		</div>
 	    	</div>
  	    	<div class="form-group">
-	    		<div class="input-group"> 
-	    			<div class="input-group-prepend">
-	    				<span class="input-group-text"><i class="fas fa-envelope-square"></i></span>
-	    			</div>
+	    		<div class="input-group p-1"> 
+	    			<span class="input-group-text"><i class="fas fa-envelope-square"></i></span>
                     <input type="email" class="form-control" name="registroEmail" placeholder="Correo electrónico" required="">
  	    		</div>
 	    	</div>
 	    	<div class="form-group">
- 	    		<div class="input-group">
-	    		    <div class="input-group-prepend">
-	    		    	<span class="input-group-text"><i class="fas fa-lock"></i></span>
-	    		    </div>
+ 	    		<div class="input-group p-1">
+	    		    <span class="input-group-text"><i class="fas fa-lock"></i></span>
 	    		    <input type="password" class="form-control" onblur="checkPasswordEquals();" name="registroClave" placeholder="Contraseña" required="">
 	    	    </div>
 	    	</div>
 	    	<div class="form-group">
- 	    		<div class="input-group"> 
-	    			<div class="input-group-prepend">
-	    				<span class="input-group-text"><i class="fas fa-lock"></i></span>
-	    			</div>
+ 	    		<div class="input-group p-1"> 
+	    			<span class="input-group-text"><i class="fas fa-lock"></i></span>
 	    		    <input type="password" class="form-control" onblur="checkPasswordEquals();"  name="confirmarClave" placeholder="Confirmar contraseña" required="">
 	    	    </div>
 	    	</div>
 			<div class="alert alert-warning" style="display: none;" id="box">Las contraseñas no coinciden</div>
 			<div class="form-group">
- 	    		<div class="input-group">
+ 	    		<div class="input-group p-1">
 	    		    <select name="registroSexo" class="form-control">
 						<option>Sexo...</option>
 						<option>Masculino</option>
@@ -55,7 +60,7 @@
 					</select>
 	    	    </div>
 	    	</div>
-			<div class="form-group" style="font-size: 1.3em;">
+			<div class="form-group p-3" style="font-size: 1.3em;">
 				<label for="fechaNacimiento">Fecha de nacimiento</label>
 				<input type="date" class="form-control"  name="fechaNacimiento" required="">
 	    	</div>
@@ -86,6 +91,10 @@
 		}
 	}
   </script>
+</body>
+</html>
+
+
 
 
  

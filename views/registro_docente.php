@@ -1,20 +1,15 @@
-<?php include "../bootstrapCDN.php" //Librería bootstrap ?>
+<?php include "../layouts/Layouts.php" ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/estilo_forms.css">
-    <link rel="shortcut icon" href="../images/math.png">
-    <title>Nuevo docente Math-Match</title>
+	<?php Layouts::head("Registrar un docente","../css/styles.css"); ?>
 </head>
 <body>
 
     <!-- formulario de ingreso -->
     <div class="d-flex justify-content-center text-center">
-        <form action="../crud/insert_teacher.php" class="formulario bg-light" method="post">
+        <form action="../controllers/teacher_controller.php" class="formulario bg-light" method="post">
 	        <h1>Registrar docente</h1>
 	    	<div class="form-group">
 	    		<div class="input-group">

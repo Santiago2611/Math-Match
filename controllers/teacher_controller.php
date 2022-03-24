@@ -1,7 +1,8 @@
 <?php 
 
-include "CRUD.php";
-$crud = new CRUD();
+include "../models/Database.php";
+include "../models/TeacherModel.php";
+$model = new TeacherModel();
 
 if (isset($_POST["boton_registrar_doc"])){
     $name = $_POST["registroNombres"];
@@ -15,20 +16,20 @@ if (isset($_POST["boton_registrar_doc"])){
     header("Location:index.php");
 }
 
-$emailAvaiable = $crud->verifyEmail($email);
+$emailAvaiable = $model->verifyEmail($email);
 if (!$emailAvaiable){
-    echo "<script> alert('Ya hay un usuario con este email'); </script>";
-    $crud->redirect("../views/registro_docente.php");
+    echo "<script> alert('Ya existe un usuario con este email'); </script>";
+    $model->redirect("../views/registro_docente.php");
     exit();
 }
 
-$success = $crud->insertTeacher($name, $lastName, $email, $specialties, $gender, $tel, $password);
+$success = $model->insertTeacher($name, $lastName, $email, $specialties, $gender, $tel, $password);
 if ($success){
     echo "<script> alert('Docente registrado con éxito, se ha generado una contraseña aleatoria'); </script>";
-    $crud->redirect("../views/admin_docentes.php");
+    $model->redirect("../views/admin_docentes.php");
 } else {
     echo "<script> alert('Error al insertar los datos'); </script>";
-    $crud->redirect("../views/admin_docentes.php");
+    $model->redirect("../views/admin_docentes.php");
 }
 
 ?>

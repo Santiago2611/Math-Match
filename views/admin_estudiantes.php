@@ -1,18 +1,16 @@
 <?php 
 
-include "../bootstrapCDN.php"; //Librería bootstrap 
-include "../crud/CRUD.php";
+include "../models/Database.php";
+include "../layouts/Layouts.php";
 
-$crud = new CRUD();
+$model = new Database();
 
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <?php Layouts::head("Panel de administrador","../css/styles.css"); ?>
     <title>Panel de administrador</title>
     <style>
       nav{
@@ -49,7 +47,7 @@ $crud = new CRUD();
         <?php
         
         $sql = "SELECT * FROM estudiantes";
-        $query = mysqli_query($crud->conn,$sql);
+        $query = mysqli_query($model->conn,$sql);
 
         while ($rows = mysqli_fetch_array($query)){ ?>
             <tr>
@@ -61,7 +59,7 @@ $crud = new CRUD();
               <td><?php echo $rows[7]; ?></td>
               <td><?php echo $rows[8]; ?></td>
               <td><a href="#"><i class="fas fa-edit"></i></a></td>
-              <td><a href="../crud/delete.php?idSt=<?php echo $rows[0] ?>"><i class="fas fa-trash text-danger"></i></a></td>
+              <td><a href="../controllers/st_delete_controller.php?idSt=<?php echo $rows[0] ?>"><i class="fas fa-trash text-danger"></i></a></td>
             </tr>
           <?php } ?>
         <tr>

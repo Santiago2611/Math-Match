@@ -1,7 +1,8 @@
 <?php 
 
-include "CRUD.php";
-$crud = new CRUD();
+include "../models/Database.php";
+include "../models/StudentModel.php";
+$model = new StudentModel();
 
 if (isset($_POST["boton_registrar"])){
     $name = $_POST["registroNombres"];
@@ -16,20 +17,20 @@ if (isset($_POST["boton_registrar"])){
     header("Location:index.php");
 }
 
-$emailAvaiable = $crud->verifyEmail($email);
+$emailAvaiable = $model->verifyEmail($email);
 if (!$emailAvaiable){
-    echo "<script> alert('Ya hay un usuario con este email'); </script>";
-    $crud->redirect("../views/registro_estudiante.php");
+    echo "<script> alert('Ya existe un usuario con este email'); </script>";
+    $model->redirect("../views/registro_estudiante.php");
     exit();
 }
 
-$success = $crud->insertStudent($name, $lastName, $email, $password, $gender, $grade, $birthDate);
+$success = $model->insertStudent($name, $lastName, $email, $password, $gender, $grade, $birthDate);
 if ($success){
     echo "<script> alert('¡Te has registrado con éxito!'); </script>";
-    $crud->redirect("../views/login.php");
+    $model->redirect("../views/login.php");
 } else {
     echo "<script> alert('Error al insertar los datos'); </script>";
-    $crud->redirect("../views/registro_estudiante.php");
+    $db->redirect("../views/registro_estudiante.php");
 }
 
 ?>

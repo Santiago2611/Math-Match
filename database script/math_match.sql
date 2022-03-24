@@ -7,11 +7,11 @@ CREATE TABLE clases(
   fecha_creacion_clase timestamp,
   vigente_hasta date NOT NULL,
   descripcion_clase varchar(100),
-  docente int NOT NULL
+  docente_rige int NOT NULL
 );
 
 CREATE TABLE docentes(
-  doc_id_docente int PRIMARY KEY,
+  doc_id_docente int AUTO_INCREMENT PRIMARY KEY,
   nombre_docente varchar(30) NOT NULL,
   apellidos_docente varchar(30) NOT NULL,
   email_docente varchar(80) NOT NULL,
@@ -29,7 +29,7 @@ CREATE TABLE documentos_mochila(
 );
 
 CREATE TABLE estudiantes(
-  doc_id_estudiante int PRIMARY KEY,
+  doc_id_estudiante int AUTO_INCREMENT PRIMARY KEY,
   nombre_estudiante varchar(30) NOT NULL,
   apellidos_estudiante varchar(30) NOT NULL,
   fecha_nac_estudiante date NOT NULL,
@@ -86,7 +86,7 @@ CREATE TABLE administradores(
 -- creación de foráneas 
 -- --------------------------
 ALTER TABLE clases
-ADD FOREIGN KEY (docente) REFERENCES docentes(doc_id_docente);
+ADD FOREIGN KEY (docente_rige) REFERENCES docentes(doc_id_docente);
 
 ALTER TABLE documentos_mochila
 ADD FOREIGN KEY (mochila) REFERENCES mochilas(id_mochila);
@@ -114,11 +114,11 @@ SELECT * FROM docentes;
 
 CREATE VIEW clase_docente AS
 SELECT nombre_clase, doc_id_docente, nombre_docente FROM clases INNER JOIN docentes 
-ON docente = docentes.doc_id_docente;
+ON docentes.doc_id_docente = clases.docente_rige;
 
 CREATE VIEW estudiantes_regi AS
-SELECT COUNT(doc_id_estudiante) AS Cantidad_estudiantes_registrados FROM estudiantes;
+SELECT COUNT(doc_id_estudiante) AS "Cantidad de estudiantes registrados" FROM estudiantes;
 
 CREATE VIEW docs_mochila AS
-SELECT id_mochila,COUNT(id_documento) AS numero_de_documentos FROM mochilas INNER JOIN documentos_mochila 
+SELECT id_mochila,COUNT(id_documento) AS "Numero de documentos" FROM mochilas INNER JOIN documentos_mochila 
 ON id_mochila = documentos_mochila.mochila;
