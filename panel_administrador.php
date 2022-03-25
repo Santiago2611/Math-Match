@@ -1,7 +1,7 @@
 <?php 
 
-include "bootstrapCDN.php"; //Librería bootstrap 
-include "crud/CRUD.php";
+include "layouts/bootstrapCDN.php"; //Librería bootstrap 
+include "model/CRUD.php";
 
 $crud = new CRUD();
 

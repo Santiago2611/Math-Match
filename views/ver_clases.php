@@ -63,21 +63,19 @@ if (empty($_SESSION['name'])) {
         <h1 class="text-center">Señor(a) <?php echo $_SESSION["name"]; ?>, 
         las clases que usted rige hasta el momento son las siguientes: </h1>
         <?php 
-
-        $id = $_SESSION["id"];
-        $sql = "SELECT id_clase, nombre_clase, fecha_creacion_clase, vigente_hasta 
-        FROM clases WHERE $id = docente_rige";
-        $query = mysqli_query($model->conn, $sql);
-        
-        while ($rows = mysqli_fetch_array($query)) { ?>
+        $modelo = $model->verClass();
+        while ($rows = mysqli_fetch_array($modelo)) { ?>
 
         <div class="d-inline-block viewClasses p-3 m-2">
             <ul class="m-0 p-0">
-                <li class="fs-2 fw-bold"><?php echo $rows[1] ?></li>
-                <li>Id: <?php echo $rows[0] ?></li>
-                <li>Creada el <?php echo $rows[2] ?></li>
-                <li>Se termina el <?php echo $rows[3] ?></li>
-                <li><a href="#">Ver...</a></li>
+                <li class="fs-2 fw-bold"><?php echo $rows[1]; ?></li>
+                <li>Id: <b><?php echo $rows[0]; ?></b></li>
+                <li>Creada el: <b><?php echo $rows[2]; ?></b></li>
+                <li>Se termina el: <b><?php echo $rows[3]; ?></b></li>
+                <li>El código es: <b><?php echo $rows[4]; ?></b></li>
+                <li>El tipo de la clase es: <b><?php echo $rows[5]; ?></b></li>
+                <li><a href="actualizarClase.php">Editar</a></li>
+                <li><a href="#">Ingresar</a></li>
             </ul>
         </div>
 
