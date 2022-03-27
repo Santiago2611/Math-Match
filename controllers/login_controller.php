@@ -21,10 +21,16 @@ if ($success){
     $success = $model->teacherLogIn($user,$password);
     if ($success){
         header("location:../views/inicio_docente.php");
-    } else {
-        //si no se cumplió ninguna de las condiciones de arriba, quiere decir que el usuario no existe
+    } else {//si no, busca en la base de datos e intenta logearse como administrador
+        $success = $model->adminLogIn($user,$password);
+        if($success){
+            header("location:../views/admin_docentes.php");
+        } else{
+            //si no se cumplió ninguna de las condiciones de arriba, quiere decir que el usuario no existe
         echo "<script> alert('Usuario y/o contraseña incorrectos, valida de nuevo los datos'); </script>";
         $model->redirect("../views/login.php");
+        }
+        
     }
 }
 

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <?php include "../bootstrapCDN.php"; ?>
+    <?php include "../layouts/bootstrapCDN.php"; session_start() ?>
     <title>Configuración</title>
 </head>
 <body>
@@ -16,8 +16,8 @@
 	    			<div class="input-group-prepend">
 	    				<span class="input-group-text"><i class="fas fa-user"></i></span>
 	    		 	</div>
-                    <input type="text" value="<?php $_POST['registroNombres'] ?>" class="form-control" name="registroNombres" placeholder="Nombres" required="">
-                    <input type="text" value="<?php $_POST['registroApellidos'] ?>" class="form-control" name="registroApellidos" placeholder="Apellidos" required="">
+                    <input type="text" value="<?php $_SESSION['ingresoEmail'] ?>" class="form-control" name="registroNombres" placeholder="Nombres" required="">
+                    <input type="text" value="<?php $_SESSION['registroApellidos'] ?>" class="form-control" name="registroApellidos" placeholder="Apellidos" required="">
  	    		</div>
 	    	</div>
  	    	<div class="form-group">

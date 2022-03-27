@@ -29,6 +29,19 @@ class LoginModel extends Database{
             return false;
         }
     }
+    public function adminLogIn($user,$password){
+        $search = "SELECT * FROM administradores WHERE email_admin = '$user' AND clave_admin = '$password'";
+        $query = mysqli_query($this->conn,$search);
+        if (mysqli_num_rows($query) > 0){
+            $row = mysqli_fetch_array($query);
+            session_start();
+            $_SESSION['id'] = $row[0];
+            $_SESSION['name'] = $row[1];
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 }
 

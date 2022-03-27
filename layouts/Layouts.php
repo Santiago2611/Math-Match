@@ -51,7 +51,7 @@ class Layouts {
                 <li><a href="inicio_docente.php">Inicio</a></li>
                 <li><a href="ver_clases.php">Mis clases</a></li>
                 <li><a href="crear_clase.php">Crear una clase</a></li>
-                <li><a href="#">Configuración</a></li>
+                <li><a href="configuracion.php">Configuración</a></li>
                 <li><a href="logout.php">Cerrar sesión</a></li>
              </ul>
           </nav>
