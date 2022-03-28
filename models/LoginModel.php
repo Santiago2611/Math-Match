@@ -9,7 +9,7 @@ class LoginModel extends Database{
             $row = mysqli_fetch_array($query);
             session_start();
             $_SESSION['id'] = $row[0];
-            $_SESSION['name'] = $row[1];
+            $_SESSION['studentName'] = $row[1];
             return true;
         } else {
             return false;
@@ -23,7 +23,7 @@ class LoginModel extends Database{
             $row = mysqli_fetch_array($query);
             session_start();
             $_SESSION['id'] = $row[0];
-            $_SESSION['name'] = $row[1];
+            $_SESSION['teacherName'] = $row[1];
             return true;
         } else {
             return false;
@@ -36,7 +36,7 @@ class LoginModel extends Database{
             $row = mysqli_fetch_array($query);
             session_start();
             $_SESSION['id'] = $row[0];
-            $_SESSION['name'] = $row[1];
+            $_SESSION['adminName'] = $row[1];
             return true;
         } else {
             return false;

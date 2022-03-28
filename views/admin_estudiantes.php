@@ -2,8 +2,14 @@
 
 include "../models/Database.php";
 include "../layouts/Layouts.php";
-
+include "../models/ClassModel.php";
 $model = new Database();
+
+session_start();
+if (empty($_SESSION['adminName'])) {
+  echo "<script> alert('No has iniciado sesión'); </script>";
+  $modelo->redirect("login.php");
+}
 
 ?>
 

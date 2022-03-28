@@ -6,7 +6,7 @@ include "../layouts/Layouts.php";
 $model = new ClassModel();
 
 session_start();
-if (empty($_SESSION['name'])) {
+if (empty($_SESSION['teacherName'])) {
   echo "<script> alert('No has iniciado sesión'); </script>";
   $model->redirect("login.php");
 }
@@ -39,7 +39,7 @@ if (empty($_SESSION['name'])) {
          color: lightgray;
       }
 
-      a:hover {
+      aside a:hover {
          color: gray;
       }
 
@@ -63,8 +63,9 @@ if (empty($_SESSION['name'])) {
         <h1 class="text-center">Señor(a) <?php echo $_SESSION["name"]; ?>, 
         las clases que usted rige hasta el momento son las siguientes: </h1>
         <?php 
-        $modelo = $model->verClass();
-        while ($rows = mysqli_fetch_array($modelo)) { ?>
+        //se almacena el query en la variable $returnedRows
+        $returnedRows = $model->getTeacherClasses($_SESSION["id"]);
+        while ($rows = mysqli_fetch_array($returnedRows)) { ?>
 
         <div class="d-inline-block viewClasses p-3 m-2">
             <ul class="m-0 p-0">
@@ -72,13 +73,12 @@ if (empty($_SESSION['name'])) {
                 <li>Id: <b><?php echo $rows[0]; ?></b></li>
                 <li>Creada el: <b><?php echo $rows[2]; ?></b></li>
                 <li>Se termina el: <b><?php echo $rows[3]; ?></b></li>
-                <li>El código es: <b><?php echo $rows[4]; ?></b></li>
-                <li>El tipo de la clase es: <b><?php echo $rows[5]; ?></b></li>
-                <li><a href="actualizarClase.php">Editar</a></li>
-                <li><a href="#">Ingresar</a></li>
+                <li>Tipo: <b><?php echo $rows[4]; ?></b></li>
+                <li class="d-inline"><a href="actualizarClase.php">Editar</a></li>
+                <li class="float-end"><a href="#">Ingresar</a></li>
             </ul>
         </div>
-
+      
         <?php } ?>
    </div>
    

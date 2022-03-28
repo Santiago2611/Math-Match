@@ -1,7 +1,13 @@
 <?php 
+
 include "../layouts/Layouts.php";
-include "../controllers/class_controller.php";
 session_start();
+
+if (empty($_SESSION['teacherName'])) {
+	echo "<script> alert('No has iniciado sesión'); </script>";
+	$model->redirect("login.php");
+  }
+
 ?>
 
 <!DOCTYPE html>
@@ -40,7 +46,6 @@ session_start();
 			<label for="tipoClase">Tipo de clase</label>
 	    		<div class="input-group"> 
 				<select name="tipoClase" class="form-control">
-						<option></option>
 						<option>Pública</option>
 						<option>Privada</option>
 					</select>

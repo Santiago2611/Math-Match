@@ -59,6 +59,22 @@ class Layouts {
         <?php
     }
 
+    public static function studentUserNav(){ ?>
+        <aside class="position-relative h-100 p-2 bg-dark">
+          <h3>Math-Match <span style="color: lightblue;">Estudiantes</span></h3>
+          <nav>
+             <ul class="nav flex-column text-center">
+                <li><a href="inicio_estudiante.php">Inicio</a></li>
+                <li><a href="ver_clases_est.php">Mis clases</a></li>
+                <li><a href="buscar_clase.php">Buscar clases</a></li>
+                <li><a href="configuracion.php">Configuración</a></li>
+                <li><a href="logout.php">Cerrar sesión</a></li>
+             </ul>
+          </nav>
+        </aside>
+        <?php
+    }
+
 }
 
 ?>

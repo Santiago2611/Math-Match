@@ -7,7 +7,7 @@ $model = new Database();
 $modelo = new ClassModel();
 
 session_start();
-if (empty($_SESSION['name'])) {
+if (empty($_SESSION['adminName'])) {
   echo "<script> alert('No has iniciado sesión'); </script>";
   $modelo->redirect("login.php");
 }

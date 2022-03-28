@@ -5,7 +5,7 @@ include "../layouts/Layouts.php";
 $model = new Database();
 
 session_start();
-if (empty($_SESSION['name'])) {
+if (empty($_SESSION['teacherName'])) {
   echo "<script> alert('No has iniciado sesión'); </script>";
   $model->redirect("login.php");
 }
@@ -17,16 +17,19 @@ if (empty($_SESSION['name'])) {
 <head>
    <?php Layouts::head("Bienvenido, docente","../css/styles.css"); ?>
    <style>
+      html, body {
+          height: 100%;
+      }
+
+      body {
+         display: flex;
+      }
+
       aside {
          min-width: 150px;
          width: 20%;
          color: lightgray;
-         float: left;
       }
-
-      html, body {
-          height: 100%;
-      } 
 
       a {
          text-decoration: none;
@@ -35,7 +38,7 @@ if (empty($_SESSION['name'])) {
          color: lightgray;
       }
 
-      a:hover {
+      aside a:hover {
          color: gray;
       }
    </style>

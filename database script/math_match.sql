@@ -1,4 +1,4 @@
-
+CREATE DATABASE IF NOT EXISTS math_match;
 USE math_match;
 
 CREATE TABLE clases(
@@ -8,7 +8,6 @@ CREATE TABLE clases(
   vigente_hasta date NOT NULL,
   descripcion_clase varchar(100),
   docente_rige int NOT NULL,
-  codigo_clase int not null,
   tipo_clase varchar(15)
 );
 
