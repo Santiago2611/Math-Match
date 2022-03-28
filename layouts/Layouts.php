@@ -65,13 +65,23 @@ class Layouts {
           <nav>
              <ul class="nav flex-column text-center">
                 <li><a href="inicio_estudiante.php">Inicio</a></li>
-                <li><a href="ver_clases_est.php">Mis clases</a></li>
+                <li><a href="#">Mis clases</a></li>
                 <li><a href="buscar_clase.php">Buscar clases</a></li>
                 <li><a href="configuracion.php">Configuración</a></li>
                 <li><a href="logout.php">Cerrar sesión</a></li>
              </ul>
           </nav>
         </aside>
+        <?php
+    }
+
+    public static function footer(){ ?>
+        <footer class="py-5 bg-black">
+        <div class="container px-5"><p class="m-0 text-white small">Copyright &copy; Math-Match 2021</p>
+            <a href="">Preguntas frecuentes</a><br>
+            <a href="">Apóyanos</a>
+        </div>
+        </footer>
         <?php
     }
 

@@ -43,8 +43,12 @@ if (empty($_SESSION['teacherName'])) {
          color: gray;
       }
 
+      .viewClasses li a {
+         color: black;
+      }
+
       .viewClasses {
-         background: #CB4335;
+         background: lightblue;
          border-radius: 4px;
          box-shadow: 0px 10px 15px rgb(80,80,80);
       }
@@ -60,7 +64,7 @@ if (empty($_SESSION['teacherName'])) {
    <?php Layouts::teacherUserNav(); ?>
 
    <div class="position-relative">
-        <h1 class="text-center">Señor(a) <?php echo $_SESSION["name"]; ?>, 
+        <h1 class="text-center">Señor(a) <?php echo $_SESSION["teacherName"]; ?>, 
         las clases que usted rige hasta el momento son las siguientes: </h1>
         <?php 
         //se almacena el query en la variable $returnedRows

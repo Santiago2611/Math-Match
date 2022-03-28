@@ -46,6 +46,8 @@ if (empty($_SESSION['studentName'])) {
 <body>
 
    <?php Layouts::studentUserNav(); ?>
+
+   <h1 style="margin: 10px;">Bienvenido, estudiante <?php echo $_SESSION["studentName"]; ?></h1>
    
 </body>
 </html>

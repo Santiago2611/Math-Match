@@ -30,6 +30,7 @@ if (empty($_SESSION['adminName'])) {
       <div class="container-fluid">
         <div class="navbar-header">
           <h2>Panel de administrador</h2>
+          <a href="logout.php" class="text-light">Salir</a>
         </div>
       </div>
     </nav>

@@ -57,7 +57,7 @@ if (empty($_SESSION['teacherName'])) {
 	    	</div>
 			
 	    	<button type="submit" name="boton_crear_clase" class="btn btn-primary">Crear clase</button>
-            <p class="text-muted m-0">(La clase quedará a cargo de <?php echo $_SESSION['name']; ?>)</p>
+            <p class="text-muted m-0">(La clase quedará a cargo de <?php echo $_SESSION['teacherName']; ?>)</p>
 
 	    </form>
 	</div>
