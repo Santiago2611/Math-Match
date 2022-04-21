@@ -61,19 +61,23 @@
             float: left;
         }
 
-        @keyframes easeAnim {
-            0% {
-                color: green;
-            }
-
-            25% {
-                color: green;
-            }
-
-            100% {
-                color: black;
-            }
+        .operationBox {
+            position: relative;
+            background: white;
+            text-align: center;
+            top: 100px;
         }
+
+        #operacion {
+            font-size: 5em;
+        }
+
+        #messageBox {
+            position:relative;
+            top: 100px;
+            text-align: center;
+        }
+
     </style>
 </head>
 <body>
@@ -85,6 +89,7 @@
         <div class="operationBox">
             <h2 id="operacion">operacion</h2>
         </div>
+        <h3 id="messageBox"></h3> <!-- comienza con el innerHTML vacío-->
         <div class="sub-container">
             <table class="pad">
                 <tr>
@@ -95,10 +100,10 @@
                 <tr>
                     <td name="ans">op2</td>
                     <td class="arrows">
-                        <i class="fas fa-caret-up" name="arrow"></i>
-                        <i class="fas fa-caret-right" name="arrow"></i>
-                        <i class="fas fa-caret-down" name="arrow"></i>
-                        <i class="fas fa-caret-left" name="arrow"></i>
+                        <i class="fas fa-caret-up" id="up"></i>
+                        <i class="fas fa-caret-right" id="right"></i>
+                        <i class="fas fa-caret-down" id="down"></i>
+                        <i class="fas fa-caret-left" id="left"></i>
                     </td>
                     <td name="ans">op3</td>
                 </tr>
