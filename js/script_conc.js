@@ -3,6 +3,8 @@ var ansPlace = document.getElementsByName("ans"); //lugar de las respuestas
 var order; //orden aleatorio en el que saldrán las operaciones
 var opIndex = 0; //índice de la operación actual
 var messageBox = document.getElementById("messageBox"); //campo de texto que dirá si acertó o no
+var timebar = document.getElementById("timebar"); //barra que marca el tiempo
+var timeout; //tiempo para responder
 
 const operations = [
     ["22 + 6","up"], //operación, dirección de la respuesta correcta
@@ -20,7 +22,28 @@ const answers = [
     [12,19,21,16]
 ];
 
-var getRandomOrder = function(){
+let timeover = function(){
+    document.removeEventListener("keydown", getPressedArrow);
+    console.log("c acabó el tiempo");
+    messageBox.style.color = "orange";
+    messageBox.innerHTML = "Se acabó el tiempo...";
+    
+    resetTimebar();
+    next();
+}
+
+let setTime = function(){
+    fadein(timebar);
+    timebar.style.transition = "all 10s linear";
+    timebar.style.background = "orange";
+    timebar.style.width = "0%";
+    timeout = setTimeout(function(){
+        timeover();
+    }, 10000);
+    console.log("time set");
+}
+
+let getRandomOrder = function(){
     let order = [], indexToPush = 0;
     let len = operations.length;
     for (let i = 0; i < len; i++) {
@@ -37,9 +60,27 @@ var getRandomOrder = function(){
     return order;
 }
 
+let getUserAction = function(success){ 
+
+    if (success) {
+        console.log("respuesta correcta");
+        messageBox.innerHTML = "¡Acertaste!";
+        messageBox.style.color = "green";
+    } else {
+        console.log("perdiste :c");
+        messageBox.style.color = "red";
+        messageBox.innerHTML = "Respuesta equivocada...";
+    }
+    
+    resetTimebar();
+    next();
+}
+
 //método que imprime la operacion + respuestas, y activa el listener
 let printOpWithAnswers = function(){ 
     document.addEventListener("keydown", getPressedArrow); //lo más importante, el listener del teclado, sin esto el juego no funcionaría.
+    console.log("listener añadido");
+    setTime();
 
     opPlace.innerHTML = operations[order[opIndex]][0];
     for (let i = 0; i < 4; i++) {
@@ -50,11 +91,12 @@ let printOpWithAnswers = function(){
     ansPlace.forEach(element => {
         fadein(element);
     });
+    console.log(timebar.style.transition);
 }
 
-let animation = function(arr, color){
+let animation = function(arr, answer){
     var selectedArrow = document.getElementById(arr);
-    selectedArrow.style.color = color;
+    selectedArrow.style.color = (answer) ? "green" : "red";
     selectedArrow.style.transition = "none";
     setTimeout(function(){
         selectedArrow.style.color = "rgb(40,40,40)";
@@ -70,9 +112,31 @@ let getIfRightAnswer = function(ans){
     }
 }
 
+let next = function(){
+    fadeout(messageBox, 2000);
+    fadeout(opPlace, 2500);
+    ansPlace.forEach(element => {
+        fadeout(element, 2500);
+    });
+    
+    opIndex++;
+    (opIndex < operations.length) ? setTimeout(printOpWithAnswers, 3000) : alert("terminaste");
+}
+
+let resetTimebar = function(){
+    fadeout(timebar);
+    setTimeout(function(){
+        timebar.style.transition = "all 0.2s linear";
+        timebar.style.background = "green";
+        timebar.style.width = "100%";
+    }, 1000);
+}
+
 let getPressedArrow = (e) => { //método que se ejecutará con el listener
+    clearTimeout(timeout);
+
     var selectedArr = undefined;
-    var accert, color; //booleana de si acertó, color de la flechita
+    var accert; //booleana de si acertó
 
     switch (e.keyCode) {
         case 37:
@@ -94,34 +158,13 @@ let getPressedArrow = (e) => { //método que se ejecutará con el listener
     /* si se presionó una tecla inválida, la variable selectedArr quedará como undefined,
     por lo tanto, no entrará al siguiente algoritmo */
     if (selectedArr != undefined) {
-
+        document.removeEventListener("keydown", getPressedArrow);
         accert = getIfRightAnswer(selectedArr);
-        if (accert) {
-            document.removeEventListener("keydown", getPressedArrow);
-            console.log("respuesta correcta");
-            color = "green";
-            messageBox.innerHTML = "¡Acertaste!";
-            messageBox.style.color = "green";
-        } else {
-            document.removeEventListener("keydown", getPressedArrow);
-            console.log("respuesta incorrecta :c");
-            color = "red";
-            messageBox.innerHTML = "Respuesta equivocada...";
-            messageBox.style.color = "red";
-        }
-
-        fadeout(messageBox, 2000);
-        fadeout(opPlace, 2500);
-        ansPlace.forEach(element => {
-            fadeout(element, 2500);
-        });
-        
-        opIndex++;
-        (opIndex < operations.length) ? setTimeout(printOpWithAnswers, 3000) : alert("terminaste");
+        getUserAction(accert);
     }
     
     try {
-        animation(selectedArr, color);
+        animation(selectedArr, accert);
     } catch(e) {
         console.log("presionaste una tecla no válida");
     };
@@ -130,9 +173,8 @@ let getPressedArrow = (e) => { //método que se ejecutará con el listener
 
 let start = (e) => { //empezar el juego
     if (e.keyCode == 13) {
-        var op = document.getElementById("operacion");
         document.removeEventListener("keydown", start);
-        fadeout(op);
+        fadeout(opPlace);
         setTimeout(printOpWithAnswers, 2000);
         order = getRandomOrder();
     }
@@ -141,16 +183,17 @@ let start = (e) => { //empezar el juego
 
 let fadeout = function(obj, delay = 0){
     setTimeout(function(){
-        obj.style.transition = "0.5s ease";
-        obj.style.color = "transparent";
+        obj.style.transition = "0.5s linear";
+        obj.style.opacity = "0";
     }, delay);
 }
 
 let fadein = function(obj, delay = 0){
     setTimeout(function(){
-        obj.style.transition = "1s ease";
-        obj.style.color = "rgb(40,40,40)";
+        obj.style.transition = "1s linear";
+        obj.style.opacity = "1";
     }, delay);
+    console.log("<<<FADE IN EJECUTADO>>>");
 }
 
 document.addEventListener("keydown", start);

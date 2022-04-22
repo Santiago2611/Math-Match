@@ -95,6 +95,15 @@
             transition: color 0.5s ease;
         }
 
+        .timebar {
+            position: absolute;
+            bottom: 0px;
+            background: green;
+            width: 100%;
+            height: 20px;
+            opacity: 0;
+        }
+
     </style>
 </head>
 <body>
@@ -131,6 +140,7 @@
                 </tr>
             </table>
         </div>
+        <div class="timebar" id="timebar"></div>
     </div>
 
     <script src="../../js/script_conc.js"></script>
