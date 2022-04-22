@@ -8,7 +8,7 @@
     <style>
         .container-xl {
             position: relative;
-            background-color: lightblue;
+            background-color: lightgray;
             height: 800px;
             border: dashed black 2px;
             margin-top: 20px;
@@ -17,7 +17,6 @@
 
         .sub-container {
             position: absolute;
-            background-color: red;
             width: 100%;
             height: 50%;
             margin: auto;
@@ -27,7 +26,6 @@
 
         .pad {
             position: relative;
-            background-color: gray;
             font-size: 3em;
             width: 50%;
             height: 100%;
@@ -35,76 +33,100 @@
         }
 
         .arrows {
-            background: lightgray;
             position: relative;
+            background: lightgray;
             font-size: 2em;
-            text-align: center;
+            height: 40%;
             padding: 0px;
+        }
+
+        .fa-arrow-left {
+            font-size: 5em;
+            color: gray;
+            margin: 5px;
+            padding: 5px;
         }
 
         .arrows .fa-caret-up {
             position: absolute;
-            top: 0px;
+            top: -20px;
+            left: 0px;
+            width: 100%;
         }
 
         .arrows .fa-caret-right {
             position: absolute;
+            height: 100%;
+            top: 0px;
             right: 0px;
         }
 
         .arrows .fa-caret-down {
             position: absolute;
-            bottom: 0px;
+            bottom: -20px;
+            left: 0px;
+            width: 100%;
         }
 
         .arrows .fa-caret-left {
-            float: left;
+            position: absolute;
+            height: 100%;
+            top: 0px;
+            left: 0px;
         }
 
-        @keyframes easeAnim {
-            0% {
-                color: green;
-            }
-
-            25% {
-                color: green;
-            }
-
-            100% {
-                color: black;
-            }
+        .operationBox {
+            position: relative;
+            background: white;
+            box-shadow: 0px 5px 10px black;
+            text-align: center;
+            top: 70px;
         }
+
+        #operacion {
+            font-size: 5em;
+        }
+
+        #messageBox {
+            position: relative;
+            top: 100px;
+            text-align: center;
+            color: transparent;
+            transition: color 0.5s ease;
+        }
+
     </style>
 </head>
 <body>
     
     <div class="container-xl">
         <div>
-            <a href=""><i class="">volver</i></a>
+            <a href=""><i class="fas fa-arrow-left"></i></a>
         </div>
         <div class="operationBox">
-            <h2 id="operacion">operacion</h2>
+            <h2 id="operacion">Presiona ENTER para comenzar</h2>
         </div>
+        <h3 id="messageBox"></h3> <!-- comienza con el innerHTML vacío-->
         <div class="sub-container">
             <table class="pad">
                 <tr>
                     <td></td>
-                    <td name="ans">op1</td>
+                    <td name="ans">...</td>
                     <td></td>
                 </tr>
                 <tr>
-                    <td name="ans">op2</td>
+                    <td name="ans">...</td>
                     <td class="arrows">
-                        <i class="fas fa-caret-up" name="arrow"></i>
-                        <i class="fas fa-caret-right" name="arrow"></i>
-                        <i class="fas fa-caret-down" name="arrow"></i>
-                        <i class="fas fa-caret-left" name="arrow"></i>
+                        <i class="fas fa-caret-up" id="up"></i>
+                        <i class="fas fa-caret-right" id="right"></i>
+                        <i class="fas fa-caret-down" id="down"></i>
+                        <i class="fas fa-caret-left" id="left"></i>
                     </td>
-                    <td name="ans">op3</td>
+                    <td name="ans">...</td>
                 </tr>
                 <tr>
                     <td></td>
-                    <td name="ans">op4</td>
+                    <td name="ans">...</td>
                     <td></td>
                 </tr>
             </table>
