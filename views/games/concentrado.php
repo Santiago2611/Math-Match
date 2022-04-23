@@ -41,10 +41,17 @@
         }
 
         .fa-arrow-left {
-            font-size: 5em;
+            position: absolute;
+            font-size: 4em;
             color: gray;
             margin: 5px;
             padding: 5px;
+            transition: 0.5s ease;
+        }
+
+        .fa-arrow-left:hover {
+            color: black;
+            font-size: 4.5em;
         }
 
         .arrows .fa-caret-up {
@@ -80,7 +87,7 @@
             background: white;
             box-shadow: 0px 5px 10px black;
             text-align: center;
-            top: 70px;
+            top: 180px;
         }
 
         #operacion {

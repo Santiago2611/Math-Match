@@ -1,3 +1,5 @@
+import { ConcentradoGameInfo } from "./ConcentradoGameInfo";
+
 var opPlace = document.getElementById("operacion"); //lugar de la operación
 var ansPlace = document.getElementsByName("ans"); //lugar de las respuestas
 var order; //orden aleatorio en el que saldrán las operaciones
@@ -6,46 +8,37 @@ var messageBox = document.getElementById("messageBox"); //campo de texto que dir
 var timebar = document.getElementById("timebar"); //barra que marca el tiempo
 var timeout; //tiempo para responder
 
-const operations = [
-    ["22 + 6","up"], //operación, dirección de la respuesta correcta
-    ["12 - 4","left"],
-    ["80 / 4","up"],
-    ["15 + 2","right"],
-    ["15 + 5 - 4","down"]
-];
+const gameinfo = new ConcentradoGameInfo();
 
-const answers = [
-    [28,29,23,24], //IMPORTANTE: el orden en el que se imprimen es, respectivamente: --arriba--, --izquierda--, --derecha--, --abajo--
-    [12,8,11,9],
-    [20,19,10,30],
-    [14,16,17,18],
-    [12,19,21,16]
-];
+let showOutputMessage = function(str, strColor){ //muestra el mensaje, y se desvanece a los 3 segundos
+    fadein(messageBox);
+    messageBox.style.color = strColor;
+    messageBox.innerHTML = str;
+    fadeout(messageBox, 3000);
+}
 
 let timeover = function(){
     document.removeEventListener("keydown", getPressedArrow);
     console.log("c acabó el tiempo");
-    messageBox.style.color = "orange";
-    messageBox.innerHTML = "Se acabó el tiempo...";
+    showOutputMessage("Se acabó el tiempo...", "orange");
     
     resetTimebar();
     next();
 }
 
 let setTime = function(){
-    fadein(timebar);
+    fadein(timebar, 100); //se le pone un delay de 100 a modo de debugging
     timebar.style.transition = "all 10s linear";
     timebar.style.background = "orange";
     timebar.style.width = "0%";
     timeout = setTimeout(function(){
         timeover();
     }, 10000);
-    console.log("time set");
 }
 
 let getRandomOrder = function(){
     let order = [], indexToPush = 0;
-    let len = operations.length;
+    let len = gameinfo.operations.length;
     for (let i = 0; i < len; i++) {
         indexToPush = Math.floor(Math.random() * len);
         if (order.includes(indexToPush) || indexToPush == len) {
@@ -61,15 +54,12 @@ let getRandomOrder = function(){
 }
 
 let getUserAction = function(success){ 
-
     if (success) {
         console.log("respuesta correcta");
-        messageBox.innerHTML = "¡Acertaste!";
-        messageBox.style.color = "green";
+        showOutputMessage("¡Acertaste!", "green");
     } else {
         console.log("perdiste :c");
-        messageBox.style.color = "red";
-        messageBox.innerHTML = "Respuesta equivocada...";
+        showOutputMessage("Respuesta equivocada...", "red");
     }
     
     resetTimebar();
@@ -78,20 +68,18 @@ let getUserAction = function(success){
 
 //método que imprime la operacion + respuestas, y activa el listener
 let printOpWithAnswers = function(){ 
-    document.addEventListener("keydown", getPressedArrow); //lo más importante, el listener del teclado, sin esto el juego no funcionaría.
-    console.log("listener añadido");
     setTime();
+    document.addEventListener("keydown", getPressedArrow); //lo más importante, el listener del teclado, sin esto el juego no funcionaría.
 
-    opPlace.innerHTML = operations[order[opIndex]][0];
+    opPlace.innerHTML = gameinfo.operations[order[opIndex]][0];
     for (let i = 0; i < 4; i++) {
-        ansPlace[i].innerHTML = answers[order[opIndex]][i];
+        ansPlace[i].innerHTML = gameinfo.answers[order[opIndex]][i];
     }
     
-    fadein(opPlace, 500);
+    fadein(opPlace);
     ansPlace.forEach(element => {
-        fadein(element);
+        fadein(element, 1000);
     });
-    console.log(timebar.style.transition);
 }
 
 let animation = function(arr, answer){
@@ -105,7 +93,7 @@ let animation = function(arr, answer){
 }
 
 let getIfRightAnswer = function(ans){
-    if (ans == operations[order[opIndex]][1]){
+    if (ans == gameinfo.operations[order[opIndex]][1]){
         return true;
     } else {
         return false;
@@ -113,27 +101,25 @@ let getIfRightAnswer = function(ans){
 }
 
 let next = function(){
-    fadeout(messageBox, 2000);
     fadeout(opPlace, 2500);
     ansPlace.forEach(element => {
         fadeout(element, 2500);
     });
     
     opIndex++;
-    (opIndex < operations.length) ? setTimeout(printOpWithAnswers, 3000) : alert("terminaste");
+    (opIndex < gameinfo.operations.length) ? setTimeout(printOpWithAnswers, 3000) : alert("terminaste");
 }
 
 let resetTimebar = function(){
     fadeout(timebar);
     setTimeout(function(){
-        timebar.style.transition = "all 0.2s linear";
+        timebar.style.transition = "all 0s linear";
         timebar.style.background = "green";
         timebar.style.width = "100%";
     }, 1000);
 }
 
 let getPressedArrow = (e) => { //método que se ejecutará con el listener
-    clearTimeout(timeout);
 
     var selectedArr = undefined;
     var accert; //booleana de si acertó
@@ -158,6 +144,7 @@ let getPressedArrow = (e) => { //método que se ejecutará con el listener
     /* si se presionó una tecla inválida, la variable selectedArr quedará como undefined,
     por lo tanto, no entrará al siguiente algoritmo */
     if (selectedArr != undefined) {
+        clearTimeout(timeout);
         document.removeEventListener("keydown", getPressedArrow);
         accert = getIfRightAnswer(selectedArr);
         getUserAction(accert);
@@ -193,7 +180,6 @@ let fadein = function(obj, delay = 0){
         obj.style.transition = "1s linear";
         obj.style.opacity = "1";
     }, delay);
-    console.log("<<<FADE IN EJECUTADO>>>");
 }
 
 document.addEventListener("keydown", start);
