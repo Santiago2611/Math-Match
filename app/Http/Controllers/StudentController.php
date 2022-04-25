@@ -1,0 +1,22 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\Student;
+
+class StudentController extends Controller
+{
+    public function store(Request $request){
+        $student = new Student();
+        $student->nombres = $request->registroNombres;
+        $student->apellidos = $request->registroApellidos;
+        $student->email = $request->registroEmail;
+        $student->password = $request->registroClave;
+        $student->grado = $request->registroGrado;
+        $student->sexo = $request->registroSexo;
+        $student->fecha_naci = $request->fechaNacimiento;
+        $student->save();
+        return redirect()->route('login');
+    }
+}
