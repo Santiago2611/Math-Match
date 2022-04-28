@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Student;
+use Illuminate\Validation\Rules\Exists;
 
 class StudentController extends Controller
 {
@@ -19,4 +20,14 @@ class StudentController extends Controller
         $student->save();
         return redirect()->route('login');
     }
+    public function check(Request $request){
+        $student = new Student();
+        $student = Student::all()->where('email',$request->ingresoEmail)->where('password',$request->ingresoClave);
+        if($student->count() > 0){
+            return view('student',compact('student'));
+        }else{
+            return redirect()->route('login.checkTeacher');
+        }
+    }
+
 }
