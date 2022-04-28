@@ -32,7 +32,7 @@ Route::controller(StudentController::class)->group(function(){
 });
 Route::controller(TeacherController::class)->group(function(){
     Route::post('register/teacher','store')->name('registerTeacher.store');
-    Route::post('login/teacher','login')->name('login.checkTeacher');
+    Route::post('login/teacher','check')->name('login.checkTeacher');
 });
 
 Route::controller(AdminController::class)->group(function(){

@@ -1,5 +1,5 @@
 @extends('layouts.inicio')
-@section('title','Estudiante')
+@section('title','Docente')
 @section('init')
 <a href="">Inicio</a>
 @endsection

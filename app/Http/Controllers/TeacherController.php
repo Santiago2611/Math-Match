@@ -22,11 +22,11 @@ class TeacherController extends Controller
         return redirect()->route('show.admin');
 
     }
-    public function login(Request $request){
+    public function check(Request $request){
         $teachers = new Teacher();
-        $teacher = Teacher::all()->where('email',$request->ingresoEmail)->where('password',$request->ingresoClave);
-        if($teacher->count() > 0){
-            return view('teacher');
+        $teachers = Teacher::all()->where('email_docente',$request->ingresoEmail)->where('clave_docente',$request->ingresoClave);
+        if($teachers->count() > 0){
+            return view('teachers',compact('teachers'));
     }else{
         return "<script>alert('Contraseña y/o correo electrónico incorrecto')</script>";
     }
