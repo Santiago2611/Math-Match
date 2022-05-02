@@ -10,7 +10,6 @@
 <a href="">Mis clases</a>
 @endsection
 @section('content')
-<h1 style="margin: 10px;">Bienvenido, docente </h1>
-
-
-@endsection
+@foreach ($teachers as $teacher)
+<h1 style="margin: 10px;">Bienvenido, docente {{$teacher->nombre_docente}}</h1>
+@endforeach
