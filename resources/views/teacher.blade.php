@@ -4,7 +4,7 @@
 <a href="">Inicio</a>
 @endsection
 @section('class')
-<a href="">Crear clase</a>
+<a href="{{route('create.class')}}">Crear clase</a>
 @endsection
 @section('more_class')
 <a href="">Mis clases</a>
@@ -13,3 +13,4 @@
 @foreach ($teachers as $teacher)
 <h1 style="margin: 10px;">Bienvenido, docente {{$teacher->nombre_docente}}</h1>
 @endforeach
+@endsection

@@ -1,4 +1,4 @@
-@extends('layouts.plantilla_home')
+@extends('layouts.plantilla')
 @section('title','Registro')
 @section('content')
 
@@ -6,7 +6,7 @@
         <header class="masthead text-center text-black">
             <div class="masthead-content">
     <div class="d-flex justify-content-center text-center position-relative">
-        <form action="{{route('register.store')}}" class="formulario bg-light p-5" method="post">
+        <form action="{{route('register.store')}}" class="formulario bg-light p-5 form-register" method="post">
 
             @csrf
 	        <h1>Regístrate como estudiante</h1>
@@ -58,31 +58,44 @@
 				<input type="date" class="form-control"  name="fechaNacimiento" required="">
 	    	</div>
 
-	    	<button type="submit" name="boton_registrar" class="btn btn-primary">Registrarse</button><hr>
+	    	<button type="submit" name="boton_registrar" onclick="Registro()" class="btn btn-primary">Registrarse</button><hr>
 
 	    	<h4>¿Ya tienes cuenta?</h4>
 	    	<h3><a href="login.php">Ingresa</a></h3>
 	    </form>
 	</div>
-
+    @section('js')
     <script>
-    var texto = document.getElementsByTagName("b")[0];
-	var field1 = document.getElementsByName("registroClave")[0];
-	var field2 = document.getElementsByName("confirmarClave")[0];
-	const box = document.getElementById("box");
+        var texto = document.getElementsByTagName("b")[0];
+        var field1 = document.getElementsByName("registroClave")[0];
+        var field2 = document.getElementsByName("confirmarClave")[0];
+        const box = document.getElementById("box");
 
-	//funcion de validación de contraseñas
+        //funcion de validación de contraseñas
 
-	var checkPasswordEquals = function(){
-		var button = document.getElementsByName("boton_registrar")[0];
-		if (field1.value != field2.value) {
-			box.style.display = "block";
-			button.disabled = true;
-		} else {
-			button.disabled = false;
-			box.style.display = "none";
-		}
-	}
-  </script>
+        var checkPasswordEquals = function(){
+            var button = document.getElementsByName("boton_registrar")[0];
+            if (field1.value != field2.value) {
+                box.style.display = "block";
+                button.disabled = true;
+            } else {
+                button.disabled = false;
+                box.style.display = "none";
+            }
+        }
+    </script>
+        <script>
+            var Registro = function(){
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Registro éxitoso',
+                    showConfirmButton: false,
+                    timer: 1500
+                    })
+            }
+        </script>
+    @endsection
 
 @endsection
+

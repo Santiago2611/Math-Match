@@ -20,4 +20,7 @@ class UserController extends Controller
     public function signup_teacher(){
         return view('register_teacher');
     }
+    public function class(){
+        return view('create_class');
+    }
 }
