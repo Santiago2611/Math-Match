@@ -1,4 +1,4 @@
-import { ConcentradoGameInfo } from "./ConcentradoGameInfo";
+import { ConcentradoGameInfo } from "./ConcentradoGameInfo.js";
 
 var opPlace = document.getElementById("operacion"); //lugar de la operación
 var ansPlace = document.getElementsByName("ans"); //lugar de las respuestas
@@ -7,6 +7,7 @@ var opIndex = 0; //índice de la operación actual
 var messageBox = document.getElementById("messageBox"); //campo de texto que dirá si acertó o no
 var timebar = document.getElementById("timebar"); //barra que marca el tiempo
 var timeout; //tiempo para responder
+var lifeHearts = document.getElementsByClassName("fa-heart");
 
 const gameinfo = new ConcentradoGameInfo();
 
@@ -21,7 +22,8 @@ let timeover = function(){
     document.removeEventListener("keydown", getPressedArrow);
     console.log("c acabó el tiempo");
     showOutputMessage("Se acabó el tiempo...", "orange");
-    
+
+    substractLife();
     resetTimebar();
     next();
 }
@@ -42,7 +44,7 @@ let getRandomOrder = function(){
     for (let i = 0; i < len; i++) {
         indexToPush = Math.floor(Math.random() * len);
         if (order.includes(indexToPush) || indexToPush == len) {
-            /*si el índice de la operación ya está en el arreglo, 
+            /*si el índice de la operación ya está en el arreglo,
                 o el Math.random generó 1 (saldrá error), entonces reinicia el ciclo */
             i--;
             continue;
@@ -53,21 +55,30 @@ let getRandomOrder = function(){
     return order;
 }
 
-let getUserAction = function(success){ 
+let substractLife = function() {
+    lifeHearts[gameinfo.lives - 1].style.opacity = "0";
+    lifeHearts[gameinfo.lives - 1].style.color = "black";
+    gameinfo.lives--;
+    if (gameinfo.lives == 0) alert("te quedaste sin vidas :c");
+    console.log("lives: "+gameinfo.lives);
+}
+
+let getUserAction = function(success){
     if (success) {
         console.log("respuesta correcta");
         showOutputMessage("¡Acertaste!", "green");
     } else {
         console.log("perdiste :c");
         showOutputMessage("Respuesta equivocada...", "red");
+        substractLife();
     }
-    
+
     resetTimebar();
     next();
 }
 
 //método que imprime la operacion + respuestas, y activa el listener
-let printOpWithAnswers = function(){ 
+let printOpWithAnswers = function(){
     setTime();
     document.addEventListener("keydown", getPressedArrow); //lo más importante, el listener del teclado, sin esto el juego no funcionaría.
 
@@ -75,7 +86,7 @@ let printOpWithAnswers = function(){
     for (let i = 0; i < 4; i++) {
         ansPlace[i].innerHTML = gameinfo.answers[order[opIndex]][i];
     }
-    
+
     fadein(opPlace);
     ansPlace.forEach(element => {
         fadein(element, 1000);
@@ -105,7 +116,7 @@ let next = function(){
     ansPlace.forEach(element => {
         fadeout(element, 2500);
     });
-    
+
     opIndex++;
     (opIndex < gameinfo.operations.length) ? setTimeout(printOpWithAnswers, 3000) : alert("terminaste");
 }
@@ -149,13 +160,13 @@ let getPressedArrow = (e) => { //método que se ejecutará con el listener
         accert = getIfRightAnswer(selectedArr);
         getUserAction(accert);
     }
-    
+
     try {
         animation(selectedArr, accert);
     } catch(e) {
         console.log("presionaste una tecla no válida");
     };
-    
+
 }
 
 let start = (e) => { //empezar el juego

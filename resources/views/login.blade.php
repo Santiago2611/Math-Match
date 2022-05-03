@@ -1,4 +1,4 @@
-@extends('layouts.plantilla')
+@extends('layouts.plantilla_home')
 @section('title','Iniciar sesión')
 @section('content')
 <header class="masthead text-center text-black">
