@@ -21,6 +21,20 @@
         text-align: center;
     }
 
+    .header {
+        position: relative;
+        background: whitesmoke;
+        width: 100%;
+        height: 80px;
+    }
+
+    .stage-box {
+        position: relative;
+        width: 100%;
+        font-size: 2.5em;
+        text-align: center;
+    }
+
     .pad {
         position: relative;
         font-size: 3em;
@@ -38,7 +52,7 @@
     }
 
     .fa-arrow-left {
-        position: absolute;
+        position: relative;
         font-size: 4em;
         color: gray;
         margin: 5px;
@@ -99,7 +113,6 @@
         background: white;
         box-shadow: 0px 5px 10px black;
         text-align: center;
-        top: 210px;
     }
 
     #operacion {
@@ -108,7 +121,7 @@
 
     #messageBox {
         position: relative;
-        top: 230px;
+        top: 10px;
         text-align: center;
         color: transparent;
         transition: color 0.5s ease;
@@ -126,12 +139,18 @@
 </style>
 
 <div class="container-xl">
-    <div>
-        <a href=""><i class="fas fa-arrow-left"></i></a>
+    <div class="header">
+        <a href="{{route('concentrado')}}"><i class="fas fa-arrow-left"></i></a>
         <div class="lives">
             <i class="fas fa-heart"></i>
             <i class="fas fa-heart"></i>
             <i class="fas fa-heart"></i>
+        </div>
+    </div>
+    <div class="stage-box">
+        <div class="sub-stage-box">
+            <b>Nivel x</b>
+            <p>5/5</p>
         </div>
     </div>
 
@@ -143,22 +162,22 @@
         <table class="pad">
             <tr>
                 <td></td>
-                <td name="ans">...</td>
+                <td id="upperAnswer" name="answer"></td>
                 <td></td>
             </tr>
             <tr>
-                <td name="ans">...</td>
+                <td id="leftAnswer" name="answer"></td>
                 <td class="arrows">
                     <i class="fas fa-caret-up" id="up"></i>
                     <i class="fas fa-caret-right" id="right"></i>
                     <i class="fas fa-caret-down" id="down"></i>
                     <i class="fas fa-caret-left" id="left"></i>
                 </td>
-                <td name="ans">...</td>
+                <td id="rightAnswer" name="answer"></td>
             </tr>
             <tr>
                 <td></td>
-                <td name="ans">...</td>
+                <td id="downAnswer" name="answer"></td>
                 <td></td>
             </tr>
         </table>
@@ -166,6 +185,6 @@
     <div class="timebar" id="timebar"></div>
 </div>
 
-<script type="module" src="../js/concentrado.main.js"></script>
+<script type="module" src="../../js/concentrado/concentrado.main.js"></script>
 
 @endsection

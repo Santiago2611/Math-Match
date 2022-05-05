@@ -1,21 +1,29 @@
-import { ConcentradoGameInfo } from "./ConcentradoGameInfo.js";
+import { PlayerInfo } from "./PlayerInfo.js";
+import { Level } from "./Level.js";
 
 var opPlace = document.getElementById("operacion"); //lugar de la operación
-var ansPlace = document.getElementsByName("ans"); //lugar de las respuestas
-var order; //orden aleatorio en el que saldrán las operaciones
-var opIndex = 0; //índice de la operación actual
+var answers = document.getElementsByName("answer");
+var ansPlaces = {
+    up: document.getElementById("upperAnswer"),
+    left: document.getElementById("leftAnswer"),
+    right: document.getElementById("rightAnswer"),
+    down: document.getElementById("downAnswer"),
+    all: [up,left,right,down]
+};
+
 var messageBox = document.getElementById("messageBox"); //campo de texto que dirá si acertó o no
 var timebar = document.getElementById("timebar"); //barra que marca el tiempo
 var timeout; //tiempo para responder
 var lifeHearts = document.getElementsByClassName("fa-heart");
-
-const gameinfo = new ConcentradoGameInfo();
+var actualProblem; //problema actual (objeto con la operación y sus respuestas)
+const playerInfo = new PlayerInfo("pepito perez");
+const level = new Level();
 
 let showOutputMessage = function(str, strColor){ //muestra el mensaje, y se desvanece a los 3 segundos
     fadein(messageBox);
     messageBox.style.color = strColor;
     messageBox.innerHTML = str;
-    fadeout(messageBox, 3000);
+    fadeout(messageBox, 2500);
 }
 
 let timeover = function(){
@@ -38,32 +46,15 @@ let setTime = function(){
     }, 10000);
 }
 
-let getRandomOrder = function(){
-    let order = [], indexToPush = 0;
-    let len = gameinfo.operations.length;
-    for (let i = 0; i < len; i++) {
-        indexToPush = Math.floor(Math.random() * len);
-        if (order.includes(indexToPush) || indexToPush == len) {
-            /*si el índice de la operación ya está en el arreglo,
-                o el Math.random generó 1 (saldrá error), entonces reinicia el ciclo */
-            i--;
-            continue;
-        } else {
-            order.push(indexToPush);
-        }
-    }
-    return order;
-}
-
 let substractLife = function() {
-    lifeHearts[gameinfo.lives - 1].style.opacity = "0";
-    lifeHearts[gameinfo.lives - 1].style.color = "black";
-    gameinfo.lives--;
-    if (gameinfo.lives == 0) alert("te quedaste sin vidas :c");
-    console.log("lives: "+gameinfo.lives);
+    lifeHearts[playerInfo.lives - 1].style.opacity = "0";
+    lifeHearts[playerInfo.lives - 1].style.color = "black";
+    playerInfo.lives--;
+    if (playerInfo.lives == 0) finishGame();
+    console.log("lives: "+playerInfo.lives);
 }
 
-let getUserAction = function(success){
+let playerResult = function(success){
     if (success) {
         console.log("respuesta correcta");
         showOutputMessage("¡Acertaste!", "green");
@@ -79,46 +70,58 @@ let getUserAction = function(success){
 
 //método que imprime la operacion + respuestas, y activa el listener
 let printOpWithAnswers = function(){
-    setTime();
-    document.addEventListener("keydown", getPressedArrow); //lo más importante, el listener del teclado, sin esto el juego no funcionaría.
+    setTimeout(function() {
+        setTime();
+        document.addEventListener("keydown", getPressedArrow); //lo más importante, el listener del teclado, sin esto el juego no funcionaría.
+    }, 1500);
+    actualProblem = level.problems[level.order[level.actualIndex]];
 
-    opPlace.innerHTML = gameinfo.operations[order[opIndex]][0];
-    for (let i = 0; i < 4; i++) {
-        ansPlace[i].innerHTML = gameinfo.answers[order[opIndex]][i];
-    }
+    opPlace.innerHTML = actualProblem.operation;
+    ansPlaces.up.innerHTML = actualProblem.answers[0];
+    ansPlaces.right.innerHTML = actualProblem.answers[1];
+    ansPlaces.down.innerHTML = actualProblem.answers[2];
+    ansPlaces.left.innerHTML = actualProblem.answers[3];
 
     fadein(opPlace);
-    ansPlace.forEach(element => {
-        fadein(element, 1000);
-    });
+    fadein(ansPlaces.up, 1000);
+    fadein(ansPlaces.right, 1200);
+    fadein(ansPlaces.down, 1400);
+    fadein(ansPlaces.left, 1600);
 }
 
 let animation = function(arr, answer){
-    var selectedArrow = document.getElementById(arr);
-    selectedArrow.style.color = (answer) ? "green" : "red";
-    selectedArrow.style.transition = "none";
+    var arrow = document.getElementById(arr);
+    arrow.style.color = (answer) ? "green" : "red";
+    arrow.style.transition = "none";
     setTimeout(function(){
-        selectedArrow.style.color = "rgb(40,40,40)";
-        selectedArrow.style.transition = "1s ease";
+        arrow.style.color = "rgb(40,40,40)";
+        arrow.style.transition = "1s ease";
     }, 500);
 }
 
 let getIfRightAnswer = function(ans){
-    if (ans == gameinfo.operations[order[opIndex]][1]){
+    if (ans.innerHTML == actualProblem.rightAnswer){
         return true;
     } else {
         return false;
     }
 }
 
-let next = function(){
-    fadeout(opPlace, 2500);
-    ansPlace.forEach(element => {
-        fadeout(element, 2500);
-    });
+let finishGame = function(){
+    fadein(opPlace);
+    opPlace.innerHTML = "Juego terminado, vaya tome awita :D";
+}
 
-    opIndex++;
-    (opIndex < gameinfo.operations.length) ? setTimeout(printOpWithAnswers, 3000) : alert("terminaste");
+let next = function(){
+    fadeout(opPlace, 2800);
+    for (let i = 0; i < answers.length; i++) {
+        fadeout(answers[i], 2800);
+    }
+
+    level.actualIndex++;
+    setTimeout(function(){
+        (level.actualIndex < level.problems.length) ? printOpWithAnswers() : finishGame();
+    }, 3500);
 }
 
 let resetTimebar = function(){
@@ -133,20 +136,25 @@ let resetTimebar = function(){
 let getPressedArrow = (e) => { //método que se ejecutará con el listener
 
     var selectedArr = undefined;
+    var arrow;
     var accert; //booleana de si acertó
 
     switch (e.keyCode) {
         case 37:
-            selectedArr = "left";
+            selectedArr = ansPlaces.left;
+            arrow = "left";
             break;
         case 38:
-            selectedArr = "up";
+            selectedArr = ansPlaces.up;
+            arrow = "up";
             break;
         case 39:
-            selectedArr = "right";
+            selectedArr = ansPlaces.right;
+            arrow = "right";
             break;
         case 40:
-            selectedArr = "down";
+            selectedArr = ansPlaces.down;
+            arrow = "down";
             break;
         default:
             break;
@@ -158,11 +166,11 @@ let getPressedArrow = (e) => { //método que se ejecutará con el listener
         clearTimeout(timeout);
         document.removeEventListener("keydown", getPressedArrow);
         accert = getIfRightAnswer(selectedArr);
-        getUserAction(accert);
+        playerResult(accert);
     }
 
     try {
-        animation(selectedArr, accert);
+        animation(arrow, accert);
     } catch(e) {
         console.log("presionaste una tecla no válida");
     };
@@ -174,9 +182,8 @@ let start = (e) => { //empezar el juego
         document.removeEventListener("keydown", start);
         fadeout(opPlace);
         setTimeout(printOpWithAnswers, 2000);
-        order = getRandomOrder();
     }
-    console.log("orden: "+order);
+    console.log("orden: "+level.order);
 }
 
 let fadeout = function(obj, delay = 0){

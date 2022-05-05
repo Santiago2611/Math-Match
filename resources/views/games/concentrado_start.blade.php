@@ -15,7 +15,7 @@
 <div>
     <div class="card">
         <b>Progreso: x</b>
-        <a href="{{route('play.concentrado')}}">Comenzar</a>
+        <a href="{{route('concentrado.play')}}">Comenzar</a>
     </div>
 </div>
 
