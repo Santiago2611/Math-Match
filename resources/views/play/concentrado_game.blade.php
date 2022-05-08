@@ -150,7 +150,7 @@
     <div class="stage-box">
         <div class="sub-stage-box">
             <b>Nivel x</b>
-            <p>5/5</p>
+            <p id="meter">-/-</p>
         </div>
     </div>
 

@@ -1,7 +1,7 @@
-import { PlayerInfo } from "./PlayerInfo.js";
-import { Level } from "./Level.js";
+import { levelObj } from "./levelBuilder.js";
 
 var opPlace = document.getElementById("operacion"); //lugar de la operación
+//las dos siguientes variables (ambas) son las respuestas
 var answers = document.getElementsByName("answer");
 var ansPlaces = {
     up: document.getElementById("upperAnswer"),
@@ -10,14 +10,12 @@ var ansPlaces = {
     down: document.getElementById("downAnswer"),
     all: [up,left,right,down]
 };
-
 var messageBox = document.getElementById("messageBox"); //campo de texto que dirá si acertó o no
 var timebar = document.getElementById("timebar"); //barra que marca el tiempo
 var timeout; //tiempo para responder
 var lifeHearts = document.getElementsByClassName("fa-heart");
 var actualProblem; //problema actual (objeto con la operación y sus respuestas)
-const playerInfo = new PlayerInfo("pepito perez");
-const level = new Level();
+var problemMeter = document.getElementById("meter");
 
 let showOutputMessage = function(str, strColor){ //muestra el mensaje, y se desvanece a los 3 segundos
     fadein(messageBox);
@@ -47,17 +45,17 @@ let setTime = function(){
 }
 
 let substractLife = function() {
-    lifeHearts[playerInfo.lives - 1].style.opacity = "0";
-    lifeHearts[playerInfo.lives - 1].style.color = "black";
-    playerInfo.lives--;
-    if (playerInfo.lives == 0) finishGame();
-    console.log("lives: "+playerInfo.lives);
+    lifeHearts[levelObj.lives - 1].style.opacity = "0";
+    lifeHearts[levelObj.lives - 1].style.color = "black";
+    levelObj.lives--;
+    console.log("lives: "+levelObj.lives);
 }
 
 let playerResult = function(success){
     if (success) {
         console.log("respuesta correcta");
         showOutputMessage("¡Acertaste!", "green");
+        next();
     } else {
         console.log("perdiste :c");
         showOutputMessage("Respuesta equivocada...", "red");
@@ -70,11 +68,12 @@ let playerResult = function(success){
 
 //método que imprime la operacion + respuestas, y activa el listener
 let printOpWithAnswers = function(){
+    problemMeter.innerHTML = (levelObj.actualIndex + 1) + "/" + levelObj.nmbOfProblems;
     setTimeout(function() {
         setTime();
         document.addEventListener("keydown", getPressedArrow); //lo más importante, el listener del teclado, sin esto el juego no funcionaría.
     }, 1500);
-    actualProblem = level.problems[level.order[level.actualIndex]];
+    actualProblem = levelObj.problems[levelObj.order[levelObj.actualIndex]];
 
     opPlace.innerHTML = actualProblem.operation;
     ansPlaces.up.innerHTML = actualProblem.answers[0];
@@ -108,8 +107,12 @@ let getIfRightAnswer = function(ans){
 }
 
 let finishGame = function(){
-    fadein(opPlace);
-    opPlace.innerHTML = "Juego terminado, vaya tome awita :D";
+    fadeout(opPlace);
+    
+    setTimeout(function(){
+        opPlace.innerHTML = "Juego terminado, vaya tome awita :D";
+        fadein(opPlace);
+    }, 1500);
 }
 
 let next = function(){
@@ -118,9 +121,11 @@ let next = function(){
         fadeout(answers[i], 2800);
     }
 
-    level.actualIndex++;
+    levelObj.actualIndex++;
+    //si hay un siguiente problema, y el usuario tiene vidas, entonces sigue
     setTimeout(function(){
-        (level.actualIndex < level.problems.length) ? printOpWithAnswers() : finishGame();
+        (levelObj.actualIndex < levelObj.nmbOfProblems 
+            && levelObj.lives > 0) ? printOpWithAnswers() : finishGame();
     }, 3500);
 }
 
@@ -183,7 +188,6 @@ let start = (e) => { //empezar el juego
         fadeout(opPlace);
         setTimeout(printOpWithAnswers, 2000);
     }
-    console.log("orden: "+level.order);
 }
 
 let fadeout = function(obj, delay = 0){
