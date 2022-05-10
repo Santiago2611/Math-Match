@@ -12,7 +12,7 @@ var ansPlaces = {
 };
 var messageBox = document.getElementById("messageBox"); //campo de texto que dirá si acertó o no
 var timebar = document.getElementById("timebar"); //barra que marca el tiempo
-var timeout; //tiempo para responder
+var timebarInterval; //intervalo de los frames de la barra de tiempo
 var lifeHearts = document.getElementsByClassName("fa-heart");
 var actualProblem; //problema actual (objeto con la operación y sus respuestas)
 var problemMeter = document.getElementById("meter");
@@ -35,13 +35,22 @@ let timeover = function(){
 }
 
 let setTime = function(){
-    fadein(timebar, 100); //se le pone un delay de 100 a modo de debugging
-    timebar.style.transition = "all 10s linear";
-    timebar.style.background = "orange";
-    timebar.style.width = "0%";
-    timeout = setTimeout(function(){
-        timeover();
-    }, 10000);
+    var barWidth = 100;
+    timebarInterval = setInterval(() => {
+        if (barWidth == 0) timeover();
+        timebar.style.width = barWidth+"%";
+        timebar.style.background = "hsl("+barWidth+", 64%, 44%)";
+        barWidth--;
+    }, 100);
+}
+
+let resetTimebar = function(){
+    clearInterval(timebarInterval);
+    timebar.style.opacity = "0";
+    setTimeout(() => {
+        timebar.style.width = "100%";
+        timebar.style.background = "hsl(100, 64%, 44%)";
+    }, 700);
 }
 
 let substractLife = function() {
@@ -55,20 +64,19 @@ let playerResult = function(success){
     if (success) {
         console.log("respuesta correcta");
         showOutputMessage("¡Acertaste!", "green");
-        next();
     } else {
         console.log("perdiste :c");
         showOutputMessage("Respuesta equivocada...", "red");
         substractLife();
     }
 
-    resetTimebar();
     next();
 }
 
 //método que imprime la operacion + respuestas, y activa el listener
 let printOpWithAnswers = function(){
     problemMeter.innerHTML = (levelObj.actualIndex + 1) + "/" + levelObj.nmbOfProblems;
+    timebar.style.opacity = "1";
     setTimeout(function() {
         setTime();
         document.addEventListener("keydown", getPressedArrow); //lo más importante, el listener del teclado, sin esto el juego no funcionaría.
@@ -108,7 +116,7 @@ let getIfRightAnswer = function(ans){
 
 let finishGame = function(){
     fadeout(opPlace);
-    
+
     setTimeout(function(){
         opPlace.innerHTML = "Juego terminado, vaya tome awita :D";
         fadein(opPlace);
@@ -124,18 +132,9 @@ let next = function(){
     levelObj.actualIndex++;
     //si hay un siguiente problema, y el usuario tiene vidas, entonces sigue
     setTimeout(function(){
-        (levelObj.actualIndex < levelObj.nmbOfProblems 
+        (levelObj.actualIndex < levelObj.nmbOfProblems
             && levelObj.lives > 0) ? printOpWithAnswers() : finishGame();
     }, 3500);
-}
-
-let resetTimebar = function(){
-    fadeout(timebar);
-    setTimeout(function(){
-        timebar.style.transition = "all 0s linear";
-        timebar.style.background = "green";
-        timebar.style.width = "100%";
-    }, 1000);
 }
 
 let getPressedArrow = (e) => { //método que se ejecutará con el listener
@@ -168,8 +167,8 @@ let getPressedArrow = (e) => { //método que se ejecutará con el listener
     /* si se presionó una tecla inválida, la variable selectedArr quedará como undefined,
     por lo tanto, no entrará al siguiente algoritmo */
     if (selectedArr != undefined) {
-        clearTimeout(timeout);
         document.removeEventListener("keydown", getPressedArrow);
+        resetTimebar();
         accert = getIfRightAnswer(selectedArr);
         playerResult(accert);
     }
