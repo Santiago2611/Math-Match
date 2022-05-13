@@ -12,10 +12,10 @@ class GameController extends Controller
     }
 
     public function concentrado(){
-        return view("games/concentrado_start");
+        return view("games.concentrado_start");
     }
 
     public function playConcentrado(){
-        return view("play/concentrado_game");
+        return view("play.concentrado_game");
     }
 }
