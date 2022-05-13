@@ -41,11 +41,11 @@
         width: 50%;
         height: 100%;
         margin: auto;
-        table-layout: fixed;
     }
 
     .arrows {
         position: relative;
+        background: lightgray;
         font-size: 2em;
         height: 40%;
         padding: 0px;
@@ -91,7 +91,7 @@
         position: absolute;
         height: 100%;
         top: 0px;
-        right: 20px;
+        right: 0px;
     }
 
     .arrows .fa-caret-down {
@@ -105,7 +105,7 @@
         position: absolute;
         height: 100%;
         top: 0px;
-        left: 20px;
+        left: 0px;
     }
 
     .operationBox {
@@ -130,10 +130,9 @@
     .timebar {
         position: absolute;
         bottom: 0px;
-        background: hsl(101, 64%, 44%);
+        background: green;
         width: 100%;
         height: 20px;
-        transition: all 0.2s linear;
         opacity: 0;
     }
 
@@ -159,7 +158,6 @@
         <h2 id="operacion">Presiona ENTER para comenzar</h2>
     </div>
     <h3 id="messageBox"></h3> <!-- comienza con el innerHTML vacío-->
-
     <div class="sub-container">
         <table class="pad">
             <tr>
