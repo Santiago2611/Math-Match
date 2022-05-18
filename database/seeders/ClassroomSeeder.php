@@ -5,17 +5,16 @@ namespace Database\Seeders;
 use App\Models\Classroom;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Database\Factories\ClassroomFactory;
 
-class DatabaseSeeder extends Seeder
+class ClassroomSeeder extends Seeder
 {
     /**
-     * Seed the application's database.
+     * Run the database seeds.
      *
      * @return void
      */
     public function run()
     {
-        $this->call(ClassroomSeeder::class);
+        Classroom::factory(15)->create();
     }
 }
