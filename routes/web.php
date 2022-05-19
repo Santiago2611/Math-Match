@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\GameController;
 use Illuminate\Support\Facades\Route;
 
@@ -32,4 +33,5 @@ Route::controller(GameController::class)->group(function(){
     Route::get('juegos/concentrado','concentrado')->name('concentrado');
     Route::get('juegos/concentrado/play','playConcentrado')->name('concentrado.play');
 });
+Route::get('/classes', [ClassroomController::class,'showClass'])->name('class.show');
 
