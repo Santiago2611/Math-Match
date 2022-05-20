@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\GameController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -36,4 +37,5 @@ Route::controller(GameController::class)->group(function($game){
     Route::get('juegos/{game}','game')->name('preGame');
     Route::get('juegos/{game}/play','playGame')->name('game');
 });
+Route::get('/classes', [ClassroomController::class,'showClass'])->name('class.show');
 

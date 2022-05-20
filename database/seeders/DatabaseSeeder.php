@@ -2,8 +2,14 @@
 
 namespace Database\Seeders;
 
+use App\Models\Classroom;
+use App\Models\Image;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Database\Factories\ClassroomFactory;
+use Database\Factories\ImageFactory;
+use Illuminate\Support\Facades\Storage;
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,11 +20,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        Storage::makeDirectory('public/classrooms');
+        $this->call(ClassroomSeeder::class);
     }
 }
