@@ -14,8 +14,9 @@
 </style>
 <div>
     <div class="card">
-        <b>Progreso: x</b>
-        <a href="{{route('concentrado.play')}}">Comenzar</a>
+        <h2>Bienvenido, {{session("username")}}</h2>
+        <b>Progreso: {{$progress}}</b>
+        <a href="{{url('juegos/concentrado/play')}}">Comenzar</a>
     </div>
 </div>
 

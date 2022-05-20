@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\GameController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,12 +25,15 @@ Route::middleware([
     'verified'
 ])->group(function () {
     Route::get('/dashboard', function () {
+        session()->put("userid", Auth::user()->id);
+        session()->put("username", Auth::user()->name);
         return view('dashboard');
     })->name('dashboard');
 });
-Route::controller(GameController::class)->group(function(){
+
+Route::controller(GameController::class)->group(function($game){
     Route::get('juegos','viewgames')->name('games');
-    Route::get('juegos/concentrado','concentrado')->name('concentrado');
-    Route::get('juegos/concentrado/play','playConcentrado')->name('concentrado.play');
+    Route::get('juegos/{game}','game')->name('preGame');
+    Route::get('juegos/{game}/play','playGame')->name('game');
 });
 
