@@ -33,9 +33,9 @@ Route::middleware([
 });
 
 Route::controller(GameController::class)->group(function($game){
-    Route::get('juegos','viewgames')->name('games');
-    Route::get('juegos/{game}','game')->name('preGame');
-    Route::get('juegos/{game}/play','playGame')->name('game');
+    Route::get('juegos','viewgames')->name('games.show');
+    Route::get('juegos/{game}','game');
+    Route::get('juegos/{game}/play','playGame');
 });
 Route::get('/classes', [ClassroomController::class,'showClass'])->name('class.show');
 

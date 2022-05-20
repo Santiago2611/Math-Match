@@ -1,24 +1,16 @@
-@extends("layouts.inicio")
-@section("title","Concentrado levels")
-@section("content")
+<x-app-layout>
+    <div class="container">
+        <div style="margin: 10px;">
 
-<style>
-    .card {
-        margin: 10px;
-        padding: 10px;
-    }
+            <div class="card">
+                <h2>Bienvenido, {{session("username")}}</h2>
+                <b>Progreso: {{$progress}}</b>
+                <b>show {{session("user_id")}}</b>
+                <a href="{{url('juegos/concentrado/play')}}">Comenzar</a>
+            </div>
 
-    .card b {
-        font-size: 2em;
-    }
-</style>
-<div>
-    <div class="card">
-        <h2>Bienvenido, {{session("username")}}</h2>
-        <b>Progreso: {{$progress}}</b>
-        <a href="{{url('juegos/concentrado/play')}}">Comenzar</a>
+        </div>
     </div>
-</div>
 
+</x-app-layout>
 
-@endsection

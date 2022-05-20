@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('games', function (Blueprint $table) {
-            $table->string("nombre_juego","40")->primary();
+            $table->string("nombre_juego","40")->primary(); //la tabla tendrá el nombre del juego como primary key
             $table->string("tema_juego","30");
         });
     }
