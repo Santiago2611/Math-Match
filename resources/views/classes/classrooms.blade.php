@@ -3,7 +3,8 @@
         <div class="grid grid-cols-3 gap-6">
 
             @foreach ($classrooms as $classroom)
-            <article style="{{$classroom->nombre_clase}}">
+            <article>
+                {{$classroom->images}}
             </article>
 
             @endforeach
