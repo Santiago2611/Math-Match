@@ -14,10 +14,11 @@ class ImageFactory extends Factory
      *
      * @return array<string, mixed>
      */
+
     public function definition()
     {
         return [
-            'url' => 'clases/' . $this->faker->image('public/storage/classrooms', 640, 480, null, false)
+            'url' => $this->faker->image(storage_path('app/public/classrooms', 640, 480, null, false)),
         ];
     }
 }

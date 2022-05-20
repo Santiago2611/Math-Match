@@ -8,6 +8,8 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Database\Factories\ClassroomFactory;
 use Database\Factories\ImageFactory;
+use Illuminate\Support\Facades\Storage;
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,6 +20,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        Storage::makeDirectory('public/classrooms');
         $this->call(ClassroomSeeder::class);
     }
 }
