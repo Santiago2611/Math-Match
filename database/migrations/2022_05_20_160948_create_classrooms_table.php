@@ -20,7 +20,6 @@ return new class extends Migration
             $table->string('descripcion_clase','89')->nullable();
             $table->string('tipo_clase','40');
             $table->date('vigente_hasta');
-            $table->foreignIdFor(Image::class);
             $table->timestamps();
         });
     }

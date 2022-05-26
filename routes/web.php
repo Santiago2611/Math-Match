@@ -30,12 +30,17 @@ Route::middleware([
         session()->put("username", Auth::user()->name);
         return view('dashboard');
     })->name('dashboard');
+    Route::get('/classes', [ClassroomController::class,'showClass'])->name('class.show');
+    Route::controller(GameController::class)->group(function($game){
+        Route::get('juegos','viewgames')->name('games.show');
+        Route::get('juegos/{game}','game');
+        Route::get('juegos/{game}/play','playGame');
+    });
+    
 });
 
-Route::controller(GameController::class)->group(function($game){
-    Route::get('juegos','viewgames')->name('games.show');
-    Route::get('juegos/{game}','game');
-    Route::get('juegos/{game}/play','playGame');
-});
-Route::get('/classes', [ClassroomController::class,'showClass'])->name('class.show');
+
+
+
+
 
