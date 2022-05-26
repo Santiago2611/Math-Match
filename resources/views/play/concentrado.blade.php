@@ -1,4 +1,3 @@
-@auth
 @extends("layouts.plantilla_juego")
 @section("title","Juego Concentrado")
 @section("content")
@@ -141,7 +140,7 @@
 
 <div class="container-xl">
     <div class="header">
-        <a href="{{route('concentrado')}}"><i class="fas fa-arrow-left"></i></a>
+        <a href="{{route('games')}}"><i class="fas fa-arrow-left"></i></a>
         <div class="lives">
             <i class="fas fa-heart"></i>
             <i class="fas fa-heart"></i>
@@ -189,4 +188,3 @@
 <script type="module" src="../../js/concentrado/concentrado.main.js"></script>
 
 @endsection
-@endauth

@@ -8,16 +8,16 @@ use Illuminate\Support\Facades\DB;
 class GameController extends Controller
 {
 
-    public function viewgames(){
-        return view("games/viewgames");
+    public function viewGames(){
+        $progresses = [
+            "concentrado" => 0,
+            "otrojuego" => 0
+        ];
+        $progresses["concentrado"] = DB::table('student_game')->where("id_estudiante", session("userid"))->where("juego", "concentrado")->value("nivel_actual");
+        return view("games.games", compact('progresses'));
     }
 
-    public function game($game){
-        $progress = DB::table('student_game')->where("id_estudiante", session("userid"))->where("juego", $game)->value("nivel_actual");
-        return view("games/$game", compact('progress'));
-    }
-
-    public function playGame($game){
-        return view("play/$game");
+    public function playConcentrado(){
+        return view("play.concentrado");
     }
 }
