@@ -141,7 +141,7 @@
 
 <div class="container-xl">
     <div class="header">
-        <a href="{{route('concentrado')}}"><i class="fas fa-arrow-left"></i></a>
+        <a href="{{route('games')}}"><i class="fas fa-arrow-left"></i></a>
         <div class="lives">
             <i class="fas fa-heart"></i>
             <i class="fas fa-heart"></i>

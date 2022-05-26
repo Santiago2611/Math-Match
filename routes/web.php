@@ -36,7 +36,7 @@ Route::middleware([
         Route::get('juegos/{game}','game');
         Route::get('juegos/{game}/play','playGame');
     });
-    
+
 });
 
 
