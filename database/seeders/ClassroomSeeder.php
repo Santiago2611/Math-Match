@@ -20,6 +20,7 @@ class ClassroomSeeder extends Seeder
         foreach ($classrooms as $classroom) {
             Image::factory(1)->create([
                 'imageable_id' => $classroom->id,
+                'nombre_c' => $classroom->nombre_clase,
                 'imageable_type' => Classroom::class
             ]);
         }

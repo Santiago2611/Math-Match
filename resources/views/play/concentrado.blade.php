@@ -1,4 +1,3 @@
-@auth
 @extends("layouts.plantilla_juego")
 @section("title","Juego Concentrado")
 @section("content")
@@ -189,4 +188,3 @@
 <script type="module" src="../../js/concentrado/concentrado.main.js"></script>
 
 @endsection
-@endauth

@@ -15,7 +15,7 @@
             </div>
             <div class="mt-4">
                 <x-jet-label for="apellidos" value="{{ __('Apellidos') }}" />
-                <x-jet-input id="apellidos" class="block mt-1 w-full" type="text" name="last_name" :value="old('last')" required />
+                <x-jet-input id="apellidos" class="block mt-1 w-full" type="text" name="last_name" :value="old('last')" required autofocus autocomplete="last" />
             </div>
             <div class="mt-4">
                 <x-jet-label for="email" value="{{ __('Email') }}" />
@@ -23,7 +23,7 @@
             </div>
             <div class="mt-4">
                 <x-jet-label for="email" value="{{ __('Grado') }}" />
-                <select name="group" :value="old('group')" required>
+                <select name="group" :value="old('group')" required autofocus autocomplete="group">
                     <option value=""></option>
                     <option value="8">8°</option>
                     <option value="9">9°</option>
@@ -33,7 +33,7 @@
                 </div>
                 <div class="mt-4">
                     <x-jet-label for="email" value="{{ __('Fecha de nacimiento') }}" />
-                    <x-jet-input id="date" class="block mt-1 w-full" type="date" name="birth" :value="old('birth')" required />
+                    <x-jet-input id="date" class="block mt-1 w-full" type="date" name="birth" :value="old('birth')" required autofocus autocomplete="birth" />
                 </div>
             <div class="mt-4">
                 <x-jet-label for="password" value="{{ __('Password') }}" />
@@ -68,7 +68,7 @@
                 </a>
 
                 <x-jet-button class="ml-4">
-                    {{ __('Registrarse') }}
+                    {{ __('register') }}
                 </x-jet-button>
             </div>
         </form>

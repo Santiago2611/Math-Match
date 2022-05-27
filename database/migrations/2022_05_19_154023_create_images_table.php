@@ -18,7 +18,10 @@ return new class extends Migration
             $table->string('url','200');
             $table->integer('imageable_id');
             $table->string('imageable_type','45');
+            $table->string('nombre_c');
             $table->timestamps();
+
+
         });
     }
 
