@@ -274,7 +274,7 @@ return [
                 ],
                 [
                     'text'    => 'Registrar docente',
-                    'url'     => '#',
+                    'route'     => 'create.teachers',
                 ],
                 [
                     'text' => 'level_one',

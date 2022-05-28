@@ -12,4 +12,8 @@ class ClassroomController extends Controller
         $images = Image::select()->get();
         return view('classes.classrooms' ,compact('classrooms','images'));
     }
+    public function searchClass(Request $request){
+        $classrooms = Classroom::where('nombre_clase',$request->search);
+        return $classrooms;
+    }
 }
