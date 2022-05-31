@@ -1,4 +1,5 @@
 <x-app-layout>
+    <form method="GET" action="{{route('search.class','name')}}">
     <div class="flex justify-center">
         <div class="mb-3 xl:w-96">
           <div class="input-group relative flex flex-wrap items-stretch w-full mb-4">
@@ -11,7 +12,7 @@
           </div>
         </div>
       </div>
-      
+    </form>
     <div class="container py-8">
         <div class="grid grid-cols-3 gap-6">
 
@@ -21,11 +22,12 @@
 
 
                 <div class="w-full h-full px-8 flex flex-col justify-center">
-                        <h1 class="text-4x1 text-white leading-8 font-bold"><a href="">
+                        <h1 class="text-4x1 text-white leading-8 font-bold"><a href="" class="inline-block px-3 h-6 bg-gray-600 text-white rounded-full">
                         {{$image->nombre_c}}
 
-                    </a></h1>
-                        <button class="btn btn-dark leading-8" value="Unirse">Unirse</button>
+
+                    </a></h1><button class="btn btn-secondary">Unirse</button><br>
+                    <button class="btn btn-primary">Ver más</button>
                 </div>
 
             </article>

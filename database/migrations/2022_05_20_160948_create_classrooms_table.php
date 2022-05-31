@@ -17,11 +17,11 @@ return new class extends Migration
         Schema::create('classrooms', function (Blueprint $table) {
             $table->id('id_classrooms');
             $table->string('nombre_clase','30');
-            $table->string('descripcion_clase','89')->nullable();
+            $table->string('descripcion_clase')->nullable();
             $table->string('tipo_clase','40');
             $table->date('vigente_hasta');
-            $table->unsignedBigInteger('teacher_id');
-            $table->foreign('teacher_id')->references('id')->on('teachers')->onDelete('cascade');
+            $table->unsignedBigInteger('teacher_id')->nullable();
+            $table->foreign('teacher_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }
