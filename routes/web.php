@@ -36,7 +36,7 @@ Route::controller(GameController::class)->group(function(){
     Route::get('juegos','viewGames')->name('games');
     Route::get('juegos/concentrado','playConcentrado')->name('concentrado');
 });
-    Route::get('/search/classes/', [ClassroomController::class,'searchClass'])->name('search.class');
+    Route::get('/search/classes/{name}', [ClassroomController::class,'searchClass'])->name('search.class');
 });
 
 

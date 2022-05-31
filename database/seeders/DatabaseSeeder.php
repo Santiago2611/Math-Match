@@ -22,5 +22,7 @@ class DatabaseSeeder extends Seeder
     {
         Storage::makeDirectory('public/classrooms');
         $this->call(ClassroomSeeder::class);
+
+        $this->call(RoleSeeder::class);
     }
 }
