@@ -138,6 +138,7 @@
 
 </style>
 
+<input type="hidden" id="level" value="<?php echo $level ?>">
 <div class="container-xl">
     <div class="header">
         <a href="{{route('games')}}"><i class="fas fa-arrow-left"></i></a>
@@ -149,7 +150,7 @@
     </div>
     <div class="stage-box">
         <div class="sub-stage-box">
-            <b>Nivel x</b>
+            <b>Nivel {{$level}}</b>
             <p id="meter">-/-</p>
         </div>
     </div>

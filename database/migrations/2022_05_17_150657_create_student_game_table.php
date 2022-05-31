@@ -19,7 +19,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId("id_estudiante")->references("id")->on("students"); //por alguna razón, solo funciona con foreignId
             $table->string("juego");
-            $table->foreign("juego")->references("nombre_juego")->on("games");
             $table->integer("nivel_actual");
         });
     }

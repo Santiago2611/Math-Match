@@ -18,6 +18,17 @@ class GameController extends Controller
     }
 
     public function playConcentrado(){
-        return view("play/concentrado");
+        $level = DB::table('student_game')->where("id_estudiante", session("userid"))->where("juego", "concentrado")->value("nivel_actual");
+        return view("play/concentrado", compact('level'));
+    }
+
+    public function initializeProgress($game){
+        $data = [
+            "id_estudiante" => session("userid"),
+            "juego" => $game,
+            "nivel_actual" => 1
+        ];
+        DB::table("student_game")->insert($data);
+        return redirect()->route($game);
     }
 }

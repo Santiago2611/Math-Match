@@ -32,10 +32,12 @@ Route::middleware([
     })->name('dashboard');
     Route::get('/classes', [ClassroomController::class,'showClass'])->name('class.show');
 
-Route::controller(GameController::class)->group(function(){
-    Route::get('juegos','viewGames')->name('games');
-    Route::get('juegos/concentrado','playConcentrado')->name('concentrado');
-});
+    Route::controller(GameController::class)->group(function(){
+        Route::get('juegos','viewGames')->name('games');
+        Route::get('juegos/concentrado','playConcentrado')->name('concentrado');
+        Route::get('comenzar/{game}','initializeProgress')->name('initializeProgress');
+    });
+
     Route::get('/search/classes/', [ClassroomController::class,'searchClass'])->name('search.class');
 });
 

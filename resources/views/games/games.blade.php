@@ -27,14 +27,18 @@
 
         .progress {
             white-space: nowrap;
+            background: none;
             margin: 0px;
-            float: right;
         }
 
         button {
             white-space: nowrap;
             padding: 8px;
             border-radius: 5px;
+        }
+
+        button a {
+            color: black;
         }
 
         #instructions {
@@ -54,13 +58,15 @@
             </div>
             <button type="button" style="background: #EBAF61" onclick="showInstructions(0);">
                 Instrucciones <i id="i" class="fas fa-chevron-down" style="font-size: 0.7em;"></i></button>
-            <button type="button" style="background: #3491c0"><a href="{{route('concentrado')}}">Jugar</a></button>
+            <button type="button" style="background: #3491c0">
+                <a href="{{ ($progresses['concentrado'] == null) ? url('comenzar/concentrado') : route('concentrado') }}">Jugar</a>
+            </button>
             <div class="progress">
                 <p>
                     @if ($progresses["concentrado"] == null)
-                        {{$progresses["concentrado"]}}
-                    @else
                         Aún no has empezado a jugar
+                    @else
+                        Progreso: {{$progresses["concentrado"]}}
                     @endif
                 </p>
             </div><br>
