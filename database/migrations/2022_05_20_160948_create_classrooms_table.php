@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('descripcion_clase','89')->nullable();
             $table->string('tipo_clase','40');
             $table->date('vigente_hasta');
+            $table->unsignedBigInteger('teacher_id');
+            $table->foreign('teacher_id')->references('id')->on('teachers')->onDelete('cascade');
             $table->timestamps();
         });
     }
