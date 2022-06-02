@@ -31,4 +31,9 @@ class GameController extends Controller
         DB::table("student_game")->insert($data);
         return redirect()->route($game);
     }
+
+    public function updateProgress($game){
+        DB::table("student_game")->where('id_estudiante', session('userid'))->where('juego', $game)->increment('nivel_actual', 1);
+        return redirect()->route($game);
+    }
 }

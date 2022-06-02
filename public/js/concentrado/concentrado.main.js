@@ -8,7 +8,7 @@ var ansPlaces = {
     left: document.getElementById("leftAnswer"),
     right: document.getElementById("rightAnswer"),
     down: document.getElementById("downAnswer"),
-    all: [up,left,right,down]
+    all: [up, left, right, down]
 };
 var messageBox = document.getElementById("messageBox"); //campo de texto que dirá si acertó o no
 var timebar = document.getElementById("timebar"); //barra que marca el tiempo
@@ -17,14 +17,14 @@ var lifeHearts = document.getElementsByClassName("fa-heart");
 var actualProblem; //problema actual (objeto con la operación y sus respuestas)
 var problemMeter = document.getElementById("meter");
 
-let showOutputMessage = function(str, strColor){ //muestra el mensaje, y se desvanece a los 3 segundos
+let showOutputMessage = function (str, strColor) { //muestra el mensaje, y se desvanece a los 3 segundos
     fadein(messageBox);
     messageBox.style.color = strColor;
     messageBox.innerHTML = str;
     fadeout(messageBox, 2500);
 }
 
-let timeover = function(){
+let timeover = function () {
     document.removeEventListener("keydown", getPressedArrow);
     console.log("c acabó el tiempo");
     showOutputMessage("Se acabó el tiempo...", "orange");
@@ -34,17 +34,17 @@ let timeover = function(){
     next();
 }
 
-let setTime = function(){
+let setTime = function () {
     var barWidth = 100;
     timebarInterval = setInterval(() => {
         if (barWidth == 0) timeover();
-        timebar.style.width = barWidth+"%";
-        timebar.style.background = "hsl("+barWidth+", 64%, 44%)";
+        timebar.style.width = barWidth + "%";
+        timebar.style.background = "hsl(" + barWidth + ", 64%, 44%)";
         barWidth--;
     }, 100);
 }
 
-let resetTimebar = function(){
+let resetTimebar = function () {
     clearInterval(timebarInterval);
     timebar.style.opacity = "0";
     setTimeout(() => {
@@ -53,14 +53,14 @@ let resetTimebar = function(){
     }, 700);
 }
 
-let substractLife = function() {
+let substractLife = function () {
     lifeHearts[levelObj.lives - 1].style.opacity = "0";
     lifeHearts[levelObj.lives - 1].style.color = "black";
     levelObj.lives--;
-    console.log("lives: "+levelObj.lives);
+    console.log("lives: " + levelObj.lives);
 }
 
-let playerResult = function(success){
+let playerResult = function (success) {
     if (success) {
         console.log("respuesta correcta");
         showOutputMessage("¡Acertaste!", "green");
@@ -74,10 +74,10 @@ let playerResult = function(success){
 }
 
 //método que imprime la operacion + respuestas, y activa el listener
-let printOpWithAnswers = function(){
+let printOpWithAnswers = function () {
     problemMeter.innerHTML = (levelObj.actualIndex + 1) + "/" + levelObj.nmbOfProblems;
     timebar.style.opacity = "1";
-    setTimeout(function() {
+    setTimeout(function () {
         setTime();
         document.addEventListener("keydown", getPressedArrow); //lo más importante, el listener del teclado, sin esto el juego no funcionaría.
     }, 1500);
@@ -96,44 +96,63 @@ let printOpWithAnswers = function(){
     fadein(ansPlaces.left, 1600);
 }
 
-let animation = function(arr, answer){
+let animation = function (arr, answer) {
     var arrow = document.getElementById(arr);
     arrow.style.color = (answer) ? "green" : "red";
     arrow.style.transition = "none";
-    setTimeout(function(){
+    setTimeout(function () {
         arrow.style.color = "rgb(40,40,40)";
         arrow.style.transition = "1s ease";
     }, 500);
 }
 
-let getIfRightAnswer = function(ans){
-    if (ans.innerHTML == actualProblem.rightAnswer){
+let getIfRightAnswer = function (ans) {
+    if (ans.innerHTML == actualProblem.rightAnswer) {
         return true;
     } else {
         return false;
     }
 }
 
-let finishGame = function(){
+let finishGame = function (won) {
     fadeout(opPlace);
 
-    setTimeout(function(){
-        opPlace.innerHTML = "Juego terminado, vaya tome awita :D";
+    setTimeout(() => {
+        if (won) {
+            opPlace.innerHTML = "¡Terminaste! Presiona ENTER para continuar...";
+            fetch('http://localhost:8000/guardar/concentrado', {
+                method: 'POST',
+            });
+            console.log('Paso');
+        } else {
+            opPlace.innerHTML = "Has perdido... Presiona ENTER para volver a intentar";
+        }
         fadein(opPlace);
     }, 1500);
+    document.addEventListener("keydown", (e) => {
+        if (e.keyCode == 13) {
+            document.removeEventListener("keydown", event);
+            window.location.reload();
+        }
+    });
 }
 
-let next = function(){
+let next = function () {
     fadeout(opPlace, 2800);
     for (let i = 0; i < answers.length; i++) {
         fadeout(answers[i], 2800);
     }
 
     levelObj.actualIndex++;
-    //si hay un siguiente problema, y el usuario tiene vidas, entonces sigue
-    setTimeout(function(){
-        (levelObj.actualIndex < levelObj.nmbOfProblems
-            && levelObj.lives > 0) ? printOpWithAnswers() : finishGame();
+    //si el usuario tiene vidas, y hay un siguiente problema, entonces sigue
+    setTimeout(function () {
+        if (levelObj.lives <= 0) {
+            finishGame(false);
+        } else if (levelObj.actualIndex >= levelObj.nmbOfProblems) {
+            finishGame(true);
+        } else {
+            printOpWithAnswers();
+        }
     }, 3500);
 }
 
@@ -175,7 +194,7 @@ let getPressedArrow = (e) => { //método que se ejecutará con el listener
 
     try {
         animation(arrow, accert);
-    } catch(e) {
+    } catch (e) {
         console.log("presionaste una tecla no válida");
     };
 
@@ -189,15 +208,15 @@ let start = (e) => { //empezar el juego
     }
 }
 
-let fadeout = function(obj, delay = 0){
-    setTimeout(function(){
+let fadeout = function (obj, delay = 0) {
+    setTimeout(function () {
         obj.style.transition = "0.5s linear";
         obj.style.opacity = "0";
     }, delay);
 }
 
-let fadein = function(obj, delay = 0){
-    setTimeout(function(){
+let fadein = function (obj, delay = 0) {
+    setTimeout(function () {
         obj.style.transition = "1s linear";
         obj.style.opacity = "1";
     }, delay);

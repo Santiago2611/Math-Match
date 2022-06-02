@@ -46,7 +46,7 @@ export let getRespectiveProblems = grade => {
 
 export let getNmbOfProblems = function(lvl){
     if (lvl < 8) {
-        return 5;
+        return 2;
     } else if (lvl < 15) {
         return 6;
     } else if (lvl < 22) {

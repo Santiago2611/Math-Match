@@ -3,9 +3,8 @@
 import { Level } from "./Level.js";
 import { getNmbOfProblems, getRespectiveProblems } from "./problems.js";
 
-var playerUsername = "";
 var playerGrade = 8;
-var playerActualLevel = 13;
+var playerActualLevel = document.getElementById("level").value;
 var problems = getRespectiveProblems(playerGrade);
 var nmbOfProblems = getNmbOfProblems(playerActualLevel);
 

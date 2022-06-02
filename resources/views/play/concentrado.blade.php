@@ -11,7 +11,6 @@
         margin-top: 20px;
         padding: 0;
     }
-
     .sub-container {
         position: absolute;
         width: 100%;
@@ -20,37 +19,32 @@
         bottom: 0px;
         text-align: center;
     }
-
     .header {
         position: relative;
         background: whitesmoke;
         width: 100%;
         height: 80px;
     }
-
     .stage-box {
         position: relative;
         width: 100%;
         font-size: 2.5em;
         text-align: center;
     }
-
     .pad {
         position: relative;
         font-size: 3em;
         width: 50%;
         height: 100%;
         margin: auto;
+        table-layout: fixed;
     }
-
     .arrows {
         position: relative;
-        background: lightgray;
         font-size: 2em;
         height: 40%;
         padding: 0px;
     }
-
     .fa-arrow-left {
         position: relative;
         font-size: 4em;
@@ -59,19 +53,16 @@
         padding: 5px;
         transition: 0.5s ease;
     }
-
     .fa-arrow-left:hover {
         color: black;
         font-size: 4.5em;
     }
-
     .lives {
         position: absolute;
         right: 0px;
         display: inline-block;
         padding: 10px;
     }
-
     .fa-heart {
         position: relative;
         transition: 0.8s;
@@ -79,46 +70,39 @@
         font-size: 3em;
         margin: 5px;
     }
-
     .arrows .fa-caret-up {
         position: absolute;
         top: -20px;
         left: 0px;
         width: 100%;
     }
-
     .arrows .fa-caret-right {
         position: absolute;
         height: 100%;
         top: 0px;
-        right: 0px;
+        right: 20px;
     }
-
     .arrows .fa-caret-down {
         position: absolute;
         bottom: -20px;
         left: 0px;
         width: 100%;
     }
-
     .arrows .fa-caret-left {
         position: absolute;
         height: 100%;
         top: 0px;
-        left: 0px;
+        left: 20px;
     }
-
     .operationBox {
         position: relative;
         background: white;
         box-shadow: 0px 5px 10px black;
         text-align: center;
     }
-
     #operacion {
         font-size: 5em;
     }
-
     #messageBox {
         position: relative;
         top: 10px;
@@ -126,16 +110,15 @@
         color: transparent;
         transition: color 0.5s ease;
     }
-
     .timebar {
         position: absolute;
         bottom: 0px;
-        background: green;
+        background: hsl(101, 64%, 44%);
         width: 100%;
         height: 20px;
+        transition: all 0.2s linear;
         opacity: 0;
     }
-
 </style>
 
 <input type="hidden" id="level" value="<?php echo $level ?>">
