@@ -21,7 +21,7 @@ class ClassroomFactory extends Factory
             'descripcion_clase' => $this->faker->text(89),
             'tipo_clase' => $this->faker->randomElement(['Privada','Publica']),
             'vigente_hasta' => $this->faker->date(),
-            'grado' => $this->faker->randomElement(['8','9','10','11'])
+            'grado' => $this->faker->randomElement([8,9,10,11])
         ];
     }
 }

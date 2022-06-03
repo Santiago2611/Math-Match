@@ -13,28 +13,25 @@
         </div>
       </div>
     </form>
+    @foreach ($images as $image)
     <div class="container py-8">
         <div class="grid grid-cols-3 gap-6">
+            <div class="card-header">
+            <article class="w-full h-80 bg-cover bg-center" style="background-image: url({{$image->url}}) ">
+            </div>
 
-            @foreach ($images as $image)
-
-            <article class="w-full h-80 bg-cover bg-center @if($loop->first) col-span-2 @endif" style="background-image: url({{$image->url}}) ">
-
-
-                <div class="w-full h-full px-8 flex flex-col justify-center">
-                        <h1 class="text-4x1 text-white leading-8 font-bold"><a href="" class="inline-block px-3 h-6 bg-gray-600 text-white rounded-full">
+                <div class="card-body w-full h-full px-8 flex flex-col justify-center">
+                        <h1 class=" text-4x1 text-white leading-8 font-bold text-center"><a href="" class="inline-block px-3 h-6 bg-gray-600 text-black text-center rounded-full">
                         {{$image->nombre_c}}
-
-
                     </a></h1><button class="btn btn-secondary">Unirse</button><br>
                     <button class="btn btn-primary">Ver más</button>
                 </div>
-
             </article>
 
-            @endforeach
+            </div>
         </div>
     </div>
-
+    <hr>
+@endforeach
 </x-app-layout>
 

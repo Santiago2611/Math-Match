@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('imageable_id');
             $table->string('imageable_type','45');
             $table->string('nombre_c');
-            $table->string('grado');
+            $table->integer('grado');
             $table->timestamps();
 
 

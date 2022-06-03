@@ -9,8 +9,7 @@ use Illuminate\Http\Request;
 class ClassroomController extends Controller
 {
     public function showClass(){
-        $users = new User();
-        $images = Image::select()->where('grado',$users->group)->get();
+        $images = Image::where('grado',auth()->user()->group)->get();
         return view('classes.classrooms' ,compact('images'));
     }
     public function searchClass(Image $name){
