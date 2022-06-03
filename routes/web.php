@@ -36,6 +36,7 @@ Route::middleware([
         Route::get('juegos','viewGames')->name('games');
         Route::get('juegos/concentrado','playConcentrado')->name('concentrado');
         Route::get('comenzar/{game}','initializeProgress')->name('initializeProgress');
+        Route::post('guardar/{game}','updateProgress')->name('updateProgress');
     });
 
     Route::get('/search/classes/', [ClassroomController::class,'searchClass'])->name('search.class');
