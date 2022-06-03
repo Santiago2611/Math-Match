@@ -40,6 +40,8 @@ Route::middleware([
     });
 
     Route::get('/search/classes/', [ClassroomController::class,'searchClass'])->name('search.class');
+    Route::post('/join/classes/', [ClassroomController::class,'joinClass'])->name('join.class');
+
 });
 
 
