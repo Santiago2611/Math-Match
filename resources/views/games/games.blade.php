@@ -66,7 +66,7 @@
                     @if ($progresses["concentrado"] == null)
                         Aún no has empezado a jugar
                     @else
-                        Progreso: {{$progresses["concentrado"]}}
+                        Progreso: nivel {{$progresses["concentrado"]}}
                     @endif
                 </p>
             </div><br>

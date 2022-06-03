@@ -121,7 +121,8 @@
     }
 </style>
 
-<input type="hidden" id="level" value="<?php echo $level ?>">
+<input type="hidden" id="level" value="{{ $level }}">
+<input type="hidden" id="token" value="{{ csrf_token() }}">
 <div class="container-xl">
     <div class="header">
         <a href="{{route('games')}}"><i class="fas fa-arrow-left"></i></a>

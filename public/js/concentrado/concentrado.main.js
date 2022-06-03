@@ -120,15 +120,18 @@ let finishGame = function (won) {
     setTimeout(() => {
         if (won) {
             opPlace.innerHTML = "¡Terminaste! Presiona ENTER para continuar...";
+            //petición HTTP con ajax
             fetch('http://localhost:8000/guardar/concentrado', {
-                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                method: "POST"
             });
-            console.log('Paso');
         } else {
             opPlace.innerHTML = "Has perdido... Presiona ENTER para volver a intentar";
         }
         fadein(opPlace);
-    }, 1500);
+    }, 1000);
     document.addEventListener("keydown", (e) => {
         if (e.keyCode == 13) {
             document.removeEventListener("keydown", event);
