@@ -13,18 +13,18 @@ class GameController extends Controller
             "concentrado" => 0,
             "otrojuego" => 0
         ];
-        $progresses["concentrado"] = DB::table('student_game')->where("id_estudiante", session("userid"))->where("juego", "concentrado")->value("nivel_actual");
+        $progresses["concentrado"] = DB::table('student_game')->where("id_estudiante", auth()->user()->id)->where("juego", "concentrado")->value("nivel_actual");
         return view("games/games", compact('progresses'));
     }
 
     public function playConcentrado(){
-        $level = DB::table('student_game')->where("id_estudiante", session("userid"))->where("juego", "concentrado")->value("nivel_actual");
+        $level = DB::table('student_game')->where("id_estudiante", auth()->user()->id)->where("juego", "concentrado")->value("nivel_actual");
         return view("play/concentrado", compact('level'));
     }
 
     public function initializeProgress($game){
         $data = [
-            "id_estudiante" => session("userid"),
+            "id_estudiante" => auth()->user()->id,
             "juego" => $game,
             "nivel_actual" => 1
         ];
@@ -33,7 +33,7 @@ class GameController extends Controller
     }
 
     public function updateProgress($game){
-        DB::table("student_game")->where('id_estudiante', session('userid'))->where('juego', $game)->increment('nivel_actual', 1);
+        DB::table("student_game")->where('id_estudiante', auth()->user()->id)->where('juego', $game)->increment('nivel_actual', 1);
         return redirect()->route($game);
     }
 }
