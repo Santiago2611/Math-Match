@@ -15,15 +15,15 @@
             </div>
             <div class="mt-4">
                 <x-jet-label for="apellidos" value="{{ __('Apellidos') }}" />
-                <x-jet-input id="apellidos" class="block mt-1 w-full" type="text" name="last_name" :value="old('last')" required autofocus autocomplete="last" />
+                <x-jet-input id="apellidos" class="block mt-1 w-full" type="text" name="last_name" :value="old('apellidos')" required autofocus autocomplete="last" />
             </div>
             <div class="mt-4">
                 <x-jet-label for="email" value="{{ __('Email') }}" />
                 <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
             </div>
             <div class="mt-4">
-                <x-jet-label for="email" value="{{ __('Grado') }}" />
-                <select name="group" :value="old('group')" required autofocus autocomplete="group">
+                <x-jet-label for="grado" value="{{ __('Grado') }}" />
+                <select name="group" :value="old('grado')" required autofocus autocomplete="group">
                     <option value=""></option>
                     <option value="8">8°</option>
                     <option value="9">9°</option>
@@ -32,7 +32,7 @@
                 </select>
                 </div>
                 <div class="mt-4">
-                    <x-jet-label for="email" value="{{ __('Fecha de nacimiento') }}" />
+                    <x-jet-label for="birth" value="{{ __('Fecha de nacimiento') }}" />
                     <x-jet-input id="date" class="block mt-1 w-full" type="date" name="birth" :value="old('birth')" required autofocus autocomplete="birth" />
                 </div>
             <div class="mt-4">

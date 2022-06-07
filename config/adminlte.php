@@ -46,7 +46,7 @@ return [
     */
 
     'logo' => '<b>Math</b> Match',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+    'logo_img' => 'images/math.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
@@ -69,7 +69,7 @@ return [
     'usermenu_header_class' => 'bg-primary',
     'usermenu_image' => false,
     'usermenu_desc' => false,
-    'usermenu_profile_url' => true,
+    'usermenu_profile_url' => false,
 
     /*
     |--------------------------------------------------------------------------
@@ -188,7 +188,7 @@ return [
     */
 
     'use_route_url' => false,
-    'dashboard_url' => 'home',
+    'dashboard_url' => 'dashboard',
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => 'register',
@@ -231,56 +231,34 @@ return [
             'text'         => 'Búsqueda',
             'topnav_right' => true,
         ],
-        [
-            'type'         => 'fullscreen-widget',
-            'topnav_right' => true,
-        ],
 
-        // Sidebar items:
-        [
-            'type' => 'sidebar-menu-search',
-            'text' => 'search',
-        ],
         [
             'text' => 'blog',
             'url'  => 'admin/blog',
             'can'  => 'manage-blog',
         ],
         [
-            'text'        => 'pages',
-            'url'         => 'admin/pages',
-            'icon'        => 'far fa-fw fa-file',
+            'text'        => 'Dashboard',
+            'url'         => 'admin',
+            'icon'        => 'fas fa-fw fa-tachometer-alt',
             'label'       => 4,
             'label_color' => 'success',
         ],
-        ['header' => 'account_settings'],
+        ['header' => 'ADMINISTRADOR'],
         [
-            'text' => 'Configuración',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-user',
+            'text' => 'Clases',
+            'route'  => 'admin.classrooms.index',
+            'icon' => 'fab fa-fw fa-buffer',
         ],
         [
             'text' => 'Ver estudiantes',
             'url'  => 'admin/settings',
-            'icon' => 'fas fa-fa fa-share',
+            'icon' => 'fas fa-fa fa-user',
         ],
         [
-            'text'    => 'Docentes',
-            'icon'    => 'fas fa-fw fa-share',
-            'submenu' => [
-                [
-                    'text' => 'Ver docentes',
-                    'url'  => '#',
-                ],
-                [
-                    'text'    => 'Registrar docente',
-                    'route'     => 'create.teachers',
-                ],
-                [
-                    'text' => 'level_one',
-                    'url'  => '#',
-                ],
-            ],
+            'text' => 'Ver docentes',
+            'route'  => 'admin.teachers.index',
+            'icon' => 'fas fa-fa fa-user',
         ],
         ['header' => 'labels'],
         [

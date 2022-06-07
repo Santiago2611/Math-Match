@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('user_classroom', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade')->unique();
+            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreignId('classroom_id')->references('image_id')->on('images')->onDelete('cascade');
             $table->timestamps();
         });

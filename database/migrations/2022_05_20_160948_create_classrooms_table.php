@@ -15,7 +15,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('classrooms', function (Blueprint $table) {
-            $table->id('id_classrooms');
+            $table->id();
             $table->string('nombre_clase','30');
             $table->string('descripcion_clase')->nullable();
             $table->string('tipo_clase','40');
@@ -23,6 +23,7 @@ return new class extends Migration
             $table->integer('grado');
             $table->unsignedBigInteger('teacher_id')->nullable();
             $table->foreign('teacher_id')->references('id')->on('users')->onDelete('cascade');
+            $table->string('url_images')->nullable();
             $table->timestamps();
         });
     }
