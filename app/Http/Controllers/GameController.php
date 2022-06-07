@@ -19,7 +19,11 @@ class GameController extends Controller
 
     public function playConcentrado(){
         $level = DB::table('student_game')->where("id_estudiante", auth()->user()->id)->where("juego", "concentrado")->value("nivel_actual");
-        return view("play/concentrado", compact('level'));
+        if ($level > 25) {
+            return redirect()->route("games");
+        } else {
+            return view("play/concentrado", compact('level'));
+        }
     }
 
     public function initializeProgress($game){
@@ -33,7 +37,12 @@ class GameController extends Controller
     }
 
     public function updateProgress($game){
-        DB::table("student_game")->where('id_estudiante', auth()->user()->id)->where('juego', $game)->increment('nivel_actual', 1);
-        return redirect()->route($game);
+        $query = DB::table("student_game")->where('id_estudiante', auth()->user()->id)->where('juego', $game);
+        if ($query->value("nivel_actual") <= 25) {
+            $query->increment('nivel_actual', 1);
+            return redirect()->route($game);
+        } else {
+            return redirect()->route("games");
+        }
     }
 }

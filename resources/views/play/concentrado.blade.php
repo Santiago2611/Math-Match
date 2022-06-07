@@ -134,7 +134,7 @@
     </div>
     <div class="stage-box">
         <div class="sub-stage-box">
-            <b>Nivel {{$level}}</b>
+            <b><span style="font-family: papyrus;">Nivel {{$level}}</span></b>
             <p id="meter">-/-</p>
         </div>
     </div>

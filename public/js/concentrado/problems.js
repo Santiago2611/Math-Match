@@ -10,23 +10,24 @@ class Problem {
     }
 }
 
+//binomios, polinomios, factorización, factor común
 const EIGHT_GRADE_PROBLEMS = [
-    new Problem("15 + 16", [23,29,31,30], 23),
-    new Problem("40 / 4", [10,20,10,30], 10),
-    new Problem("responder 1", [1,3,0,4], 1),
-    new Problem("25 * 5 - 4", [121,125,25,44], 121),
-    new Problem("responder 5", [5,12,4,3], 5),
-    new Problem("responder 60", [12,50,51,60], 60),
-    new Problem("responder 32", [40,32,23,233], 32),
-    new Problem("responder 60", [12,50,51,60], 60),
-    new Problem("responder 65", [12,50,51,65], 65),
-    new Problem("responder 1212", [12,1212,51,60], 1212),
-    new Problem("responder 54", [12,50,54,60], 54),
-    new Problem("responder 9", [12,50,9,60], 9)
+    new Problem("7x + 2x", ["9x","5x","7x^2","9"], "9x"),
+    new Problem("–33 + 97", [64,62,120,-64], 64),
+    new Problem("4^4", [296,256,16,161], 296),
+    new Problem("(2+2) (10*3) / 2", [17,12,44,22], 17),
+    new Problem("(20+10)^2", [300, 210, 60, 80], 300),
+    new Problem("2x . 4x", ["6x","6","8x","x^4"], "8x"),
+    new Problem("-5^3", [-15,-125, 45, 3], -125)
 ];
 
+//números reales, expresion decimal de un numero real, racionalizacion
 const NINETH_GRADE_PROBLEMS = [];
+
+//seno, coseno, tangente, angulos
 const TENTH_GRADE_PROBLEMS = [];
+
+//intervalos, funcion cuadratica, logaritmica, exponencial, límite de una función
 const ELEVENTH_GRADE_PROBLEMS = [];
 
 export let getRespectiveProblems = grade => {
@@ -46,12 +47,12 @@ export let getRespectiveProblems = grade => {
 
 export let getNmbOfProblems = function(lvl){
     if (lvl < 8) {
-        return 1;
+        return 5;
     } else if (lvl < 15) {
         return 6;
     } else if (lvl < 22) {
         return 8;
     } else if (lvl <= 25) {
-        return 10;
+        return 1;
     }
 }
