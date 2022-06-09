@@ -30,7 +30,14 @@ Route::middleware([
         session()->put("username", Auth::user()->name);
         return view('dashboard');
     })->name('dashboard');
-    Route::get('/classes', [ClassroomController::class,'showClass'])->name('class.show');
+    Route::controller(ClassroomController::class)->group(function(){
+        Route::get('/classes', 'showClass')->name('class.show');
+        Route::get('/search/classes/', 'searchClass')->name('search.class');
+        Route::post('/join/classes/', 'joinClass')->name('join.class');
+        Route::get('/create/class','create')->name('create.class');
+        Route::post('/create/class','store')->name('create.store');
+
+    });
 
     Route::controller(GameController::class)->group(function(){
         Route::get('juegos','viewGames')->name('games');
@@ -38,9 +45,6 @@ Route::middleware([
         Route::get('comenzar/{game}','initializeProgress')->name('initializeProgress');
         Route::post('guardar/{game}','updateProgress')->name('updateProgress');
     });
-
-    Route::get('/search/classes/', [ClassroomController::class,'searchClass'])->name('search.class');
-    Route::post('/join/classes/', [ClassroomController::class,'joinClass'])->name('join.class');
 
 });
 

@@ -69,9 +69,16 @@ class ClassroomsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $classroom)
+    public function update(Request $request, Classroom $classroom)
     {
-        //
+        $request->validate([
+            'nombre_clase' => 'required|string',
+            'tipo_clase' => 'required|string',
+            'vigente_hasta' => 'required|date',
+            'grado' => 'required',
+        ]);
+        $classroom->update($request->all());
+        return redirect()->route('admin.classrooms.edit',$classroom)->with('info','La clase se actualizó con éxito');
     }
 
     /**
@@ -82,6 +89,7 @@ class ClassroomsController extends Controller
      */
     public function destroy(Classroom $classroom)
     {
-        //
+        $classroom -> delete();
+        return redirect()->route('admin.classrooms.index')->with('info','La clase se eliminó con éxito');
     }
 }

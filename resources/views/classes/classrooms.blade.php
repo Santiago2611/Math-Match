@@ -13,6 +13,7 @@
         </div>
       </div>
     </form>
+    <a class="btn btn-primary btn-sm" href="{{route('create.class')}}">Agregar clase</a>
     @foreach ($images as $image)
     <div class="container py-8">
         <div class="grid grid-cols-3 gap-6">
@@ -20,16 +21,17 @@
             <article class="w-full h-80 bg-cover bg-center" style="background-image: url({{$image->url}}) ">
             </div>
                 <div class="card-body w-full h-full px-8 flex flex-col justify-center">
-                    <h1 class=" text-4x1 text-white leading-8 font-bold text-center"><a href="" class="inline-block px-3 h-6 bg-gray-600 text-black text-center rounded-full">
+                    <h1 class=" text-4x1 text-black leading-8 font-bold text-center">
                     {{$image->nombre_c}}
+                    </h1>
                     <form method="post" action="{{route('join.class')}}">
                         @csrf
                         <input type="hidden" name="clase" value="{{$image->image_id}}">
                         @if (App\Http\Controllers\ClassroomController::getIfAlreadyInClass($image->image_id))
-                            </a></h1><button class="btn btn-secondary" type="submit" disabled>Ya perteneces a esta clase</button><br>
+                            </h1><button class="btn btn-secondary" type="submit" disabled>Ya perteneces a esta clase</button><br><br>
                             <button class="btn btn-primary">Ver más</button>
                             @else
-                        </a></h1><button class="btn btn-secondary" type="submit">Unirse</button><br>
+                        </a></h1><button class="btn btn-secondary" type="submit">Unirse</button><br><br>
                         <button class="btn btn-primary">Ver más</button>
                         @endif
                     </form>

@@ -27,5 +27,18 @@ class ClassroomController extends Controller
         $join = DB::table('user_classroom')->insert(['user_id' => auth()->user()->id, 'classroom_id' => $request->clase]);
         return redirect()->back();
     }
+    public function store(Request $request){
+        $request->validate([
+            'nombre_clase' => 'required|string',
+            'tipo_clase' => 'required|string',
+            'vigente_hasta' => 'required|date',
+            'grado' => 'required',
+        ]);
+        $classroom = Classroom::create($request->all());
+        return redirect()->route('admin.classrooms.edit',$classroom)->with('info','La clase se creó con éxito');
+    }
+    public function create(){
+        return view('classes.create');
+    }
 
 }
