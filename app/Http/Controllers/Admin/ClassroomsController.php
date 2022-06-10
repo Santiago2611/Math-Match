@@ -59,7 +59,7 @@ class ClassroomsController extends Controller
      */
     public function edit(Classroom $classroom)
     {
-        return view ('admin.classes.edit',compact('classroom'));
+        return view ('classes.edit',compact('classroom'));
     }
 
     /**

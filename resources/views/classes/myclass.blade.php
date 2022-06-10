@@ -21,11 +21,17 @@
         <div class="grid grid-cols-3 gap-6">
             <div class="card-header">
             <article class="w-full h-80 bg-cover bg-center" style="background-image: url({{$classroom->url_images}}) ">
+                <form action="{{route('admin.classrooms.destroy',$classroom)}}" method="post">
+                    @csrf
+                    @method('delete')
+                <button type="submit" class="btn btn-outline-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
+                </form>
             </div>
                 <div class="card-body w-full h-full px-8 flex flex-col justify-center">
                     <h1 class=" text-4x1 text-black leading-8 font-bold text-center">
                     {{$classroom->nombre_clase}}
-                         </h1><button class="btn btn-secondary" type="submit">Ingresar a la clase</button><br><br>
+                         </h1><button class="btn btn-primary" type="submit">Ingresar a la clase</button><br><br>
+                                <a class="btn btn-outline-info" href="{{route('admin.classrooms.edit',$classroom)}}"><i class="fa-solid fa-pen-to-square"></i></a>
                 </div>
             </article>
 

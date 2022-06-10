@@ -1,20 +1,11 @@
-@extends('adminlte::page')
-
-@section('title','Estudiantes')
-
-@section('content_header')
+<x-app-layout>
     <h1>Editar clase</h1>
-@stop
-
-@section('content')
     @if (session('info'))
         <div class = "alert alert-success">
             <strong>{{session('info')}}</strong>
         </div>
     @endif
-
 <div class="card">
-    <h1 class="text-center">Editar clase</h1>
     <div class="card-body">
         {!! Form::model($classroom,['route' => ['admin.classrooms.update',$classroom], 'method' => 'put'])!!}
         <div class="form-groud">
@@ -33,7 +24,7 @@
         </div>
         <div class="form-groud">
             {!! Form::label('tipo_clase', 'Tipo de clase') !!}
-            {!! Form::select('tipo_clase', ['Privada','publica'], ['publica','privada'],['class' => 'form-control']) !!}
+            {!! Form::select('tipo_clase', ['Privada'=>'Privada','Pública'=>'Pública'], null,['class' => 'form-control']) !!}
             @error('tipo_clase')
             <span class="text-danger">{{$message}}</span>
             @enderror
@@ -47,7 +38,8 @@
         </div>
         <div class="form-groud">
             {!! Form::label('grado', 'Grado para el cual va dirigido') !!}
-            {!! Form::select('grado', ['8','9','10','11'], ['8','9','10','11'],['class' => 'form-control']) !!}
+            {!! Form::select('grado', ['8'=>8,'9'=>9,'10'=>10,'11'=>11], null,['class' => 'form-control']) !!}
+
             @error('grado')
             <span class="text-danger">{{$message}}</span>
             @enderror
@@ -62,15 +54,6 @@
         {!!Form::close()!!}
     </div>
 </div>
-
-@stop
-
-@section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
-
-@stop
-
-@section('js')
 <script src="{{asset('vendor/jQuery-Plugin-stringToSlug-1.3/jquery.StringToSlug.min.js')}}"></script>
 <script>
     $(document).ready( function() {
@@ -81,5 +64,4 @@
     });
     });
 </script>
-@stop
-
+</x-app-layout>
