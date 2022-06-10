@@ -25,6 +25,7 @@
                         <th>Tipo clase</th>
                         <th>Fecha de vigencia</th>
                         <th>Fecha de creación</th>
+                        <th>Docente</th>
                         <th colspan="2"></th>
                     </tr>
                     <tbody>
@@ -36,6 +37,7 @@
                                 <td>{{$classroom->tipo_clase}}</td>
                                 <td>{{$classroom->vigente_hasta}}</td>
                                 <td>{{$classroom->created_at}}</td>
+                                <td>{{$classroom->teacher_id}}</td>
                                 <td width="10px">
                                     <a class="btn btn-primary btn-sm" href="{{route('admin.classrooms.edit',$classroom)}}">Editar</a>
                                 </td>

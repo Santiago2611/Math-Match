@@ -14,27 +14,18 @@
       </div>
     </form>
     <a class="btn btn-primary btn-sm" href="{{route('teacher.classrooms.create')}}">Agregar clase</a>
-    @foreach ($images as $image)
+    <h1 class="text-center">Tus clases</h1>
+    @if($classrooms)
+    @foreach ($classrooms as $classroom)
     <div class="container py-8">
         <div class="grid grid-cols-3 gap-6">
             <div class="card-header">
-            <article class="w-full h-80 bg-cover bg-center" style="background-image: url({{$image->url_images}}) ">
+            <article class="w-full h-80 bg-cover bg-center" style="background-image: url({{$classroom->url_images}}) ">
             </div>
                 <div class="card-body w-full h-full px-8 flex flex-col justify-center">
                     <h1 class=" text-4x1 text-black leading-8 font-bold text-center">
-                    {{$image->nombre_clase}}
-                    </h1>
-                    <form method="post" action="{{route('join.class')}}">
-                        @csrf
-                        <input type="hidden" name="clase" value="{{$image->id}}">
-                        @if (App\Http\Controllers\ClassroomController::getIfAlreadyInClass($image->id))
-                            </h1><button class="btn btn-secondary" type="submit" disabled>Ya perteneces a esta clase</button><br><br>
-                            <button class="btn btn-primary">Ingresa a la clase</button>
-                            @else
-                        </a></h1><button class="btn btn-secondary" type="submit">Unirse</button><br><br>
-                        <button class="btn btn-primary">Ver más</button>
-                        @endif
-                    </form>
+                    {{$classroom->nombre_clase}}
+                         </h1><button class="btn btn-secondary" type="submit">Ingresar a la clase</button><br><br>
                 </div>
             </article>
 
@@ -43,5 +34,8 @@
     </div>
     <hr>
 @endforeach
+@else
+    <h1>Aún no tienes cursos</h1>
+@endif
 </x-app-layout>
 

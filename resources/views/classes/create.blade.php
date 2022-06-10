@@ -7,7 +7,8 @@
     <div class="card">
         <h1 class="text-center">Crear una clase</h1>
         <div class="card-body">
-            {!! Form::open(['route' => 'create.store'])!!}
+            {!! Form::open(['route' => 'teacher.classrooms.store'])!!}
+            {!! Form::hidden('teacher_id', auth()->user()->id) !!}
             <div class="form-groud">
                 {!! Form::label('nombre_clase', 'Nombre') !!}
                 {!! Form::text('nombre_clase', null,['class' => 'form-control','placeholder' => 'Ingrese el nombre de la clase']) !!}
@@ -24,7 +25,7 @@
             </div>
             <div class="form-groud">
                 {!! Form::label('tipo_clase', 'Tipo de clase') !!}
-                {!! Form::select('tipo_clase', ['Privada','publica'], ['publica','privada'],['class' => 'form-control']) !!}
+                {!! Form::select('tipo_clase', ['Privada'=>'Privada','publica'=>'Pública'], null,['class' => 'form-control']) !!}
                 @error('tipo_clase')
                 <span class="text-danger">{{$message}}</span>
                 @enderror
@@ -38,7 +39,7 @@
             </div>
             <div class="form-groud">
                 {!! Form::label('grado', 'Grado para el cual va dirigido') !!}
-                {!! Form::select('grado', ['8','9','10','11'], ['8','9','10','11'],['class' => 'form-control']) !!}
+                {!! Form::select('grado', ['8'=> 8, '9' => 9, '10' =>10, '11'=>11], null,['class' => 'form-control']) !!}
                 @error('grado')
                 <span class="text-danger">{{$message}}</span>
                 @enderror

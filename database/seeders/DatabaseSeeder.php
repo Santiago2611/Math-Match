@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         Storage::makeDirectory('public/classrooms');
-        $this->call(ClassroomSeeder::class);
+        $this->call(ImageSeeder::class);
 
         $this->call(RoleSeeder::class);
     }

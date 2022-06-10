@@ -34,9 +34,7 @@ Route::middleware([
         Route::get('/classes', 'showClass')->name('class.show');
         Route::get('/search/classes/', 'searchClass')->name('search.class');
         Route::post('/join/classes/', 'joinClass')->name('join.class');
-        Route::get('/create/class','create')->name('create.class');
-        Route::post('/create/class','store')->name('create.store');
-
+        Route::resource('classrooms',ClassroomController::class)->names('teacher.classrooms');
     });
 
     Route::controller(GameController::class)->group(function(){
