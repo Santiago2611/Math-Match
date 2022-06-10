@@ -122,6 +122,7 @@
 </style>
 
 <input type="hidden" id="level" value="{{ $level }}">
+<input type="hidden" id="grade" value="{{ auth()->user()->group }}">
 <input type="hidden" id="token" value="{{ csrf_token() }}">
 <div class="container-xl">
     <div class="header">

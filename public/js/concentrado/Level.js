@@ -21,15 +21,15 @@ export class Level {
         return order;
     }
 
-    constructor(problems, nmbOfProblems, g, lvl, pr) {
+    constructor(problems, nmbOfProblems, g, lvl) {
         this.problems = problems; //objeto con los problemas
         this.nmbOfProblems = nmbOfProblems; //numero de problemas que tendrá el nivel
         this.order = this.getRandomOrder();
         this.actualIndex = 0; //índice de la operación actual
         console.log("level info:");
-        console.log("problems: "+this.order);
+        console.log("problem order: "+this.order);
         console.log("player grade: "+g);
-        console.log("level: "+lvl+", number of problems: "+pr);
+        console.log("level: "+lvl+", number of problems: "+nmbOfProblems);
     }
 
 }

@@ -20,7 +20,7 @@
         }
 
         .game * {
-            margin-right: 7%;
+            margin-right: 6%;
             font-size: 1.2em;
             display: inline;
         }
@@ -58,19 +58,23 @@
             </div>
             <button type="button" style="background: #EBAF61" onclick="showInstructions(0);">
                 Instrucciones <i id="i" class="fas fa-chevron-down" style="font-size: 0.7em;"></i></button>
-            <button type="button" style="background: #3491c0">
-                <a href="{{ ($progresses['concentrado'] == null) ? url('comenzar/concentrado') : route('concentrado') }}" id="link">
-                    Jugar
-                </a>
-            </button>
+            @if ($progresses["concentrado"] <= 25)
+                <button type="button" style="background: #3491c0">
+                    <a href="{{ ($progresses['concentrado'] == null) ? url('comenzar/concentrado') : route('concentrado') }}">
+                        Jugar
+                    </a>
+                </button>
+            @else
+                <button type="button" style="background: gray" disabled>Terminaste</button>
+            @endif
             <div class="progress">
                 <p>
                     @if ($progresses["concentrado"] == null)
                         Aún no has empezado a jugar
-                    @elseif ($progresses["concentrado"] >= 25)
-                        Juego terminado <i class="fa-solid fa-medal"></i>
-                    @else
+                    @elseif ($progresses["concentrado"] <= 25)
                         Progreso: nivel {{$progresses["concentrado"]}}
+                    @else
+                        Juego terminado <i class="fa-solid fa-medal"></i>
                     @endif
                 </p>
             </div><br>
@@ -83,12 +87,6 @@
     </div>
 
     <script>
-        var btn = document.getElementById("link");
-        if ("<?php echo $progresses['concentrado']; ?>" >= 25) {
-            btn.setAttribute("href","#");
-            btn.style.pointerEvents = "none";
-        }
-
         let showInstructions = target => {
             var gameInstructions = document.getElementsByClassName("game")[target].lastElementChild; //<p> de las instrucciones
             var icon = document.getElementById("i");
@@ -96,7 +94,6 @@
             gameInstructions.style.display = (isShown) ? "none" : "block";
             icon.setAttribute("class", (isShown) ? "fas fa-chevron-down" : "fas fa-chevron-up");
         }
-
     </script>
 
 </x-app-layout>
