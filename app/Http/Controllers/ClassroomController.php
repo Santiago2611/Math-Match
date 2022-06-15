@@ -34,6 +34,7 @@ class ClassroomController extends Controller
             'tipo_clase' => 'required|string',
             'vigente_hasta' => 'required|date',
             'grado' => 'required',
+            'slug' => 'required'
         ]);
         $classroom = Classroom::create($request->all());
         return redirect()->route('admin.classrooms.edit',$classroom)->with('info','La clase se creó con éxito');
