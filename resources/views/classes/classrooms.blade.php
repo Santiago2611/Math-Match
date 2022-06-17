@@ -22,19 +22,19 @@
             </div>
                 <div class="card-body w-full h-full px-8 flex flex-col justify-center">
                     <h1 class=" text-4x1 text-black leading-8 font-bold text-center">
-                    {{$image->nombre_clase}}
+                        {{$image->nombre_clase}}
                     </h1>
-                    <form method="post" action="{{route('join.class')}}">
-                        @csrf
-                        <input type="hidden" name="clase" value="{{$image->id}}">
+                    <p style="color: gray">{{$image->descripcion_clase}}</p>
+                    <p>Docente: <b>nombre del docente</b></p>
+
+                    <form action="{{route('see.class', $image->id)}}" method="get">
                         @if (App\Http\Controllers\ClassroomController::getIfAlreadyInClass($image->id))
-                            </h1><button class="btn btn-secondary" type="submit" disabled>Ya perteneces a esta clase</button><br><br>
-                            <button class="btn btn-primary">Ingresa a la clase</button>
-                            @else
-                        </a></h1><button class="btn btn-secondary" type="submit">Unirse</button><br><br>
-                        <button class="btn btn-primary">Ver más</button>
+                            <button class="btn btn-primary" type="submit">Ir a la clase</button>
+                        @else
+                            <button class="btn btn-secondary" type="submit">Ver más</button>
                         @endif
                     </form>
+
                 </div>
             </article>
 

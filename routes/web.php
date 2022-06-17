@@ -25,16 +25,20 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
+
     Route::get('/dashboard', function () {
         session()->put("userid", Auth::user()->id);
         session()->put("username", Auth::user()->name);
         return view('dashboard');
     })->name('dashboard');
+
     Route::controller(ClassroomController::class)->group(function(){
-        Route::get('/classes', 'showClass')->name('class.show');
-        Route::get('/search/classes/', 'searchClass')->name('search.class');
-        Route::post('/join/classes/', 'joinClass')->name('join.class');
-        Route::resource('classrooms',ClassroomController::class)->names('teacher.classrooms');
+        Route::get('/clases', 'showClasses')->name('class.show');
+        Route::get('/buscar/clases/', 'searchClass')->name('search.class');
+        Route::post('/unirse/clases/', 'joinClass')->name('join.class');
+        Route::delete('/abandonar/clases/', 'leaveClass')->name('leave.class');
+        Route::resource('classrooms', ClassroomController::class)->names('teacher.classrooms');
+        Route::get('/clases/{id}', 'seeClass')->name('see.class');
     });
 
     Route::controller(GameController::class)->group(function(){
