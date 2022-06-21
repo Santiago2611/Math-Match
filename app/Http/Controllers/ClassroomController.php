@@ -62,6 +62,17 @@ class ClassroomController extends Controller
         $classrooms = Classroom::where('teacher_id',auth()->user()->id)->get();
         return view('classes.myclass',compact('classrooms'));
     }
+    public function updateStatus(Request $request){
+        $NotiUpdate = Classroom::findOrFail($request->id)->update(['status' => $request->estatus]);
+
+    if($request->estatus == 0)  {
+        $newStatus = '<br> <button type="button" class="btn btn-sm btn-danger">Inactiva</button>';
+    }else{
+        $newStatus ='<br> <button type="button" class="btn btn-sm btn-success">Activa</button>';
+    }
+
+    return response()->json(['var'=>''.$newStatus.'']);
+    }
     public function edit(Classroom $classroom){
 
     }

@@ -17,14 +17,40 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-        $role1 = Role::create(['name'=>'admin']);
-        $role2 = Role::create(['name' => 'teacher']);
-        $role3 = Role::create(['name' => 'student']);
+        $role1 = Role::create(['name'=>'Admin']);
+        $role2 = Role::create(['name' => 'Teacher']);
+        $role3 = Role::create(['name' => 'Student']);
 
-        Permission::create(['name' => 'admin.home'])->assignRole($role1);
-        Permission::create(['name' => 'createTeacher'])->assignRole($role1);
-        Permission::create(['name' => 'createClassroom']);
-        Permission::create(['name' => 'classroom.destroy']);
+        Permission::create(['name' => 'admin.home'])->syncRoles([$role1]);
+        Permission::create(['name' => 'admin.users.edit'])->syncRoles([$role1]);
+        Permission::create(['name' => 'admin.users.update'])->syncRoles([$role1]);
+        Permission::create(['name' => 'admin.users.index'])->syncRoles([$role1]);
+        Permission::create(['name' => 'admin.classrooms.edit'])->syncRoles([$role1]);
+        Permission::create(['name' => 'admin.classrooms.update'])->syncRoles([$role1]);
+        Permission::create(['name' => 'admin.classrooms.index'])->syncRoles([$role1]);
+        Permission::create(['name' => 'admin.classrooms.destroy'])->syncRoles([$role1]);
+
+        Permission::create(['name' => 'class.show'])->syncRoles([$role2,$role3]);
+        Permission::create(['name' => 'search.class'])->syncRoles([$role2,$role3]);
+        Permission::create(['name' => 'join.class'])->syncRoles([$role3]);
+        Permission::create(['name' => 'leave.class'])->syncRoles([$role3]);
+        Permission::create(['name' => 'teacher.classroom'])->syncRoles([$role2]);
+        Permission::create(['name' => 'create.publication'])->syncRoles([$role2]);
+        Permission::create(['name' => 'create.reply'])->syncRoles([$role2,$role3]);
+        Permission::create(['name' => 'games'])->syncRoles([$role3]);
+        Permission::create(['name' => 'concentrado'])->syncRoles([$role3]);
+        Permission::create(['name' => 'initializeProgress'])->syncRoles([$role3]);
+        Permission::create(['name' => 'updateProgress'])->syncRoles([$role2,$role3]);
+
+
+
+
+
+
+
+
+
+        
 
 
     }

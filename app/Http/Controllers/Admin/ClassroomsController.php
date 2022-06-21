@@ -87,9 +87,16 @@ class ClassroomsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Classroom $classroom)
+    public function destroy(Request $request)
     {
-        $classroom -> delete();
-        return redirect()->route('admin.classrooms.index')->with('info','La clase se eliminó con éxito');
-    }
+       
+        $NotiUpdate = Classroom::findOrFail($request->id)->update(['status' => $request->estatus]);
+
+        if($request->estatus == 0)  {
+            $newStatus = '<br> <button type="button" class="btn btn-sm btn-danger">Inactiva</button>';
+        }else{
+            $newStatus ='<br> <button type="button" class="btn btn-sm btn-success">Activa</button>';
+        }
+    
+        return response()->json(['var'=>''.$newStatus.'']);    }
 }

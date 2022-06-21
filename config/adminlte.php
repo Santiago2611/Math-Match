@@ -251,13 +251,8 @@ return [
             'icon' => 'fab fa-fw fa-buffer',
         ],
         [
-            'text' => 'Ver estudiantes',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fa fa-user',
-        ],
-        [
-            'text' => 'Ver docentes',
-            'route'  => 'admin.teachers.index',
+            'text' => 'Ver usuarios',
+            'route'  => 'admin.users.index',
             'icon' => 'fas fa-fa fa-user',
         ],
         ['header' => 'labels'],
