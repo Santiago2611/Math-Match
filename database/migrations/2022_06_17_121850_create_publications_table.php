@@ -15,9 +15,10 @@ return new class extends Migration
     {
         Schema::create('publications', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('classroom_id')->constrained('classrooms');
             $table->foreignId('user_id');
-            $table->string('publication_content');
-            $table->binary('attached_file');
+            $table->string('mensaje_publicacion');
+            $table->binary('archivo_adjunto')->nullable();
             $table->timestamps();
         });
     }
