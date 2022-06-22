@@ -40,6 +40,7 @@ Route::middleware([
         Route::delete('/abandonar/clases/', 'leaveClass')->name('leave.class');
         Route::resource('classrooms', ClassroomController::class)->names('teacher.classrooms');
         Route::get('/clases/{id}', 'seeClass')->name('see.class');
+        Route::get('/status/update','updateStatus')->name('update.status');
     });
 
     Route::controller(GameController::class)->group(function(){

@@ -9,6 +9,7 @@
         <div class="card-body">
             {!! Form::open(['route' => 'teacher.classrooms.store'])!!}
             {!! Form::hidden('teacher_id', auth()->user()->id) !!}
+            {!! Form::hidden('status', 1) !!}
             <div class="form-groud">
                 {!! Form::label('nombre_clase', 'Nombre') !!}
                 {!! Form::text('nombre_clase', null,['class' => 'form-control','placeholder' => 'Ingrese el nombre de la clase']) !!}

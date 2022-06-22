@@ -22,7 +22,8 @@ class DatabaseSeeder extends Seeder
     {
         Storage::makeDirectory('public/classrooms');
         $this->call(ImageSeeder::class);
-
         $this->call(RoleSeeder::class);
+        $this->call(UserSeeder::class);
+
     }
 }
