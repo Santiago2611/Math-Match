@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Classroom;
 use App\Models\Image;
+use App\Models\Publication;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -11,15 +12,20 @@ use Illuminate\Http\Request;
 class ClassroomController extends Controller
 {
     public function showClasses(){
-        $image = new Classroom();
-        $images = Classroom::where('grado',auth()->user()->group)->get();
-        return view('classes.classrooms' ,compact('images'));
+        $classrooms = Classroom::where('grado',auth()->user()->group)->get();
+        return view('classes.classrooms' ,compact('classrooms'));
     }
 
     public function seeClass($id){
         $classInfo = Classroom::where('id', $id)->first();
+        $hasSentJoinRequest = DB::table('join_requests')->where('user_id',auth()->user()->id)
+            ->where('classroom_id',$id)
+            ->where('estado','enviada')->count() > 0;
         $inClass = DB::table('user_classroom')->where('user_id',auth()->user()->id)->where('classroom_id',$id)->count() > 0;
-        return view('classes.class', compact('classInfo','inClass'));
+        $publications = Publication::join('users', 'publications.user_id','=','users.id')
+            ->where('publications.classroom_id', $id)
+            ->get(['name','last','profile_photo_path','mensaje_publicacion','archivo_adjunto']);
+        return view('classes.class', compact('classInfo','inClass','publications','hasSentJoinRequest'));
     }
 
     public static function getIfAlreadyInClass($class){
@@ -33,7 +39,19 @@ class ClassroomController extends Controller
     }
 
     public function joinClass(Request $request){
-        $join = DB::table('user_classroom')->insert(['user_id' => auth()->user()->id, 'classroom_id' => $request->class]);
+        DB::table('user_classroom')->insert(['user_id' => auth()->user()->id, 'classroom_id' => $request->class]);
+        return redirect()->back();
+    }
+
+    public function sendJoinRequest(Request $request){
+        DB::table('join_requests')->insert(['user_id' => auth()->user()->id, 'classroom_id' => $request->class]);
+        return redirect()->back();
+    }
+
+    public function cancelJoinRequest(Request $request){
+        DB::table('join_requests')->where('user_id', auth()->user()->id)
+            ->where('classroom_id', $request->class)
+            ->delete();
         return redirect()->back();
     }
 

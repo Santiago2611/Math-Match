@@ -37,6 +37,8 @@ Route::middleware([
         Route::get('/clases', 'showClasses')->name('class.show');
         Route::get('/buscar/clases/', 'searchClass')->name('search.class');
         Route::post('/unirse/clases/', 'joinClass')->name('join.class');
+        Route::post('/unirse/clases/privada', 'sendJoinRequest')->name('class.joinRequest');
+        Route::post('/clases/cancelarPeticion', 'cancelJoinRequest')->name('class.cancelJoinRequest');
         Route::delete('/abandonar/clases/', 'leaveClass')->name('leave.class');
         Route::resource('classrooms', ClassroomController::class)->names('teacher.classrooms');
         Route::get('/clases/{id}', 'seeClass')->name('see.class');
@@ -50,7 +52,6 @@ Route::middleware([
         Route::post('guardar/{game}','updateProgress')->name('updateProgress');
     });
 
-    
     Route::controller(PublicationController::class)->group(function(){
         Route::get('clases/{id}/publicar','create')->name('classroom.publicate');
         Route::post('clases/guardarPublicacion','store')->name('classroom.publication.save');

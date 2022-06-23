@@ -3,22 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Publication;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class PublicationController extends Controller
 {
-    
-    public function index($classId){
-        $publications = Publication::where('classroom_id', $classId);
-        return $publications;
-    }
+    //método index no usado por ahora, ya que las publicaciones se llaman desde ClassroomController
 
-    public function create(){
-        return view('classes/newPublication');
+    public function create($classId){
+        return view('classes/newPublication', compact('classId'));
     }
 
     public function store(Request $request){
         $publication = Publication::insert(request()->except('_token'));
-        return redirect()->back();
+        return redirect()->route('see.class', $request->classroom_id)->with('info','Publicación creada con éxito');
     }
 }

@@ -14,21 +14,21 @@
       </div>
     </form>
     <a class="btn btn-primary btn-sm" href="{{route('teacher.classrooms.create')}}">Agregar clase</a>
-    @foreach ($images as $image)
-    <div class="container py-8">
+    @foreach ($classrooms as $class)
+    <div class="container py-8 border border-1">
         <div class="grid grid-cols-3 gap-6">
             <div class="card-header">
-            <article class="w-full h-80 bg-cover bg-center" style="background-image: url({{$image->url_images}}) ">
+            <article class="w-full h-80 bg-cover bg-center" style="background-image: url({{$class->url_images}}) ">
             </div>
                 <div class="card-body w-full h-full px-8 flex flex-col justify-center">
                     <h1 class=" text-4x1 text-black leading-8 font-bold text-center">
-                        {{$image->nombre_clase}}
+                        {{$class->nombre_clase." (".$class->tipo_clase.")"}}
                     </h1>
-                    <p style="color: gray">{{$image->descripcion_clase}}</p>
+                    <p style="color: gray">{{$class->descripcion_clase}}</p>
                     <p>Docente: <b>nombre del docente</b></p>
 
-                    <form action="{{route('see.class', $image->id)}}" method="get">
-                        @if (App\Http\Controllers\ClassroomController::getIfAlreadyInClass($image->id))
+                    <form action="{{route('see.class', $class->id)}}" method="get">
+                        @if (App\Http\Controllers\ClassroomController::getIfAlreadyInClass($class->id))
                             <button class="btn btn-primary" type="submit">Ir a la clase</button>
                         @else
                             <button class="btn btn-secondary" type="submit">Ver más</button>
