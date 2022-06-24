@@ -10,6 +10,7 @@ use Livewire\WithPagination;
 class ClassroomIndex extends Component
 {
     public $search;
+
     use WithPagination;
 
     protected $paginationTheme = "bootstrap";

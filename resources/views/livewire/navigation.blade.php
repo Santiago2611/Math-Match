@@ -37,9 +37,15 @@
 
               <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
               <a href="{{route('dashboard')}}" class="text-white px-3 py-2 rounded-md text-sm font-medium"  aria-current="page">Inicio</a>
+<<<<<<< HEAD
                 @can('class.show')
                 <a href="{{route('class.show')}}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Clases</a>
                 @endcan
+=======
+
+              <a href="{{route('class.show')}}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Clases</a>
+
+>>>>>>> 537fbd146f137e67a015530c9b511e7959ea791e
               <a href="{{route('teacher.classrooms.index')}}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Mis clases</a>
 
               <a href="{{route('games')}}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Juegos</a>
@@ -76,9 +82,13 @@
             <div x-show="open" x-on:click.away="open = false" class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
               <!-- Active: "bg-gray-100", Not Active: "" -->
               <a href="{{ route('profile.show') }}" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Tu perfil</a>
+<<<<<<< HEAD
                 @can('admin.home')
                 <a href="{{ route('admin.home') }}" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Panel admin</a>
                 @endcan
+=======
+              <a href="{{ route('admin.home') }}" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Panel admin</a>
+>>>>>>> 537fbd146f137e67a015530c9b511e7959ea791e
               <form method="POST" action="{{ route('logout') }}" x-data>
                 @csrf
 
@@ -95,6 +105,7 @@
     <div class="sm:hidden" id="mobile-menu" x-show="open" x-on:click.away="open = false">
       <div class="px-2 pt-2 pb-3 space-y-1">
         <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+<<<<<<< HEAD
         <a href="{{route('dashboard')}}" class="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium" aria-current="page">Inicio</a>
 
         <a href="{{route('class.show')}}" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Ver clases</a>
@@ -102,6 +113,15 @@
         <a href="{{route('teacher.classrooms.index')}}" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Mis clases</a>
 
         <a href="{{route('games')}}" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Juegos</a>
+=======
+        <a href="{{route('dashboard')}}" class="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium" aria-current="page">Dashboard</a>
+
+        <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Team</a>
+
+        <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Projects</a>
+
+        <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Calendar</a>
+>>>>>>> 537fbd146f137e67a015530c9b511e7959ea791e
       </div>
     </div>
   </nav>

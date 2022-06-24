@@ -13,12 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('publications', function (Blueprint $table) {
+        Schema::create('join_requests', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('classroom_id')->constrained('classrooms');
             $table->foreignId('user_id');
-            $table->string('mensaje_publicacion');
-            $table->binary('archivo_adjunto')->nullable();
+            $table->foreignId('classroom_id');
+            $table->string('estado', 35)->default('enviada');
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('publications');
+        Schema::dropIfExists('join_requests');
     }
 };

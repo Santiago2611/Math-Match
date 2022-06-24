@@ -13,6 +13,7 @@
         </div>
       </div>
     </form>
+<<<<<<< HEAD
     @foreach ($images as $image)
     <div class="container py-8">
         <div class="grid grid-cols-3 gap-6">
@@ -28,6 +29,24 @@
 
                     <form action="{{route('see.class', $image->id)}}" method="get">
                         @if (App\Http\Controllers\ClassroomController::getIfAlreadyInClass($image->id))
+=======
+    <a class="btn btn-primary btn-sm" href="{{route('teacher.classrooms.create')}}">Agregar clase</a>
+    @foreach ($classrooms as $class)
+    <div class="container py-8 border border-1">
+        <div class="grid grid-cols-3 gap-6">
+            <div class="card-header">
+            <article class="w-full h-80 bg-cover bg-center" style="background-image: url({{$class->url_images}}) ">
+            </div>
+                <div class="card-body w-full h-full px-8 flex flex-col justify-center">
+                    <h1 class=" text-4x1 text-black leading-8 font-bold text-center">
+                        {{$class->nombre_clase." (".$class->tipo_clase.")"}}
+                    </h1>
+                    <p style="color: gray">{{$class->descripcion_clase}}</p>
+                    <p>Docente: <b>nombre del docente</b></p>
+
+                    <form action="{{route('see.class', $class->id)}}" method="get">
+                        @if (App\Http\Controllers\ClassroomController::getIfAlreadyInClass($class->id))
+>>>>>>> 537fbd146f137e67a015530c9b511e7959ea791e
                             <button class="btn btn-primary" type="submit">Ir a la clase</button>
                         @else
                             <button class="btn btn-secondary" type="submit">Ver más</button>
@@ -42,8 +61,11 @@
     </div>
     <hr>
 @endforeach
+<<<<<<< HEAD
 <div class="card-footer">
     {{$images->links()}}
 </div>
+=======
+>>>>>>> 537fbd146f137e67a015530c9b511e7959ea791e
 </x-app-layout>
 

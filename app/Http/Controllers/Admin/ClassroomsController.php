@@ -28,12 +28,14 @@ class ClassroomsController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
 
     /**
      * Display the specified resource.
@@ -85,6 +87,7 @@ class ClassroomsController extends Controller
     public function destroy(Request $request)
     {
 
+
         $NotiUpdate = Classroom::findOrFail($request->id)->update(['status' => $request->estatus]);
 
         if($request->estatus == 0)  {
@@ -92,6 +95,7 @@ class ClassroomsController extends Controller
         }else{
             $newStatus ='<br> <button type="button" class="btn btn-sm btn-success">Activa</button>';
         }
+
 
         return response()->json(['var'=>''.$newStatus.'']);    }
 }
