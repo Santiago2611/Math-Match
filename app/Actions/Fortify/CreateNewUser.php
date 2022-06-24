@@ -42,11 +42,7 @@ class CreateNewUser implements CreatesNewUsers
                 'password' => Hash::make($input['password']),
             ]), function (User $user) {
                 $this->createTeam($user);
-<<<<<<< HEAD
             })->assignRole('Student');
-=======
-            });
->>>>>>> 537fbd146f137e67a015530c9b511e7959ea791e
         });
     }
 

@@ -1,8 +1,5 @@
 <x-app-layout>
 
-<<<<<<< HEAD
-    <div class="container d-flex justify-content-between bg-success mt-4 p-2">
-=======
     <style>
         .photo {
             width: 150px;
@@ -21,21 +18,12 @@
     </style>
 
     <div class="container d-flex justify-content-between mt-4 p-2" style="background: #38a6c2;">
->>>>>>> 537fbd146f137e67a015530c9b511e7959ea791e
         <div>
             <h1>Clase {{$classInfo->nombre_clase}} </h1>
             <h3>Regida por el docente Luis Ejemplo</h3>
         </div>
         <b>{{$classInfo->tipo_clase}}</b>
     </div>
-<<<<<<< HEAD
-    <div class="container py-2" style="background: lightgray">
-        @if (!$inClass)
-            <form action="{{ route('join.class', ['class' => $classInfo->id]) }}" method="post"> @csrf
-                <button type="submit" class="btn btn-primary p-1"><i class="fas fa-add"></i> Unirse</button>
-            </form>
-        @else
-=======
 
     <div class="container py-2 border-top d-flex" style="background: #40b8d6;">
         @if (!$inClass)
@@ -58,17 +46,10 @@
             <a href="{{ route('classroom.publicate', $classInfo->id) }}">
                 <button class="btn btn-secondary mr-2">Hacer publicación</button>
             </a>
->>>>>>> 537fbd146f137e67a015530c9b511e7959ea791e
             <!-- hay que darle el método post en el form, y añadir la propiedad method('delete')
                 , sinó, no funcionará y lo tomará como método get -->
             <form action="{{ route('leave.class', ['class' => $classInfo->id]) }}" method="post"> @csrf
                 @method('delete')
-<<<<<<< HEAD
-                <button type="submit" class="btn btn-danger p-1"><i class="fas fa-xmark"></i> Abandonar clase</button>
-            </form>
-        @endif
-    </div>
-=======
                 <button type="submit" class="btn btn-danger"><i class="fas fa-xmark"></i> Abandonar clase</button>
             </form>
         @endif
@@ -82,6 +63,9 @@
     
     <div class="container rounded mt-4 py-2" style="background: lightgray;">
         @if ($inClass)
+            @if ($publications->count() == 0)
+                <br><p>Aún no hay publicaciones.</p>
+            @endif
             @foreach ($publications as $publication)
                 <div class="card d-flex my-3 p-2 flex-row">
                     <div class="photo">
@@ -106,5 +90,4 @@
         @endif
     </div>
 
->>>>>>> 537fbd146f137e67a015530c9b511e7959ea791e
 </x-app-layout>

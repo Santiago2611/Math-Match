@@ -5,13 +5,10 @@
     </div>
 @endif
 <div class="card">
-<<<<<<< HEAD
     <div class="card-header">
         <input wire:model="search" class="form-control" placeholder="Ingrese el nombre de la clase">
     </div>
     @if ($classrooms->count())
-=======
->>>>>>> 537fbd146f137e67a015530c9b511e7959ea791e
     <div class="card-body">
         <table class="table table-striped" id="clases">
             <thead>
@@ -63,7 +60,6 @@
     <div class="card-footer">
         {{$classrooms->links()}}
     </div>
-<<<<<<< HEAD
     @else
 
             <div class="card-body">
@@ -71,8 +67,6 @@
             </div>
 
         @endif
-=======
->>>>>>> 537fbd146f137e67a015530c9b511e7959ea791e
 </div>
 
 </div>
