@@ -35,14 +35,17 @@ Route::middleware([
 
     Route::controller(ClassroomController::class)->group(function(){
         Route::get('/clases', 'showClasses')->name('class.show');
-        Route::get('/buscar/clases/', 'searchClass')->name('search.class');
+        Route::get('/clases/buscar', 'searchClass')->name('search.class');
         Route::post('/unirse/clases/', 'joinClass')->name('join.class');
         Route::post('/unirse/clases/privada', 'sendJoinRequest')->name('class.joinRequest');
         Route::post('/clases/cancelarPeticion', 'cancelJoinRequest')->name('class.cancelJoinRequest');
         Route::delete('/abandonar/clases/', 'leaveClass')->name('leave.class');
         Route::resource('classrooms', ClassroomController::class)->names('teacher.classrooms');
-        Route::get('/clases/{id}', 'seeClass')->name('see.class');
+        Route::get('clases/misClases','showStudentClasses')->name('student.seeClasses');
         Route::get('/status/update','updateStatus')->name('update.status');
+        Route::get('/docentes/notificaciones','showJoinRequests')->name('teacher.joinRequests');
+        Route::post('clases/responderSolicitud','replyJoinRequest')->name('teacher.replyJoinRequest');
+        Route::get('/clases/{id}', 'seeClass')->name('see.class');
     });
 
     Route::controller(GameController::class)->group(function(){
