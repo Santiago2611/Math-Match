@@ -17,7 +17,8 @@
                         <th>ID</th>
                         <th>Nombre</th>
                         <th>Email</th>
-                        <th></th>
+                        <th>Estado</th>
+                        <th colspan="2" >Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -26,8 +27,29 @@
                     <td>{{$user->id}}</td>
                     <td>{{$user->name}}</td>
                     <td>{{$user->email}}</td>
+                    <td>
+                        <form action="{{route('update.status.user')}}" method="post">
+                        @csrf
+                        @method('put')
+                            <input type="hidden" name="id" value="{{$user->id}}">
+                            <input type="hidden" name="status" value="{{$user->status}}">
+                        @if($user->status == true)
+                            <button class="jsgrid-button btn btn-success" type="submit">Activa <i class="fas fa-check"></i></button>
+                        @else
+                            <button class="jsgrid-button btn btn-danger" type="submit">Inactiva <i class="fas fa-times"></i></button>
+                        @endif
+                        </form>
+                    </td>
                     <td width="10px">
                         <a class="btn btn-primary" href="{{route('admin.users.edit',$user)}}">Editar</a>
+
+                    </td>
+                    <td width="10px">
+                        <form action="{{route('admin.users.destroy',$user)}}" method="post">
+                            @csrf
+                            @method('delete')
+                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                        </form>
                     </td>
                     </tr>
                     @endforeach

@@ -13,13 +13,9 @@
         </div>
       </div>
     </form>
-<<<<<<< HEAD
     @can('teacher.classrooms.create')
-    <a class="btn btn-primary btn-sm" href="{{route('teacher.classrooms.create')}}">Agregar clase</a>
+    <a class00="btn btn-primary btn-sm" href="{{route('teacher.classrooms.create')}}">Agregar clase</a>
     @endcan
-=======
-    <a class="btn btn-primary btn-sm" href="{{route('teacher.classrooms.create')}}">Agregar clase</a>
->>>>>>> 537fbd146f137e67a015530c9b511e7959ea791e
     <h1 class="text-center">Tus clases</h1>
     @if($classrooms)
     @foreach ($classrooms as $classroom)

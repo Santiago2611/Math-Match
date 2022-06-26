@@ -3,26 +3,27 @@
 namespace App\Http\Livewire\Admin;
 
 use App\Models\Classroom;
-use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class ClassroomIndex extends Component
 {
-    public $search;
 
     use WithPagination;
 
+    public $search;
     protected $paginationTheme = "bootstrap";
 
-    public function updatinSearch(){
+    public function updatingSearch(){
         $this->resetPage();
     }
 
     public function render()
     {
-        $classrooms = Classroom::where('nombre_clase', 'LIKE' , '%' . $this->search . '%')
-        ->paginate();
-        return view('livewire.admin.classroom-index', compact('classrooms'));
+        return view('livewire.admin.classroom-index',[
+            'classrooms' => Classroom::where('nombre_clase', 'like','%' . $this->search.'%')
+            ->paginate(10),
+        ]);
     }
 }

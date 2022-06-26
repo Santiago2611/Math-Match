@@ -7,6 +7,7 @@
 @stop
 
 @section('content')
+@livewireScripts()
     @livewire('admin.users-index')
 @stop
 

@@ -87,6 +87,21 @@ class UserController extends Controller
         $user->roles()->sync($request->roles);
         return redirect()->route('admin.users.edit',$user)->with('info','Se asignó el rol correctamente');
     }
+    public function updateStatus(Request $request){
+        $user = $request->status;
+        if($user == true){
+            $user = false;
+        }else{
+            $user = true;
+        }
+        User::findOrFail($request->id)->update(['status' => $user]);
+            return redirect()->back()->with('info','Cambio de estado éxitoso');
+
+    }
+    public function destroy(User $user){
+        $user->delete();
+        return redirect()->back()->with('info','Usuario eliminado de manera éxitosa');
+    }
 
     /**
      * Remove the specified resource from storage.

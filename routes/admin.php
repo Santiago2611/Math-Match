@@ -8,4 +8,5 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/',[HomeController::class,'index'])->middleware('can:admin.home')->name('admin.home');
 Route::resource('classrooms', ClassroomsController::class)->except('store','create')->names('admin.classrooms');
-Route::resource('user', UserController::class)->only('index','update','edit','store','create')->names('admin.users');
+Route::resource('user', UserController::class)->except('show')->names('admin.users');
+Route::put('update/user',[UserController::class,'updateStatus'])->name('update.status.user');

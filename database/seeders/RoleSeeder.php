@@ -32,6 +32,8 @@ class RoleSeeder extends Seeder
 
 
         Permission::create(['name' => 'teacher.classrooms.create'])->syncRoles([$role2]);
+        Permission::create(['name' => 'classroom.publicate'])->syncRoles([$role2]);
+        Permission::create(['name' => 'see.class'])->syncRoles([$role3]);
         Permission::create(['name' => 'class.show'])->syncRoles([$role3]);
         Permission::create(['name' => 'search.class'])->syncRoles([$role2,$role3]);
         Permission::create(['name' => 'join.class'])->syncRoles([$role3]);

@@ -2,7 +2,6 @@
 
 @section('title','Estudiantes')
 @section('css')
-<link rel="stylesheet" href="{{asset('css/styles.css')}}">
 @endsection
 
 @section('content_header')
@@ -10,6 +9,8 @@
 @stop
 
 @section('content')
+@livewireScripts()
+
 @livewire('admin.classroom-index')
 
 @stop

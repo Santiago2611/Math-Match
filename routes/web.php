@@ -34,14 +34,15 @@ Route::middleware([
     })->name('dashboard');
 
     Route::controller(ClassroomController::class)->group(function(){
-        Route::get('/clases', 'showClasses')->name('class.show');
-        Route::get('/buscar/clases/', 'searchClass')->name('search.class');
-        Route::post('/unirse/clases/', 'joinClass')->name('join.class');
+        Route::get('/clases', 'showClasses')->middleware('can:see.class')->name('class.show');
+        Route::get('/buscar/clases/', 'searchClass')->middleware('can:see.class')->name('search.class');
+        Route::post('/unirse/clases/', 'joinClass')->middleware('can:join.class')->name('join.class');
         Route::post('/unirse/clases/privada', 'sendJoinRequest')->name('class.joinRequest');
         Route::post('/clases/cancelarPeticion', 'cancelJoinRequest')->name('class.cancelJoinRequest');
-        Route::delete('/abandonar/clases/', 'leaveClass')->name('leave.class');
+        Route::delete('/abandonar/clases/', 'leaveClass')->middleware('can:leave
+        .class')->name('leave.class');
         Route::resource('classrooms', ClassroomController::class)->names('teacher.classrooms');
-        Route::get('/clases/{id}', 'seeClass')->name('see.class');
+        Route::get('/clases/{id}', 'seeClass')->middleware('can:see.class')->name('see.class');
         Route::get('/status/update','updateStatus')->name('update.status');
     });
 
@@ -53,7 +54,7 @@ Route::middleware([
     });
 
     Route::controller(PublicationController::class)->group(function(){
-        Route::get('clases/{id}/publicar','create')->name('classroom.publicate');
+        Route::get('clases/{id}/publicar','create')->middleware('can:classroom.publicate')->name('classroom.publicate');
         Route::post('clases/guardarPublicacion','store')->name('classroom.publication.save');
     });
 

@@ -6,7 +6,7 @@
 @endif
 <div class="card">
     <div class="card-header">
-        <input wire:model="search" class="form-control" placeholder="Ingrese el nombre de la clase">
+        <input class="form-control" wire:model="search" type="text" placeholder="Ingrese el nombre de la clase">
     </div>
     @if ($classrooms->count())
     <div class="card-body">
@@ -20,7 +20,6 @@
                     <th>Fecha de vigencia</th>
                     <th>Fecha de creación</th>
                     <th>Docente</th>
-                    <th>Estado</th>
                     <th colspan="2">Acciones</th>
                 </tr>
                 <tbody>
@@ -33,21 +32,17 @@
                             <td>{{$classroom->vigente_hasta}}</td>
                             <td>{{$classroom->created_at}}</td>
                             <td>{{$classroom->teacher_id}}</td>
-                            <td id="resp{{ $classroom->id }}">
-                                @if($classroom->status == 1)
-                                    <a class="btn btn-success">Activa <i class="fas fa-check"></i></a>
-                                @else
-                                    <a class="btn btn-danger">Inactiva <i class="fas fa-times"></i></a>
-                                @endif
-                            </td>
+
                             <td width="10px">
                                 <a class="btn btn-primary btn-sm" href="{{route('admin.classrooms.edit',$classroom)}}">Editar</a>
                             </td>
                             <td width="10px">
-                                <label class="switch">
-                                    <input data-id="{{ $classroom->id }}" class="mi_checkbox" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="InActive" {{ $classroom->status ? 'checked' : '' }}>
-                                    <span class="slider round"></span>
-                                </label>
+                                <form action="{{route('admin.classrooms.destroy',$classroom)}}" method="post">
+                                    @csrf
+                                    @method('delete')
+                                    <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+
+                                </form>
                             </td>
 
                         </tr>
@@ -57,9 +52,6 @@
 
         </table>
     </div>
-    <div class="card-footer">
-        {{$classrooms->links()}}
-    </div>
     @else
 
             <div class="card-body">
@@ -67,6 +59,9 @@
             </div>
 
         @endif
+        <div class="px-6 py-3 card-footer">
+            {{$classrooms->links()}}
+        </div>
 </div>
 
 </div>

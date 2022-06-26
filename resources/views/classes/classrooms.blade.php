@@ -13,7 +13,7 @@
         </div>
       </div>
     </form>
-    <a class="btn btn-primary btn-sm" href="{{route('teacher.classrooms.create')}}">Agregar clase</a>
+        <h1 class="text-center"> Lista de clases</h1>
     @foreach ($classrooms as $class)
     <div class="container py-8 border border-1">
         <div class="grid grid-cols-3 gap-6">
@@ -43,6 +43,10 @@
     </div>
     <hr>
 @endforeach
+<div class="card-footer">
+    {{$classrooms->links()}}
+</div>
+
 
 {{-- <div class="card-footer">
     {{$images->links()}}

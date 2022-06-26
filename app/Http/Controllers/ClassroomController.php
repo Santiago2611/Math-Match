@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 class ClassroomController extends Controller
 {
     public function showClasses(){
-        $classrooms = Classroom::where('grado',auth()->user()->group)->get();
+        $classrooms = Classroom::where('grado',auth()->user()->group)->paginate(3);
         return view('classes.classrooms' ,compact('classrooms'));
     }
 
@@ -64,7 +64,7 @@ class ClassroomController extends Controller
         $request->validate([
             'nombre_clase' => 'required|string',
             'tipo_clase' => 'required|string',
-            'vigente_hasta' => 'required|date',
+            'vigente_hasta' => 'required|date|after:tomorrow',
             'grado' => 'required',
             'slug' => 'required'
         ]);

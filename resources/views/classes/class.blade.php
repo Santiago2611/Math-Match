@@ -43,9 +43,12 @@
                 @endif
             @endif
         @else
-            <a href="{{ route('classroom.publicate', $classInfo->id) }}">
-                <button class="btn btn-secondary mr-2">Hacer publicación</button>
-            </a>
+        @can('classroom.publicate')
+        <a href="{{ route('classroom.publicate', $classInfo->id) }}">
+            <button class="btn btn-secondary mr-2">Hacer publicación</button>
+        </a>
+
+        @endcan
             <!-- hay que darle el método post en el form, y añadir la propiedad method('delete')
                 , sinó, no funcionará y lo tomará como método get -->
             <form action="{{ route('leave.class', ['class' => $classInfo->id]) }}" method="post"> @csrf
@@ -60,7 +63,7 @@
             <strong>{{session('info')}}</strong>
         </div>
     @endif
-    
+
     <div class="container rounded mt-4 py-2" style="background: lightgray;">
         @if ($inClass)
             @if ($publications->count() == 0)
