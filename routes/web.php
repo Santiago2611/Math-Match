@@ -35,15 +35,17 @@ Route::middleware([
 
     Route::controller(ClassroomController::class)->group(function(){
         Route::get('/clases', 'showClasses')->middleware('can:see.class')->name('class.show');
-        Route::get('/buscar/clases/', 'searchClass')->middleware('can:see.class')->name('search.class');
+        Route::get('/clases/buscar', 'searchClass')->middleware('can:see.class')->name('search.class');
         Route::post('/unirse/clases/', 'joinClass')->middleware('can:join.class')->name('join.class');
-        Route::post('/unirse/clases/privada', 'sendJoinRequest')->name('class.joinRequest');
-        Route::post('/clases/cancelarPeticion', 'cancelJoinRequest')->name('class.cancelJoinRequest');
-        Route::delete('/abandonar/clases/', 'leaveClass')->middleware('can:leave
-        .class')->name('leave.class');
+        Route::post('/unirse/clases/privada', 'sendJoinRequest')->middleware('can:sendJoinRequests')->name('class.joinRequest');
+        Route::post('/clases/cancelarPeticion', 'cancelJoinRequest')->middleware('can:cancelJoinRequests')->name('class.cancelJoinRequest');
+        Route::delete('/abandonar/clases/', 'leaveClass')->middleware('can:leave.class')->name('leave.class');
         Route::resource('classrooms', ClassroomController::class)->names('teacher.classrooms');
-        Route::get('/clases/{id}', 'seeClass')->middleware('can:see.class')->name('see.class');
+        Route::get('clases/misClases','showStudentClasses')->middleware('can:student.seeClass')->name('student.seeClasses');
         Route::get('/status/update','updateStatus')->name('update.status');
+        Route::get('/docentes/notificaciones','showJoinRequests')->middleware('can:showJoinRequests')->name('teacher.joinRequests');
+        Route::post('clases/responderSolicitud','replyJoinRequest')->middleware('can:replyJoinRequest')->name('teacher.replyJoinRequest');
+        Route::get('/clases/{id}', 'seeClass')->name('see.class');
     });
 
     Route::controller(GameController::class)->group(function(){

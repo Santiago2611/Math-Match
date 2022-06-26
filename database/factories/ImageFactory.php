@@ -18,7 +18,7 @@ class ImageFactory extends Factory
     public function definition()
     {
         return [
-            'url' => $this->faker->imageUrl( 640, 480, null, false, null, false, 'jpg')
+            'url' => asset('images/default-classroom-image.jpg')
         ];
     }
 }

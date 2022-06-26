@@ -17,7 +17,7 @@ return new class extends Migration
         Schema::create('classrooms', function (Blueprint $table) {
             $table->id();
             $table->string('nombre_clase','30');
-            $table->string('descripcion_clase')->nullable();
+            $table->string('descripcion_clase')->default('(Sin descripción)');
             $table->string('tipo_clase','40');
             $table->date('vigente_hasta');
             $table->integer('grado');
