@@ -1,9 +1,5 @@
 <x-app-layout>
 
-    @can('teacher.classrooms.create')
-        <a class="btn btn-primary btn-sm" href="{{route('teacher.classrooms.create')}}">Agregar clase</a>
-    @endcan
-
     @if (sizeof($classrooms) > 0)
         @if (auth()->user()->hasRole('Teacher'))
             <h1 class="text-center">Tus clases: </h1>
@@ -11,20 +7,30 @@
             <h1 class="text-center">Clases a las que perteneces: </h1>
         @endif
 
-        @foreach ($classrooms as $class)
-            <div class="w-25 p-3 m-3 text-center rounded" style="background: #CCC">
-                <div>
-                    <h1 class="text-black leading-8 font-bold text-center">
-                        {{$class->nombre_clase}}
-                    </h1>
-                    <p style="color: gray">{{$class->descripcion_clase}}</p>
+        <div class="container">
+            @can('teacher.classrooms.create')
+                <a class="btn btn-primary btn-sm m-3" href="{{route('teacher.classrooms.create')}}">
+                    <i class="fas"></i>Agregar clase
+                </a>
+            @endcan
+            @foreach ($classrooms as $class)
+                <div class="p-3 m-3 rounded" style="background: #CCC;">
+                    <div>
+                        <h1 class="text-black leading-8 font-bold">
+                            {{$class->nombre_clase}}
+                        </h1>
+                        <p style="color: gray">{{$class->descripcion_clase}}</p>
 
-                    <form action="{{route('see.class', $class->id)}}" method="get">
-                        <button class="btn btn-primary" type="submit">Ir a la clase</button>
-                    </form>
+                        <form action="{{
+                                route((auth()->user()->hasRole('Student') ? 'see.class' : 'teacher.seeClass'), $class->id)
+                            }}" method="get">
+                            <button class="btn btn-primary" type="submit">Ir a la clase</button>
+                        </form>
+                    </div>
                 </div>
-            </div>
-        @endforeach
+            @endforeach
+        </div>
+        
     @else
         <div class="container-fluid text-center mt-3">
             @if (auth()->user()->hasRole('Teacher'))

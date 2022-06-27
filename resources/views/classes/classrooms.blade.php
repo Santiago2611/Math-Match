@@ -42,13 +42,10 @@
         </div>
     </div>
 @endforeach
+
 <div class="card-footer">
     {{$classrooms->links()}}
 </div>
 
-
-{{-- <div class="card-footer">
-    {{$images->links()}}
-</div> --}}
 </x-app-layout>
 

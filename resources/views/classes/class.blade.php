@@ -43,12 +43,6 @@
                 @endif
             @endif
         @else
-        @can('classroom.publicate')
-        <a href="{{ route('classroom.publicate', $classInfo->id) }}">
-            <button class="btn btn-secondary mr-2">Hacer publicación</button>
-        </a>
-
-        @endcan
             <!-- hay que darle el método post en el form, y añadir la propiedad method('delete')
                 , sinó, no funcionará y lo tomará como método get -->
             <form action="{{ route('leave.class', ['class' => $classInfo->id]) }}" method="post"> @csrf
@@ -78,7 +72,6 @@
                         <div class="d-flex justify-content-between">
                             <h3><b>{{ $publication->name." ".$publication->last }}</b></h3>
                             <div class="actions">
-                                <a href="#"><i class="fas fa-trash"></i></a>
                                 <a href="#"><i class="fas fa-circle-exclamation"></i></a>
                             </div>
                         </div>

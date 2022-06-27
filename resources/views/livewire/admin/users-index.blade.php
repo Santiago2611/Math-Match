@@ -17,6 +17,7 @@
                         <th>ID</th>
                         <th>Nombre</th>
                         <th>Email</th>
+                        <th>Rol</th>
                         <th>Estado</th>
                         <th colspan="2" >Acciones</th>
                     </tr>
@@ -27,6 +28,7 @@
                     <td>{{$user->id}}</td>
                     <td>{{$user->name}}</td>
                     <td>{{$user->email}}</td>
+                    <td>{{$user->getRoleNames()->first()}}</td>
                     <td>
                         <form action="{{route('update.status.user')}}" method="post">
                         @csrf

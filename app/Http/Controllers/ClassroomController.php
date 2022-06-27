@@ -28,6 +28,20 @@ class ClassroomController extends Controller
         return view('classes.class', compact('classInfo','inClass','publications','hasSentJoinRequest'));
     }
 
+    public function seeClassAsTeacher($id){
+        $classInfo = Classroom::where('id', $id)->first();
+        if ($classInfo->teacher_id != auth()->user()->id){
+            echo "<script> alert('No puedes acceder a una clase que no es tuya'); </script>";
+            return redirect()->back();
+        } else {
+            $students = DB::table('user_classroom')->where('classroom_id', $id)->get();
+            $publications = Publication::join('users', 'publications.user_id','=','users.id')
+            ->where('publications.classroom_id', $id)
+            ->get(['name','last','profile_photo_path','mensaje_publicacion','archivo_adjunto']);
+            return view('classes.teacher.classAsTeacher', compact('classInfo','publications','students'));
+        }
+    }
+
     public static function getIfAlreadyInClass($class){
         $inClass = DB::table('user_classroom')->where('user_id',auth()->user()->id)->where('classroom_id',$class)->count() > 0;
         return $inClass;
@@ -36,10 +50,10 @@ class ClassroomController extends Controller
     public function searchClass(Request $request){
         if ($request->queryType == "id"){
             $classrooms = Classroom::where($request->queryType, $request->queryStr)
-                ->where('grado',auth()->user()->group)->get();
+                ->where('grado',auth()->user()->group)->paginate(3);
         } else {
             $classrooms = Classroom::where($request->queryType, "like", "%".$request->queryStr."%")
-                ->where('grado',auth()->user()->group)->get();
+                ->where('grado',auth()->user()->group)->paginate(3);
         }
         return view('classes.classrooms' ,compact('classrooms'));
     }
@@ -68,7 +82,7 @@ class ClassroomController extends Controller
             ->where('join_requests.estado', 'enviada')
             ->get(['join_requests.id as request_id','teacher_id','classroom_id','nombre_clase','name','last']);
         
-        return view('classes.joinRequests', compact('requests'));
+        return view('classes.teacher.joinRequests', compact('requests'));
     }
 
     public function replyJoinRequest(Request $request){
@@ -101,11 +115,11 @@ class ClassroomController extends Controller
         ]);
         $request->url_images = "asset('images/default-classroom-image.png')";
         $classroom = Classroom::create($request->all());
-        return redirect()->route('admin.classrooms.edit',$classroom)->with('info','La clase se creó con éxito');
+        return redirect()->route('teacher.classrooms.index',$classroom)->with('info','La clase se creó con éxito');
     }
 
     public function create(){
-        return view('classes.create');
+        return view('classes.teacher.create');
     }
 
     public function index(){
