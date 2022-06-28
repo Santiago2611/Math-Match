@@ -3,7 +3,7 @@
     <div class="container">
         <h1 class="text-center">Publicar en la clase</h1>
         <div class="card-body">
-            {!! Form::open(['route' => 'classroom.publication.save'])!!}
+            {!! Form::open(['route' => 'teacher.publications.store'])!!}
             {!! Form::hidden('user_id', auth()->user()->id) !!}
             {!! Form::hidden('classroom_id', $classId) !!}
             <div class="form-groud">
@@ -15,7 +15,7 @@
             </div>
             <div class="form-groud">
                 {!! Form::label('archivo_adjunto', 'Adjuntar un archivo (opcional)') !!}<br>
-                {!! Form::file('archivo_adjunto', null,['class' => 'form-control']) !!}
+                {!! Form::file('archivo_adjunto', null,['class' => 'form-control-file']) !!}
                 @error('archivo_adjunto')
                 <span class="text-danger">{{$message}}</span>
                 @enderror

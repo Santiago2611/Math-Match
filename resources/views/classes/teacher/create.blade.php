@@ -26,7 +26,7 @@
             </div>
             <div class="form-groud">
                 {!! Form::label('tipo_clase', 'Tipo de clase') !!}
-                {!! Form::select('tipo_clase', ['Privada'=>'Privada','publica'=>'Pública'], null,['class' => 'form-control']) !!}
+                {!! Form::select('tipo_clase', ['Privada'=>'Privada','Publica'=>'Pública'], null,['class' => 'form-control']) !!}
                 @error('tipo_clase')
                 <span class="text-danger">{{$message}}</span>
                 @enderror

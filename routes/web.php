@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\GameController;
+use App\Http\Controllers\PublicationCommentsController;
 use App\Http\Controllers\PublicationController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -40,13 +41,13 @@ Route::middleware([
         Route::post('/unirse/clases/privada', 'sendJoinRequest')->middleware('can:sendJoinRequests')->name('class.joinRequest');
         Route::post('/clases/cancelarPeticion', 'cancelJoinRequest')->middleware('can:cancelJoinRequests')->name('class.cancelJoinRequest');
         Route::delete('/abandonar/clases/', 'leaveClass')->middleware('can:leave.class')->name('leave.class');
-        Route::resource('classrooms', ClassroomController::class)->names('teacher.classrooms');
+        Route::resource('classrooms', ClassroomController::class)->middleware('can:teacher.classroom')->names('teacher.classrooms');
         Route::get('clases/misClases','showStudentClasses')->middleware('can:showStudentClasses')->name('student.seeClasses');
         Route::get('/status/update','updateStatus')->name('update.status');
         Route::get('/docentes/notificaciones','showJoinRequests')->middleware('can:showJoinRequests')->name('teacher.joinRequests');
-        Route::post('clases/responderSolicitud','replyJoinRequest')->middleware('can:replyJoinRequest')->name('teacher.replyJoinRequest');
+        Route::post('clases/responderSolicitud','replyJoinRequest')->middleware('can:replyJoinRequests')->name('teacher.replyJoinRequest');
         Route::get('/clases/{id}', 'seeClass')->middleware('can:join.class')->name('see.class');
-        Route::get('/clases/docente/{id}', 'seeClassAsTeacher')->middleware('can:showJoinRequests')->name('teacher.seeClass');
+        Route::delete('classrooms/{id}/expulsar', 'expelStudent')->middleware('can:teacher.classroom')->name('teacher.expelStudent');
     });
 
     Route::controller(GameController::class)->group(function(){
@@ -57,14 +58,12 @@ Route::middleware([
     });
 
     Route::controller(PublicationController::class)->group(function(){
-        Route::get('clases/{id}/publicar','create')->middleware('can:classroom.publicate')->name('classroom.publicate');
-        Route::post('clases/guardarPublicacion','store')->name('classroom.publication.save');
+        Route::resource('classrooms/publicate', PublicationController::class)->names('teacher.publications');
+        Route::post('/descargar','downloadFile')->name('classroom.downloadFile');
+    });
+
+    Route::controller(PublicationCommentsController::class)->group(function(){
+        Route::resource('clases/responderPublicacion', PublicationCommentsController::class)->names('class.replyPublication');
     });
 
 });
-
-
-
-
-
-

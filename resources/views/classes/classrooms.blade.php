@@ -30,10 +30,10 @@
             </h1>
             <p style="color: gray">{{$class->descripcion_clase}}</p>
             <p>Grado: <b>{{$class->grado}}</b></p>
-            <p>Docente: <b>nombre del docente</b></p>
+            <p>Docente: <b>{{$class->name." ".$class->last}}</b></p>
 
-            <form action="{{route('see.class', $class->id)}}" method="get">
-                @if (App\Http\Controllers\ClassroomController::getIfAlreadyInClass($class->id))
+            <form action="{{route('see.class', $class->id_class)}}" method="get">
+                @if (App\Http\Controllers\ClassroomController::getIfAlreadyInClass($class->id_class))
                     <button class="btn btn-primary" type="submit">Ir a la clase</button>
                 @else
                     <button class="btn btn-secondary" type="submit">Ver más</button>

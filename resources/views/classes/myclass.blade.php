@@ -21,11 +21,15 @@
                         </h1>
                         <p style="color: gray">{{$class->descripcion_clase}}</p>
 
-                        <form action="{{
-                                route((auth()->user()->hasRole('Student') ? 'see.class' : 'teacher.seeClass'), $class->id)
-                            }}" method="get">
-                            <button class="btn btn-primary" type="submit">Ir a la clase</button>
-                        </form>
+                        @if (auth()->user()->hasRole('Student'))
+                            <form action="{{route('see.class', $class->classroom_id)}}" method="get">
+                                <button class="btn btn-primary" type="submit">Ir a la clase</button>
+                            </form>
+                        @else
+                            <form action="{{route('teacher.classrooms.show', $class->id)}}" method="get">
+                                <button class="btn btn-primary" type="submit">Ir a la clase</button>
+                            </form>
+                        @endif
                     </div>
                 </div>
             @endforeach

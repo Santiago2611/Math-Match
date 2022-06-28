@@ -12,32 +12,38 @@ use Illuminate\Http\Request;
 class ClassroomController extends Controller
 {
     public function showClasses(){
-        $classrooms = Classroom::where('grado',auth()->user()->group)->paginate(3);
+        $classrooms = Classroom::join('users', 'users.id','=','classrooms.teacher_id')
+            ->where('grado',auth()->user()->group)->paginate(3, ['*', 'classrooms.id as id_class']);
         return view('classes.classrooms' ,compact('classrooms'));
     }
 
     public function seeClass($id){
-        $classInfo = Classroom::where('id', $id)->first();
+        $classInfo = Classroom::join('users', 'users.id','=','classrooms.teacher_id')
+            ->where('classrooms.id', $id)->first(['*','classrooms.id as id_class']);
+        if ($classInfo->grado != auth()->user()->group) return redirect()->back();
+
         $hasSentJoinRequest = DB::table('join_requests')->where('user_id',auth()->user()->id)
             ->where('classroom_id',$id)
             ->where('estado','enviada')->count() > 0;
         $inClass = DB::table('user_classroom')->where('user_id',auth()->user()->id)->where('classroom_id',$id)->count() > 0;
         $publications = Publication::join('users', 'publications.user_id','=','users.id')
             ->where('publications.classroom_id', $id)
-            ->get(['name','last','profile_photo_path','mensaje_publicacion','archivo_adjunto']);
+            ->get(['publications.id as id_publication','name','last','profile_photo_path','mensaje_publicacion','archivo_adjunto']);
         return view('classes.class', compact('classInfo','inClass','publications','hasSentJoinRequest'));
     }
 
-    public function seeClassAsTeacher($id){
+    // para el docente
+    public function show($id){
         $classInfo = Classroom::where('id', $id)->first();
         if ($classInfo->teacher_id != auth()->user()->id){
-            echo "<script> alert('No puedes acceder a una clase que no es tuya'); </script>";
             return redirect()->back();
         } else {
-            $students = DB::table('user_classroom')->where('classroom_id', $id)->get();
+            $students = DB::table('user_classroom')->join('users','users.id','=','user_classroom.user_id')
+                ->where('user_classroom.classroom_id', $id)
+                ->get(['*','user_classroom.id as id_uc']);
             $publications = Publication::join('users', 'publications.user_id','=','users.id')
             ->where('publications.classroom_id', $id)
-            ->get(['name','last','profile_photo_path','mensaje_publicacion','archivo_adjunto']);
+            ->get(['publications.id as id_publication','name','last','profile_photo_path','mensaje_publicacion','archivo_adjunto']);
             return view('classes.teacher.classAsTeacher', compact('classInfo','publications','students'));
         }
     }
@@ -49,10 +55,12 @@ class ClassroomController extends Controller
 
     public function searchClass(Request $request){
         if ($request->queryType == "id"){
-            $classrooms = Classroom::where($request->queryType, $request->queryStr)
+            $classrooms = Classroom::join('users', 'users.id','=','classrooms.teacher_id')
+                ->where('classrooms.'.$request->queryType, $request->queryStr)
                 ->where('grado',auth()->user()->group)->paginate(3);
         } else {
-            $classrooms = Classroom::where($request->queryType, "like", "%".$request->queryStr."%")
+            $classrooms = Classroom::join('users', 'users.id','=','classrooms.teacher_id')
+                ->where($request->queryType, "like", "%".$request->queryStr."%")
                 ->where('grado',auth()->user()->group)->paginate(3);
         }
         return view('classes.classrooms' ,compact('classrooms'));
@@ -128,13 +136,8 @@ class ClassroomController extends Controller
     }
 
     public function showStudentClasses(){
-        $studentClassrooms = DB::table('user_classroom')->where('user_id',auth()->user()->id)->get('classroom_id');
-        $classrooms = [];
-        if ($studentClassrooms->count() > 0){
-            for ($i = 0; $i < $studentClassrooms->count(); $i++){
-                $classrooms[$i] = Classroom::where('id',auth()->user()->id)->first();
-            }
-        }
+        $classrooms = Classroom::join('user_classroom', 'classrooms.id','=','user_classroom.classroom_id')
+            ->where('user_classroom.user_id', auth()->user()->id)->get();
         return view('classes.myclass',compact('classrooms'));
     }
 
@@ -149,13 +152,20 @@ class ClassroomController extends Controller
 
     return response()->json(['var'=>''.$newStatus.'']);
     }
+
+    public function expelStudent(Request $request){
+        DB::table('user_classroom')->delete($request->id);
+        return redirect()->back()->with('info','Estudiante expulsado exitosamente');
+    }
+
     public function edit(Classroom $classroom){
 
     }
     public function update(Request $request, Classroom $classroom){
 
     }
-    public function destroy(Classroom $classroom){
-
+    public function destroy($id){
+        Classroom::where('id', $id)->delete();
+        return redirect()->route('teacher.classrooms.index');
     }
 }
