@@ -21,7 +21,7 @@
     @foreach ($classrooms as $class)
     <div class="container py-4 mb-3 d-flex flex-row rounded" style="background: lightgray">
         <div class="w-25 mx-4">
-            <img src="{{$class->url_images}}" alt="">
+            <img src="{{asset('images/'.$class->image_path)}}">
         </div>
 
         <div class="">

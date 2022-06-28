@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('publications', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('classroom_id')->constrained('classrooms');
+            $table->foreignId('classroom_id')->constrained('classrooms')->onDelete('cascade');
             $table->foreignId('user_id');
             $table->string('mensaje_publicacion');
             $table->binary('archivo_adjunto')->nullable();

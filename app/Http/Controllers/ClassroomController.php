@@ -61,7 +61,7 @@ class ClassroomController extends Controller
         } else {
             $classrooms = Classroom::join('users', 'users.id','=','classrooms.teacher_id')
                 ->where($request->queryType, "like", "%".$request->queryStr."%")
-                ->where('grado',auth()->user()->group)->paginate(3);
+                ->where('grado',auth()->user()->group)->paginate(3, ['*','classrooms.id as id_class']);
         }
         return view('classes.classrooms' ,compact('classrooms'));
     }
@@ -89,7 +89,7 @@ class ClassroomController extends Controller
             ->where('classrooms.teacher_id', auth()->user()->id)
             ->where('join_requests.estado', 'enviada')
             ->get(['join_requests.id as request_id','teacher_id','classroom_id','nombre_clase','name','last']);
-        
+
         return view('classes.teacher.joinRequests', compact('requests'));
     }
 
@@ -119,9 +119,8 @@ class ClassroomController extends Controller
             'tipo_clase' => 'required|string',
             'vigente_hasta' => 'required|date|after:tomorrow',
             'grado' => 'required',
-            'slug' => 'required'
+            'slug' => 'required',
         ]);
-        $request->url_images = "asset('images/default-classroom-image.png')";
         $classroom = Classroom::create($request->all());
         return redirect()->route('teacher.classrooms.index',$classroom)->with('info','La clase se creó con éxito');
     }

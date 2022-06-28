@@ -7,7 +7,6 @@ use App\Models\Image;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Database\Factories\ClassroomFactory;
-use Database\Factories\ImageFactory;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -21,7 +20,6 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         Storage::makeDirectory('public/classrooms');
-        $this->call(ImageSeeder::class);
         $this->call(RoleSeeder::class);
         $this->call(UserSeeder::class);
 

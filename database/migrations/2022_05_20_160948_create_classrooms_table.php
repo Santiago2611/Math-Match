@@ -24,7 +24,7 @@ return new class extends Migration
             $table->integer('status');
             $table->unsignedBigInteger('teacher_id')->nullable();
             $table->foreign('teacher_id')->references('id')->on('users')->onDelete('cascade');
-            $table->string('url_images')->nullable();
+            $table->binary('image_path')->default('default-classroom-image.jpg');
             $table->string('slug')->nullable();
             $table->timestamps();
         });
