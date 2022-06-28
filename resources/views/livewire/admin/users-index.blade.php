@@ -50,7 +50,7 @@
                         <form action="{{route('admin.users.destroy',$user)}}" method="post">
                             @csrf
                             @method('delete')
-                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                            <button type="submit" class="btn btn-danger" onclick="confirmDelete()">Eliminar</button>
                         </form>
                     </td>
                     </tr>
@@ -70,5 +70,16 @@
         @endif
 
     </div>
-
+    <script>
+        function confirmDelete()
+        {
+            var respuesta = confirm("¿Estás seguro que deseas eliminar este usuario?");
+            if(respuesta == true)
+            {
+                return true;
+            }else{
+                return false;
+            }
+        }
+    </script>
 </div>

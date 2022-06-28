@@ -40,7 +40,7 @@
                                 <form action="{{route('admin.classrooms.destroy',$classroom)}}" method="post">
                                     @csrf
                                     @method('delete')
-                                    <button type="submit" onclick="confirmDelete" class="btn btn-danger btn-sm">Eliminar</button>
+                                    <button type="submit" class="btn btn-danger btn-sm" onclick="confirmDelete()">Eliminar</button>
 
                                 </form>
                             </td>
@@ -63,5 +63,16 @@
             {{$classrooms->links()}}
         </div>
 </div>
-
+<script>
+    function confirmDelete()
+    {
+        var respuesta = confirm("¿Estás seguro que deseas eliminar este usuario?");
+        if(respuesta == true)
+        {
+            return true;
+        }else{
+            return false;
+        }
+    }
+</script>
 </div>
