@@ -40,7 +40,7 @@
                                 <form action="{{route('admin.classrooms.destroy',$classroom)}}" method="post">
                                     @csrf
                                     @method('delete')
-                                    <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                                    <button type="submit" onclick="confirmDelete" class="btn btn-danger btn-sm">Eliminar</button>
 
                                 </form>
                             </td>

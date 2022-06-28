@@ -32,6 +32,7 @@
 
         <!-- Scripts -->
         <script src="{{ mix('js/app.js') }}" defer></script>
+        <link rel="icon" type="image/x-icon" href="{{asset('images/math.png')}}" />
     </head>
     <body class="font-sans antialiased">
         <x-jet-banner />
